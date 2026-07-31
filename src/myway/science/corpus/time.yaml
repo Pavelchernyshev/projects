@@ -1,0 +1,83 @@
+domain: time
+entries:
+  - id: time.sharif2021
+    authors: "Sharif, Mogilner & Hershfield"
+    year: 2021
+    title: "Having too little or too much time is linked to lower subjective well-being"
+    venue: "Journal of Personality and Social Psychology 121(4)"
+    doi: "10.1037/pspp0000391"
+    design: "Two large datasets (n > 35,000) plus two experiments"
+    strength: moderate
+    verified: false
+    tags: [discretionary-time, overload, idleness]
+    use_when: "User is either drowning in obligations or unexpectedly adrift with empty time."
+    finding_en: >-
+      Well-being rises with discretionary time but plateaus at roughly two hours a day and
+      declines past about five. Having no free time hurts; having nothing to do with a lot of
+      free time hurts too. The target is a moderate, protected block — not maximum emptiness.
+    finding_ru: >-
+      Благополучие растёт вместе со свободным временем, но выходит на плато примерно на двух
+      часах в день и снижается после пяти. Плохо и когда времени нет совсем, и когда его много,
+      но оно ничем не наполнено. Цель — умеренный защищённый блок, а не максимум пустоты.
+
+  - id: time.giurge2020
+    authors: "Giurge, Whillans & West"
+    year: 2020
+    title: "Why time poverty matters for individuals, organisations and nations"
+    venue: "Nature Human Behaviour 4"
+    doi: "10.1038/s41562-020-0920-z"
+    design: "Review of survey and experimental evidence"
+    strength: moderate
+    verified: false
+    tags: [time-poverty, stress, productivity]
+    use_when: "User frames their problem as 'no time' across every domain at once."
+    finding_en: >-
+      Time poverty — the chronic sense of having too much to do and too little time — predicts
+      lower well-being, worse physical health, and reduced productivity, and it does so
+      largely independently of income. Feeling short of time is its own risk factor, not just
+      a symptom of being busy.
+    finding_ru: >-
+      Дефицит времени — хроническое ощущение, что дел слишком много, а времени слишком мало —
+      предсказывает более низкое благополучие, худшее физическое здоровье и снижение
+      продуктивности, причём в значительной степени независимо от дохода. Нехватка времени —
+      самостоятельный фактор риска, а не просто следствие занятости.
+
+  - id: time.whillans2017
+    authors: "Whillans, Dunn, Smeets, Bekkers & Norton"
+    year: 2017
+    title: "Buying time promotes happiness"
+    venue: "PNAS 114(32)"
+    doi: "10.1073/pnas.1706541114"
+    design: "Surveys across several countries plus a field experiment"
+    strength: moderate
+    verified: false
+    tags: [outsourcing, spending, delegation]
+    use_when: "User has money but no time, and is doing chores they could hand off."
+    finding_en: >-
+      People who spend money to offload disliked tasks report higher life satisfaction, and in
+      a field experiment a time-saving purchase raised end-of-day mood more than a material
+      purchase of the same value. Most people default to buying things rather than buying time.
+    finding_ru: >-
+      Люди, которые тратят деньги, чтобы избавиться от неприятных задач, сообщают о более
+      высокой удовлетворённости жизнью, а в полевом эксперименте покупка, экономящая время,
+      улучшала настроение к концу дня сильнее, чем материальная покупка на ту же сумму.
+      Большинство по умолчанию покупает вещи, а не время.
+
+  - id: time.mogilner2010
+    authors: "Mogilner"
+    year: 2010
+    title: "The pursuit of happiness: Time, money, and social connection"
+    venue: "Psychological Science 21(9)"
+    doi: "10.1177/0956797610380696"
+    design: "Experiments priming time versus money"
+    strength: suggestive
+    verified: false
+    tags: [attention, relationships, priming]
+    use_when: "User's calendar is optimised for output and empty of people."
+    finding_en: >-
+      Being prompted to think about time makes people more likely to choose socialising over
+      working; being prompted to think about money pushes the opposite way. What you measure
+      your days in shapes what you spend them on.
+    finding_ru: >-
+      Когда человека просят подумать о времени, он чаще выбирает общение вместо работы; когда
+      о деньгах — наоборот. То, в чём вы измеряете свои дни, определяет, на что вы их тратите.

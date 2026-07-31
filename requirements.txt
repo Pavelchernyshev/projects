@@ -1,0 +1,7 @@
+anthropic>=0.75.0
+python-telegram-bot[job-queue]>=21.6
+PyYAML>=6.0.2
+python-dotenv>=1.0.1
+
+# Local speech-to-text (default backend). Pulls in ctranslate2 + av.
+faster-whisper>=1.0.3

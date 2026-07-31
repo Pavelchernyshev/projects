@@ -1,0 +1,90 @@
+domain: physical
+entries:
+  - id: physical.ekelund2019
+    authors: "Ekelund, Tarp, Steene-Johannessen et al."
+    year: 2019
+    title: >-
+      Dose-response associations between accelerometry measured physical activity and sedentary
+      time and all cause mortality
+    venue: "BMJ 366"
+    doi: "10.1136/bmj.l4570"
+    design: "Harmonised meta-analysis of 8 prospective cohorts (n ≈ 36,000), device-measured"
+    strength: strong
+    verified: false
+    tags: [movement, mortality, dose-response, sedentary]
+    use_when: "User is sedentary and believes only structured gym work counts."
+    finding_en: >-
+      Any amount of physical activity was associated with substantially lower mortality risk,
+      with the steepest gains at the low end — moving from almost nothing to a little mattered
+      far more than moving from a lot to more. Total movement counted; intensity was not required.
+    finding_ru: >-
+      Любая физическая активность была связана со существенно более низким риском смертности,
+      причём наибольший прирост — на нижнем конце: переход от «почти ничего» к «немного» давал
+      гораздо больше, чем переход от «много» к «ещё больше». Значение имел общий объём движения,
+      интенсивность не была обязательной.
+
+  - id: physical.wen2011
+    authors: "Wen, Wai, Tsai et al."
+    year: 2011
+    title: >-
+      Minimum amount of physical activity for reduced mortality and extended life expectancy:
+      A prospective cohort study
+    venue: "The Lancet 378(9798)"
+    doi: "10.1016/S0140-6736(11)60749-6"
+    design: "Prospective cohort (n ≈ 416,000, Taiwan), mean 8 years follow-up"
+    strength: moderate
+    verified: false
+    tags: [minimum-dose, walking, mortality]
+    use_when: "User needs the smallest credible starting dose, not a training programme."
+    finding_en: >-
+      Fifteen minutes a day of moderate exercise was associated with a 14% reduction in
+      all-cause mortality and about three years of additional life expectancy compared with
+      being inactive. The floor is genuinely low — which removes the excuse of not having an hour.
+    finding_ru: >-
+      Пятнадцать минут умеренной нагрузки в день были связаны со снижением общей смертности
+      на 14% и примерно тремя дополнительными годами ожидаемой продолжительности жизни по
+      сравнению с малоподвижностью. Порог действительно низкий — и это убирает отговорку
+      «у меня нет часа».
+
+  - id: physical.schuch2018
+    authors: "Schuch, Vancampfort, Firth et al."
+    year: 2018
+    title: "Physical activity and incident depression: A meta-analysis of prospective cohort studies"
+    venue: "American Journal of Psychiatry 175(7)"
+    doi: "10.1176/appi.ajp.2018.17111194"
+    design: "Meta-analysis of 49 prospective cohorts (n ≈ 267,000)"
+    strength: strong
+    verified: false
+    tags: [depression, prevention, cross-domain]
+    use_when: "User's stated problem is mood, but the underlying deficit is movement."
+    finding_en: >-
+      Higher physical activity predicted lower odds of developing depression across cohorts
+      and age groups, independent of baseline mental health. This is one of the few places
+      where fixing the physical domain directly buys improvement in the mental one.
+    finding_ru: >-
+      Более высокая физическая активность предсказывала меньшую вероятность развития депрессии
+      во всех когортах и возрастных группах, независимо от исходного психического состояния.
+      Это один из немногих случаев, когда работа с физической сферой напрямую улучшает
+      психическую.
+
+  - id: physical.momma2022
+    authors: "Momma, Kawakami, Honda & Sawada"
+    year: 2022
+    title: >-
+      Muscle-strengthening activities are associated with lower risk and mortality in major
+      non-communicable diseases
+    venue: "British Journal of Sports Medicine 56(13)"
+    doi: "10.1136/bjsports-2021-105061"
+    design: "Systematic review and meta-analysis of 16 prospective cohorts"
+    strength: moderate
+    verified: false
+    tags: [strength, minimum-dose, mortality]
+    use_when: "User does only cardio, or nothing, and needs the strength floor."
+    finding_en: >-
+      Muscle-strengthening activity of roughly 30–60 minutes per week was associated with
+      the lowest risk of all-cause mortality, with no additional benefit — and possibly
+      slightly less — beyond that. Two short sessions a week appears to be the whole ask.
+    finding_ru: >-
+      Силовые нагрузки объёмом примерно 30–60 минут в неделю были связаны с наименьшим риском
+      общей смертности, причём сверх этого дополнительной пользы не наблюдалось — возможно,
+      даже немного меньше. Похоже, что всё необходимое — это две короткие сессии в неделю.

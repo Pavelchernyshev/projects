@@ -1,0 +1,128 @@
+# Evidence about *change itself*. These are what justify the product's core
+# constraint: one thing to fix, stated concretely, tracked.
+domain: cross_cutting
+entries:
+  - id: change.dalton2012
+    authors: "Dalton & Spiller"
+    year: 2012
+    title: >-
+      Too much of a good thing: The benefits of implementation intentions depend on the number
+      of goals
+    venue: "Journal of Consumer Research 39(3)"
+    doi: "10.1086/663212"
+    design: "Series of experiments varying goal count"
+    strength: moderate
+    verified: false
+    tags: [one-thing, goal-count, planning]
+    use_when: "Always available — this is the evidence for refusing to give more than one focus."
+    finding_en: >-
+      Making a concrete plan helped when people pursued a single goal, but the benefit
+      disappeared — and commitment dropped — once they planned for six goals at once. Planning
+      many things simultaneously makes the difficulty vivid and the whole effort feel infeasible.
+    finding_ru: >-
+      Конкретный план помогал, когда человек преследовал одну цель, но преимущество исчезало —
+      а приверженность падала — когда планировалось сразу шесть целей. Планирование многих
+      вещей одновременно делает трудность очевидной, а всё дело — невыполнимым.
+
+  - id: change.gollwitzer2006
+    authors: "Gollwitzer & Sheeran"
+    year: 2006
+    title: "Implementation intentions and goal achievement: A meta-analysis of effects and processes"
+    venue: "Advances in Experimental Social Psychology 38"
+    doi: "10.1016/S0065-2601(06)38002-1"
+    design: "Meta-analysis of 94 independent tests"
+    strength: strong
+    verified: false
+    tags: [if-then, specificity, planning]
+    use_when: "Always available — use it to force the commitment into if-then form."
+    finding_en: >-
+      Specifying in advance when, where, and how you will act ("if situation X, then I will do
+      Y") had a medium-to-large effect on goal attainment across 94 studies, over and above
+      simply intending to act. The gain comes from the specificity, not the motivation.
+    finding_ru: >-
+      Заранее указанное когда, где и как вы будете действовать («если ситуация X, то я сделаю
+      Y») давало средний-крупный эффект на достижение целей в 94 исследованиях — сверх простого
+      намерения действовать. Выигрыш даёт конкретность, а не мотивация.
+
+  - id: change.harkin2016
+    authors: "Harkin, Webb, Chang et al."
+    year: 2016
+    title: >-
+      Does monitoring goal progress promote goal attainment? A meta-analysis of the experimental
+      evidence
+    venue: "Psychological Bulletin 142(2)"
+    doi: "10.1037/bul0000025"
+    design: "Meta-analysis of 138 experimental studies (n ≈ 19,000)"
+    strength: strong
+    verified: false
+    tags: [tracking, monitoring, check-in]
+    use_when: "Always available — this is the evidence for the check-in, not just the plan."
+    finding_en: >-
+      Prompting people to monitor their progress reliably increased goal attainment, and the
+      effect was larger when progress was reported publicly or physically recorded. Tracking
+      is not admin overhead; it is part of the intervention.
+    finding_ru: >-
+      Побуждение отслеживать собственный прогресс устойчиво повышало достижение целей, причём
+      эффект был сильнее, когда прогресс сообщался публично или физически фиксировался.
+      Отслеживание — не бюрократия, а часть самого вмешательства.
+
+  - id: change.lally2010
+    authors: "Lally, van Jaarsveld, Potts & Wardle"
+    year: 2010
+    title: "How are habits formed: Modelling habit formation in the real world"
+    venue: "European Journal of Social Psychology 40(6)"
+    doi: "10.1002/ejsp.674"
+    design: "84 participants tracked daily for 12 weeks"
+    strength: moderate
+    verified: false
+    tags: [habit, timeline, expectations]
+    use_when: "User expects a new behaviour to feel automatic within days."
+    finding_en: >-
+      Time to reach automaticity had a median of about 66 days and ranged from roughly 18 to
+      over 250 depending on the behaviour and the person. Missing a single day did not
+      meaningfully damage the trajectory. The "21 days" figure has no basis in this data.
+    finding_ru: >-
+      Время до автоматизма составило в среднем (медиана) около 66 дней и колебалось примерно
+      от 18 до более 250 в зависимости от поведения и человека. Пропуск одного дня заметно не
+      нарушал траекторию. Цифра «21 день» этими данными не подтверждается.
+
+  - id: change.oettingen2012
+    authors: "Oettingen"
+    year: 2012
+    title: "Future thought and behaviour change"
+    venue: "European Review of Social Psychology 23(1)"
+    doi: "10.1080/10463283.2011.643698"
+    design: "Review of experimental work on mental contrasting"
+    strength: moderate
+    verified: false
+    tags: [mental-contrasting, obstacles, motivation]
+    use_when: "User is optimistic and vague — needs to name the obstacle, not visualise success."
+    finding_en: >-
+      Simply imagining a positive outcome reduced effort and attainment; contrasting the
+      desired outcome against the specific obstacle in the way increased both. Naming what
+      will get in the way beats picturing it going well.
+    finding_ru: >-
+      Простое воображение положительного результата снижало усилия и результативность;
+      сопоставление желаемого исхода с конкретным препятствием на пути повышало и то, и другое.
+      Назвать, что помешает, эффективнее, чем представлять, как всё получится.
+
+  - id: change.milkman2021
+    authors: "Milkman, Gromet, Ho et al."
+    year: 2021
+    title: "Megastudies improve the impact of applied behavioural science"
+    venue: "Nature 600"
+    doi: "10.1038/s41586-021-04128-4"
+    design: "Megastudy: 54 interventions tested on ~61,000 participants"
+    strength: strong
+    verified: false
+    tags: [effect-sizes, humility, realistic-expectations]
+    use_when: "User wants a guarantee, or the coach is tempted to overpromise."
+    finding_en: >-
+      When 54 expert-designed behaviour-change interventions were tested head to head at scale,
+      most produced small effects and many produced none. Interventions that worked did so by
+      reducing friction and adding reminders — not by inspiring people.
+    finding_ru: >-
+      Когда 54 разработанных экспертами вмешательства по изменению поведения проверили друг
+      против друга в большом масштабе, большинство дали небольшой эффект, а многие — никакого.
+      Работавшие вмешательства работали за счёт снижения трения и напоминаний, а не за счёт
+      вдохновения.

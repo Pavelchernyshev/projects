@@ -1,0 +1,109 @@
+domain: financial
+entries:
+  - id: financial.killingsworth2023
+    authors: "Killingsworth, Kahneman & Mellers"
+    year: 2023
+    title: "Income and emotional well-being: A conflict resolved"
+    venue: "PNAS 120(10)"
+    doi: "10.1073/pnas.2208661120"
+    design: "Adversarial collaboration reanalysing experience-sampling data (n ≈ 33,000)"
+    strength: strong
+    verified: false
+    tags: [income, well-being, plateau, unhappy-minority]
+    use_when: "User assumes more income will fix how they feel, or assumes it never will."
+    finding_en: >-
+      For most people, emotional well-being keeps rising with income well past the levels once
+      thought to be a ceiling. But for an unhappy minority — those with sources of misery money
+      cannot touch — it plateaus around a moderate income. More money helps unless something
+      else is the actual problem.
+    finding_ru: >-
+      У большинства людей эмоциональное благополучие продолжает расти вместе с доходом далеко
+      за пределами уровня, который раньше считали потолком. Но у несчастливого меньшинства —
+      тех, чьи источники страдания деньгами не решаются — рост выходит на плато при умеренном
+      доходе. Больше денег помогает, если настоящая проблема не в чём-то другом.
+
+  - id: financial.kahneman2010
+    authors: "Kahneman & Deaton"
+    year: 2010
+    title: "High income improves evaluation of life but not emotional well-being"
+    venue: "PNAS 107(38)"
+    doi: "10.1073/pnas.1011492107"
+    design: "Analysis of 450,000 survey responses (Gallup-Healthways)"
+    strength: strong
+    verified: false
+    tags: [income, life-evaluation, two-kinds-of-happy]
+    use_when: "User conflates 'my life looks good' with 'my days feel good'."
+    finding_en: >-
+      Income tracked how people rated their life as a whole far more closely than how they
+      actually felt day to day. These are two different measures, and money moves them by
+      different amounts — a life that scores well on paper can still feel bad hour to hour.
+    finding_ru: >-
+      Доход был связан с тем, как люди оценивали свою жизнь в целом, гораздо теснее, чем с
+      тем, что они на самом деле чувствовали изо дня в день. Это две разные величины, и деньги
+      сдвигают их по-разному: жизнь, которая хорошо выглядит на бумаге, может ощущаться плохо
+      час за часом.
+
+  - id: financial.netemeyer2018
+    authors: "Netemeyer, Warmath, Fernandes & Lynch"
+    year: 2018
+    title: >-
+      How am I doing? Perceived financial well-being, its potential antecedents, and its
+      relation to overall well-being
+    venue: "Journal of Consumer Research 45(1)"
+    doi: "10.1093/jcr/ucx109"
+    design: "Multi-study survey research with national samples"
+    strength: moderate
+    verified: false
+    tags: [financial-stress, security, perception]
+    use_when: "User earns well but describes constant money anxiety."
+    finding_en: >-
+      Perceived financial well-being splits into two distinct parts: current money-management
+      stress and expected future security. Both predicted overall well-being as strongly as
+      physical health did — and stress about money was largely separate from how much of it
+      there was.
+    finding_ru: >-
+      Субъективное финансовое благополучие распадается на две отдельные части: текущий стресс
+      от управления деньгами и ожидаемая будущая защищённость. Обе предсказывали общее
+      благополучие так же сильно, как физическое здоровье, — и стресс из-за денег во многом
+      не зависел от их количества.
+
+  - id: financial.dunn2008
+    authors: "Dunn, Aknin & Norton"
+    year: 2008
+    title: "Spending money on others promotes happiness"
+    venue: "Science 319(5870)"
+    doi: "10.1126/science.1150952"
+    design: "National survey, longitudinal windfall study, and a field experiment"
+    strength: moderate
+    verified: false
+    tags: [prosocial-spending, allocation, cheap-intervention]
+    use_when: "User has some slack and is spending all of it on themselves without relief."
+    finding_en: >-
+      How money was allocated predicted happiness better than how much there was: participants
+      randomly assigned to spend a small windfall on someone else ended the day happier than
+      those who spent it on themselves. The lever is allocation, not amount.
+    finding_ru: >-
+      То, как распределялись деньги, предсказывало счастье лучше, чем их количество: участники,
+      случайно распределённые тратить небольшую сумму на другого человека, заканчивали день
+      счастливее тех, кто тратил её на себя. Рычаг — распределение, а не сумма.
+
+  - id: financial.lusardi2011
+    authors: "Lusardi, Schneider & Tufano"
+    year: 2011
+    title: "Financially fragile households: Evidence and implications"
+    venue: "Brookings Papers on Economic Activity, Spring 2011"
+    doi: "10.1353/eca.2011.0002"
+    design: "Cross-national survey of coping capacity"
+    strength: moderate
+    verified: false
+    tags: [buffer, emergency-fund, fragility]
+    use_when: "User has income but no buffer, and every surprise becomes a crisis."
+    finding_en: >-
+      A large share of households — including middle-income ones — reported they could not
+      come up with a modest emergency sum within a month. Fragility is about buffer, not
+      salary, which is why a small cash reserve changes the felt experience of money quickly.
+    finding_ru: >-
+      Значительная доля домохозяйств — включая семьи со средним доходом — сообщила, что не
+      сможет найти умеренную сумму на непредвиденные расходы в течение месяца. Уязвимость
+      определяется наличием запаса, а не зарплатой, поэтому небольшой денежный резерв быстро
+      меняет само ощущение денег.

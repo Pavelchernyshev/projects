@@ -1,0 +1,106 @@
+domain: mental
+entries:
+  - id: mental.killingsworth2010
+    authors: "Killingsworth & Gilbert"
+    year: 2010
+    title: "A wandering mind is an unhappy mind"
+    venue: "Science 330(6006)"
+    doi: "10.1126/science.1192439"
+    design: "Experience sampling, 2,250 adults, ~250,000 samples"
+    strength: moderate
+    verified: false
+    tags: [attention, rumination, presence]
+    use_when: "User is physically present but mentally elsewhere — replaying or rehearsing."
+    finding_en: >-
+      People's minds wandered in about 47% of sampled moments, and mind-wandering predicted
+      lower happiness in the next moment — including when the content was pleasant. What you
+      are doing mattered less to mood than whether you were actually there for it.
+    finding_ru: >-
+      Мысли участников блуждали примерно в 47% зафиксированных моментов, и блуждание ума
+      предсказывало снижение настроения в следующий момент — даже когда содержание мыслей было
+      приятным. Для настроения важнее было не то, чем человек занят, а то, присутствовал ли он
+      в этом на самом деле.
+
+  - id: mental.cappuccio2010
+    authors: "Cappuccio, D'Elia, Strazzullo & Miller"
+    year: 2010
+    title: "Sleep duration and all-cause mortality: A systematic review and meta-analysis"
+    venue: "Sleep 33(5)"
+    doi: "10.1093/sleep/33.5.585"
+    design: "Meta-analysis of 16 prospective cohort studies (n > 1.3 million)"
+    strength: strong
+    verified: false
+    tags: [sleep, mortality, recovery]
+    use_when: "User is running a chronic sleep deficit and treating it as a personality trait."
+    finding_en: >-
+      Short sleep duration was associated with a roughly 12% higher risk of death over
+      follow-up across pooled cohorts. Sleep is not a lifestyle preference that can be
+      optimised away; it is the substrate every other intervention runs on.
+    finding_ru: >-
+      Короткая продолжительность сна была связана с примерно на 12% более высоким риском
+      смерти за период наблюдения по объединённым когортам. Сон — не предпочтение в образе
+      жизни, которое можно оптимизировать; это основа, на которой работает всё остальное.
+
+  - id: mental.goyal2014
+    authors: "Goyal, Singh, Sibinga et al."
+    year: 2014
+    title: "Meditation programs for psychological stress and well-being: A systematic review and meta-analysis"
+    venue: "JAMA Internal Medicine 174(3)"
+    doi: "10.1001/jamainternmed.2013.13018"
+    design: "Meta-analysis of 47 randomised trials (n ≈ 3,500)"
+    strength: strong
+    verified: false
+    tags: [meditation, anxiety, depression, realistic-effect-size]
+    use_when: "User wants a mental-health intervention and needs an honest effect size, not hype."
+    finding_en: >-
+      Mindfulness meditation programmes produced small but reliable improvements in anxiety,
+      depression, and pain (effect sizes around 0.3 at eight weeks). Real, measurable, and
+      far smaller than the marketing implies — worth doing, not a cure.
+    finding_ru: >-
+      Программы медитации осознанности давали небольшие, но устойчивые улучшения при
+      тревоге, депрессии и боли (размер эффекта около 0,3 к восьмой неделе). Эффект реальный
+      и измеримый, но значительно меньше, чем обещает реклама, — стоит делать, но это не
+      лекарство.
+
+  - id: mental.hofmann2012
+    authors: "Hofmann, Asnaani, Vonk, Sawyer & Fang"
+    year: 2012
+    title: "The efficacy of cognitive behavioral therapy: A review of meta-analyses"
+    venue: "Cognitive Therapy and Research 36(5)"
+    doi: "10.1007/s10608-012-9476-1"
+    design: "Review of 269 meta-analytic studies"
+    strength: strong
+    verified: false
+    tags: [therapy, anxiety, depression, escalation]
+    use_when: "The user's problem is clinical in shape and needs a professional, not a coach."
+    finding_en: >-
+      Across hundreds of meta-analyses, cognitive behavioural therapy showed the strongest
+      evidence base of any psychological treatment, with the clearest effects for anxiety
+      disorders, somatic problems, and depression. Some problems have a treatment; a
+      structured self-help plan is not it.
+    finding_ru: >-
+      По данным сотен метаанализов, когнитивно-поведенческая терапия имеет самую сильную
+      доказательную базу среди психологических методов лечения, с наиболее ясными эффектами
+      при тревожных расстройствах, соматических проблемах и депрессии. У некоторых проблем
+      есть лечение, и структурированный план самопомощи им не является.
+
+  - id: mental.nolenhoeksema2008
+    authors: "Nolen-Hoeksema, Wisco & Lyubomirsky"
+    year: 2008
+    title: "Rethinking rumination"
+    venue: "Perspectives on Psychological Science 3(5)"
+    doi: "10.1111/j.1745-6924.2008.00088.x"
+    design: "Review of longitudinal and experimental evidence"
+    strength: moderate
+    verified: false
+    tags: [rumination, depression, thinking-in-circles]
+    use_when: "User is analysing their problem repeatedly and calling that progress."
+    finding_en: >-
+      Rumination — repetitively going over a problem without moving toward action — predicts
+      the onset and persistence of depressive episodes, and reliably worsens problem-solving
+      rather than improving it. Thinking about it more is not the same as working on it.
+    finding_ru: >-
+      Рефлексивное «прокручивание» — повторяющееся обдумывание проблемы без перехода к
+      действию — предсказывает начало и затяжной характер депрессивных эпизодов и устойчиво
+      ухудшает решение проблем, а не улучшает его. Думать об этом больше — не то же самое,
+      что работать над этим.

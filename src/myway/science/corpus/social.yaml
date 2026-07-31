@@ -1,0 +1,87 @@
+domain: social
+entries:
+  - id: social.holtlunstad2010
+    authors: "Holt-Lunstad, Smith & Layton"
+    year: 2010
+    title: "Social relationships and mortality risk: A meta-analytic review"
+    venue: "PLoS Medicine 7(7)"
+    doi: "10.1371/journal.pmed.1000316"
+    design: "Meta-analysis of 148 prospective studies (n ≈ 309,000)"
+    strength: strong
+    verified: false
+    tags: [mortality, isolation, support]
+    use_when: "User is functionally alone, or treats relationships as optional overhead."
+    finding_en: >-
+      Across 148 studies, people with stronger social relationships had roughly a 50% greater
+      likelihood of survival over the follow-up period. The effect held after adjusting for
+      age, sex, and initial health status, and was comparable in size to well-established
+      risk factors like smoking and obesity.
+    finding_ru: >-
+      По данным 148 исследований, у людей с более крепкими социальными связями вероятность
+      выживания за период наблюдения была примерно на 50% выше. Эффект сохранялся после
+      поправки на возраст, пол и исходное состояние здоровья и по величине был сопоставим с
+      такими признанными факторами риска, как курение и ожирение.
+
+  - id: social.holtlunstad2015
+    authors: "Holt-Lunstad, Smith, Baker, Harris & Stephenson"
+    year: 2015
+    title: "Loneliness and social isolation as risk factors for mortality: A meta-analytic review"
+    venue: "Perspectives on Psychological Science 10(2)"
+    doi: "10.1177/1745691614568352"
+    design: "Meta-analysis of 70 independent prospective studies (n > 3.4 million)"
+    strength: strong
+    verified: false
+    tags: [loneliness, isolation, mortality]
+    use_when: "User distinguishes 'I have people' from 'I feel alone' — both matter here."
+    finding_en: >-
+      Loneliness, objective social isolation, and living alone each independently raised
+      mortality risk — by roughly 26%, 29%, and 32% respectively. Feeling alone and being
+      alone are separate risks; fixing one does not automatically fix the other.
+    finding_ru: >-
+      Одиночество, объективная социальная изоляция и жизнь в одиночку каждое независимо
+      повышали риск смертности — примерно на 26%, 29% и 32% соответственно. Чувствовать себя
+      одиноким и быть одиноким — разные риски; устранение одного не решает автоматически другое.
+
+  - id: social.waldinger2010
+    authors: "Waldinger & Schulz"
+    year: 2010
+    title: >-
+      What's love got to do with it? Social functioning, perceived health, and daily happiness
+      in married octogenarians
+    venue: "Psychology and Aging 25(2)"
+    doi: "10.1037/a0019087"
+    design: "Longitudinal cohort (Harvard Study of Adult Development), 8-day daily diaries"
+    strength: moderate
+    verified: false
+    tags: [relationship-quality, ageing, longitudinal]
+    use_when: "User has relationships on paper but describes them as strained or transactional."
+    finding_en: >-
+      In one of the longest-running longitudinal studies of adult development, relationship
+      quality — not relationship count — predicted daily mood and perceived health decades
+      later. Secure attachment buffered the effect of physical pain on mood.
+    finding_ru: >-
+      В одном из самых длительных лонгитюдных исследований развития взрослых качество
+      отношений — а не их количество — предсказывало ежедневное настроение и субъективное
+      здоровье спустя десятилетия. Надёжная привязанность смягчала влияние физической боли
+      на настроение.
+
+  - id: social.epley2014
+    authors: "Epley & Schroeder"
+    year: 2014
+    title: "Mistakenly seeking solitude"
+    venue: "Journal of Experimental Psychology: General 143(5)"
+    doi: "10.1037/a0037323"
+    design: "Field and laboratory experiments (commuters, waiting rooms)"
+    strength: moderate
+    verified: false
+    tags: [connection, prediction-error, low-cost-action]
+    use_when: "User avoids contact because they expect it to be draining or awkward."
+    finding_en: >-
+      People instructed to talk to a stranger on a commute reported a more positive experience
+      than those told to sit in solitude — yet participants predicted the opposite beforehand.
+      We systematically underestimate how good connection will feel, which is why we skip it.
+    finding_ru: >-
+      Люди, которым поручили поговорить с незнакомцем в дороге, оценивали поездку как более
+      приятную, чем те, кому велели ехать молча, — хотя заранее участники предсказывали
+      обратное. Мы систематически недооцениваем, насколько хорошо будет от контакта, поэтому
+      его и избегаем.
