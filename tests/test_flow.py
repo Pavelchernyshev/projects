@@ -150,3 +150,34 @@ def test_past_commitments_are_returned_newest_first(store: Store) -> None:
 
     assert [c["action"]["if_then"] for c in commitments] == ["second", "first"]
     assert commitments[0]["focus_domain"] == "time"
+
+
+# --- configuration ---------------------------------------------------------
+
+
+def test_default_language_is_russian(monkeypatch, tmp_path) -> None:
+    """moyput.com is Russian; a new user must not land in English."""
+    from myway.config import Config
+
+    monkeypatch.setenv("TELEGRAM_BOT_TOKEN", "1:x")
+    monkeypatch.setenv("ANTHROPIC_API_KEY", "sk-ant-x")
+    monkeypatch.setenv("DATABASE_PATH", str(tmp_path / "c.db"))
+    monkeypatch.delenv("DEFAULT_LANG", raising=False)
+    monkeypatch.delenv("PRODUCT_NAME", raising=False)
+
+    config = Config.from_env()
+
+    assert config.default_lang is Lang.RU
+    assert config.product_name == "Мой Путь"
+
+
+def test_nonsense_default_language_is_rejected_at_startup(monkeypatch, tmp_path) -> None:
+    from myway.config import Config, ConfigError
+
+    monkeypatch.setenv("TELEGRAM_BOT_TOKEN", "1:x")
+    monkeypatch.setenv("ANTHROPIC_API_KEY", "sk-ant-x")
+    monkeypatch.setenv("DATABASE_PATH", str(tmp_path / "c.db"))
+    monkeypatch.setenv("DEFAULT_LANG", "klingon")
+
+    with pytest.raises(ConfigError, match="DEFAULT_LANG"):
+        Config.from_env()

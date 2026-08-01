@@ -1,14 +1,18 @@
 # moyput.com — landing page
 
 A single self-contained `index.html`: no build step, no external fonts, scripts,
-or images. Russian by default with an English toggle; the choice is remembered
-and otherwise inferred from the browser.
+or images, and no JavaScript. Russian only — the English version will live on a
+separate domain.
+
+Light, minimal design: white rounded cards, pill buttons, one accent colour
+(`#0f7a5f`), system fonts, committed to a single light theme. Full copy
+inventory and design notes: [`docs/texts-landing.md`](../docs/texts-landing.md).
 
 ## Before you deploy
 
-**Set the real Telegram handle.** `index.html` has two `https://t.me/moyput_bot`
-links (hero and closing CTA) using a placeholder. Replace both with the handle
-BotFather gave you:
+**Set the real Telegram handle.** `index.html` has three
+`https://t.me/moyput_bot` links (header, hero, closing CTA) using a placeholder.
+Replace all three with the handle BotFather gave you:
 
 ```bash
 sed -i '' 's|t.me/moyput_bot|t.me/YOUR_REAL_HANDLE|g' web/index.html
@@ -98,14 +102,18 @@ curl -sSI https://moyput.com | grep -i strict-transport      # headers applied
 curl -sSI https://www.moyput.com | head -1                   # 301 if you added the rule
 ```
 
-Then open the page on a phone and in dark mode. Both are designed for; both are
-worth actually looking at.
+Then open the page on a phone. The layout is fluid rather than having a separate
+mobile version, so it is worth actually looking at rather than assuming.
+
+The page commits to a single light theme (`color-scheme: light`) — that is a
+deliberate choice for this design, not an omission, so the browser will not
+substitute a dark version.
 
 ## Editing the copy
 
-Every string appears twice, as `<span lang="ru">` and `<span lang="en">`. CSS
-hides whichever the current language is not. If you change one, change the other —
-a missing pair shows up as a blank gap rather than a fallback.
+All copy is plain HTML in `web/index.html` — open it, change the text, save.
+[`docs/texts-landing.md`](../docs/texts-landing.md) lists every string with the
+block it belongs to, so you can find things without reading markup.
 
 The page deliberately does not overpromise: the limits section states that effect
 sizes are small-to-moderate and population-level, and that the bot is not a

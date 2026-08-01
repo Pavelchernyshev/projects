@@ -12,6 +12,8 @@ from pathlib import Path
 
 from dotenv import load_dotenv
 
+from .models import Lang
+
 load_dotenv()
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
@@ -63,6 +65,7 @@ class Config:
     telegram_token: str
     anthropic_api_key: str
     product_name: str
+    default_lang: Lang
 
     model_diagnosis: str
     effort_diagnosis: str
@@ -102,6 +105,14 @@ class Config:
                 f"(got {min_probe} and {max_probe})"
             )
 
+        raw_lang = os.getenv("DEFAULT_LANG", "ru").strip().lower()
+        try:
+            default_lang = Lang(raw_lang)
+        except ValueError as exc:
+            raise ConfigError(
+                f"DEFAULT_LANG must be ru or en, got {raw_lang!r}"
+            ) from exc
+
         db_path = Path(os.getenv("DATABASE_PATH", "data/myway.db"))
         if not db_path.is_absolute():
             db_path = REPO_ROOT / db_path
@@ -109,7 +120,8 @@ class Config:
         return cls(
             telegram_token=_require("TELEGRAM_BOT_TOKEN"),
             anthropic_api_key=_require("ANTHROPIC_API_KEY"),
-            product_name=os.getenv("PRODUCT_NAME", "MyWay").strip() or "MyWay",
+            product_name=os.getenv("PRODUCT_NAME", "Мой Путь").strip() or "Мой Путь",
+            default_lang=default_lang,
             model_diagnosis=os.getenv("MODEL_DIAGNOSIS", "claude-opus-5").strip(),
             effort_diagnosis=os.getenv("EFFORT_DIAGNOSIS", "high").strip(),
             model_probe=os.getenv("MODEL_PROBE", "claude-opus-5").strip(),

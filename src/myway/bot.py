@@ -77,10 +77,15 @@ async def _typing(update: Update) -> None:
 
 
 def _lang(deps: Deps, user_id: int, fallback_text: str = "") -> Lang:
+    """The user's language: stored choice, else detected, else the configured default.
+
+    DEFAULT_LANG is ru for moyput.com. The English strings stay in place for a
+    future English-domain deployment; nothing here is hardcoded to one language.
+    """
     stored = deps.store.get_user_lang(user_id)
     if stored is not None:
         return stored
-    detected = language.detect(fallback_text)
+    detected = language.detect(fallback_text, default=deps.config.default_lang)
     deps.store.upsert_user(user_id, detected)
     return detected
 
@@ -107,12 +112,9 @@ async def cmd_start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     deps = _deps(context)
     user_id = update.effective_user.id
     if not _allowed(deps, user_id):
-        await _send(update, t("not_allowed", Lang.EN))
+        await _send(update, t("not_allowed", deps.config.default_lang))
         return
-    lang = _lang(deps, user_id, update.effective_user.language_code or "")
-    if (update.effective_user.language_code or "").startswith("ru"):
-        lang = Lang.RU
-        deps.store.set_user_lang(user_id, lang)
+    lang = _lang(deps, user_id)
     await _send(update, t("greeting", lang, product=deps.config.product_name))
 
 
@@ -191,7 +193,7 @@ async def cmd_begin(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     deps = _deps(context)
     user_id = update.effective_user.id
     if not _allowed(deps, user_id):
-        await _send(update, t("not_allowed", Lang.EN))
+        await _send(update, t("not_allowed", deps.config.default_lang))
         return
     lang = _lang(deps, user_id)
 
@@ -265,7 +267,7 @@ async def on_message(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None
     deps = _deps(context)
     user_id = update.effective_user.id
     if not _allowed(deps, user_id):
-        await _send(update, t("not_allowed", Lang.EN))
+        await _send(update, t("not_allowed", deps.config.default_lang))
         return
 
     message = update.effective_message
@@ -458,7 +460,7 @@ async def on_error(update: object, context: ContextTypes.DEFAULT_TYPE) -> None:
             lang = (
                 _lang(deps, update.effective_user.id)
                 if update.effective_user
-                else Lang.EN
+                else deps.config.default_lang
             )
             await update.effective_chat.send_message(t("engine_error", lang))
         except Exception:  # noqa: BLE001 - never let the handler itself raise

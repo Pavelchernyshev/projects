@@ -143,6 +143,7 @@ def config(tmp_path, monkeypatch) -> Config:
     monkeypatch.setenv("MIN_PROBE_QUESTIONS", "2")
     monkeypatch.setenv("MAX_PROBE_QUESTIONS", "4")
     monkeypatch.delenv("ALLOWLIST", raising=False)
+    monkeypatch.delenv("DEFAULT_LANG", raising=False)  # exercise the ru default
     return Config.from_env()
 
 
@@ -177,12 +178,12 @@ async def test_full_interview_reaches_a_committed_plan(harness) -> None:
     deps, chat, user, context = harness
 
     await bot.cmd_start(update_for(chat, user), context)
-    assert "MyWay" in chat.sent[0]
+    assert "Мой Путь" in chat.sent[0]
 
     await bot.cmd_begin(update_for(chat, user), context)
     session = deps.store.active_session(555)
     assert session.state is State.OPENING
-    assert "keep not dealing with" in chat.sent[-1]
+    assert "никак не решаете" in chat.sent[-1]
 
     # Opening answer moves us to the pulse and offers the first rating keyboard.
     await bot.on_message(
@@ -235,7 +236,7 @@ async def test_full_interview_reaches_a_committed_plan(harness) -> None:
 @pytest.mark.asyncio
 async def test_declining_the_plan_is_recorded_as_a_decline(harness) -> None:
     deps, chat, user, context = harness
-    session = deps.store.create_session(555, Lang.EN)
+    session = deps.store.create_session(555, Lang.RU)
     session.state = State.COMMIT
     session.verdict = {"action": {"if_then": "something"}}
     deps.store.save_session(session)
@@ -256,7 +257,7 @@ async def test_short_answers_are_rejected_without_advancing(harness) -> None:
 
     await bot.on_message(update_for(chat, user, "dunno"), context)
 
-    assert "not enough to work with" in chat.sent[-1]
+    assert "не поработать" in chat.sent[-1]
     assert deps.store.active_session(555).state is State.OPENING
 
 
@@ -300,7 +301,7 @@ async def test_probe_cap_forces_a_verdict(config) -> None:
     deps.transcriber = None
 
     chat, user, context = FakeChat(), FakeUser(777), FakeContext(deps)
-    session = store.create_session(777, Lang.EN)
+    session = store.create_session(777, Lang.RU)
     session.state = State.PROBE
     session.pulse = {d.value: 3 for d in Domain.ordered()}
     session.probe_count = config.max_probe_questions
@@ -317,7 +318,7 @@ async def test_probe_cap_forces_a_verdict(config) -> None:
 @pytest.mark.asyncio
 async def test_double_tapping_a_rating_does_not_overwrite_it(harness) -> None:
     deps, chat, user, context = harness
-    session = deps.store.create_session(555, Lang.EN)
+    session = deps.store.create_session(555, Lang.RU)
     session.state = State.PULSE
     deps.store.save_session(session)
 
@@ -334,8 +335,8 @@ async def test_lang_switch_applies_to_the_running_session(harness) -> None:
 
     await bot.cmd_lang(update_for(chat, user), context)
 
-    assert deps.store.get_user_lang(555) is Lang.RU
-    assert deps.store.active_session(555).lang is Lang.RU
+    assert deps.store.get_user_lang(555) is Lang.EN
+    assert deps.store.active_session(555).lang is Lang.EN
 
 
 @pytest.mark.asyncio
@@ -366,7 +367,7 @@ async def test_allowlist_blocks_unlisted_users(config, monkeypatch) -> None:
     chat, context = FakeChat(), FakeContext(deps)
     await bot.cmd_begin(update_for(chat, FakeUser(555)), context)
 
-    assert "private" in chat.sent[-1]
+    assert "приватный" in chat.sent[-1]
     assert store.active_session(555) is None
     store.close()
 
@@ -381,5 +382,5 @@ async def test_voice_is_refused_politely_when_stt_is_off(harness) -> None:
     update.effective_message.voice = object()
     await bot.on_message(update, context)
 
-    assert "turned off" in chat.sent[-1]
+    assert "отключены" in chat.sent[-1]
     assert deps.store.active_session(555).state is State.OPENING

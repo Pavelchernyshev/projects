@@ -1,12 +1,14 @@
-# MyWay
+# Мой Путь (moyput.com)
 
 A Telegram coaching bot that interviews you about the five types of wealth, then
 names **one** thing to fix — not five. Every claim about what tends to work is
 drawn from a fixed library of peer-reviewed studies that ships with the bot, so
 it cannot cite a paper it does not have.
 
-> `MyWay` is a placeholder name. Set `PRODUCT_NAME` in `.env` once the real one
-> is decided; it is not hardcoded anywhere else.
+**Documentation in Russian is in [`docs/`](docs/)** — product, bot logic, all
+copy, the research library, architecture, and deploy steps, written so the
+product can be changed without reading code. Start at
+[`docs/README.md`](docs/README.md).
 
 ## What it does
 
@@ -18,8 +20,9 @@ it cannot cite a paper it does not have.
    backed by one to three real citations.
 5. **One action** — an if-then plan with the obstacle named and a countable measure.
 
-Answers can be typed or spoken. Russian and English are both first-class: the
-language is detected from your first message, stored, and switchable with `/lang`.
+Answers can be typed or spoken. The product is Russian (`DEFAULT_LANG=ru`); the
+English strings remain in the code for a future English-domain deployment and
+`/lang` still switches between them.
 
 ## Quick start
 
@@ -86,7 +89,8 @@ The settings you are most likely to touch:
 
 | Variable | Default | Notes |
 |---|---|---|
-| `PRODUCT_NAME` | `MyWay` | Appears in the greeting and `/about` |
+| `PRODUCT_NAME` | `Мой Путь` | Appears in the greeting and `/about` |
+| `DEFAULT_LANG` | `ru` | Language for a user who hasn't chosen one |
 | `MODEL_DIAGNOSIS` / `EFFORT_DIAGNOSIS` | `claude-opus-5` / `high` | The verdict; quality matters most here |
 | `MODEL_PROBE` / `EFFORT_PROBE` | `claude-opus-5` / `low` | Interview questions; frequent and cheap |
 | `MIN`/`MAX_PROBE_QUESTIONS` | 3 / 6 | Interview length. The max is enforced in two places |
@@ -121,8 +125,9 @@ Anthropic. Three options:
 ## Landing page
 
 `web/` holds the moyput.com landing page — one self-contained `index.html`, no
-build step, Russian by default with an English toggle. Deploys to Cloudflare
-Pages with build output directory `web` and no build command.
+build step, no JavaScript, Russian only. Light minimal design: rounded white
+cards, pill buttons, one accent colour. Deploys to Cloudflare Pages with build
+output directory `web` and no build command.
 
 `web/README.md` covers the GoDaddy → Cloudflare nameserver move (including the
 two pre-checks that break email and DNS resolution if skipped) and the Pages
@@ -133,14 +138,16 @@ setup. **The Telegram handle in the CTA links is a placeholder** — replace
 
 ```bash
 pip install -r requirements-dev.txt
-PYTHONPATH=src python -m pytest        # 67 tests, no network or API key needed
+PYTHONPATH=src python -m pytest        # 71 tests, no network or API key needed
+python scripts/build_docs.py           # after editing i18n.py or the corpus
 python -m ruff check src tests scripts
 ```
 
 The suite covers the citation-integrity path (including the fabricated-id case),
 storage round-trips, i18n and placeholder parity across both languages, crisis
 screening, HTML escaping of model output, and a full interview walkthrough
-against stubbed Telegram objects and a scripted engine. No test calls the API.
+against stubbed Telegram objects and a scripted engine, and that the generated
+docs have not drifted from the code. No test calls the API.
 
 ### Layout
 

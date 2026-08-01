@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="ru" data-lang="ru">
+<html lang="ru">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -11,734 +11,530 @@
 <meta property="og:title" content="Мой Путь — одна вещь, которую нужно исправить">
 <meta property="og:description" content="Пять видов богатства. Один вердикт. Ссылки на исследования, которые можно проверить.">
 <meta property="og:locale" content="ru_RU">
-<meta property="og:locale:alternate" content="en_US">
+<meta property="og:site_name" content="Мой Путь">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="theme-color" content="#e7e8e4" media="(prefers-color-scheme: light)">
-<meta name="theme-color" content="#14171b" media="(prefers-color-scheme: dark)">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23191d26'/%3E%3Cpath d='M6 20h20' stroke='%23b93a25' stroke-width='3'/%3E%3Cpath d='M6 12h13' stroke='%235a6270' stroke-width='2'/%3E%3C/svg%3E">
+<meta name="theme-color" content="#f6f7f8">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='9' fill='%230f7a5f'/%3E%3Cpath d='M9 21c3.6 0 5.4-10 7-10s3.4 10 7 10' stroke='white' stroke-width='2.4' fill='none' stroke-linecap='round'/%3E%3C/svg%3E">
 
 <style>
 /* ─────────────────────────────────────────────────────────────
-   Мой Путь — landing page
-   Design: diagnostic case file. Four things struck out, one circled.
+   Мой Путь — moyput.com
+   Светлый минимализм: белые карточки со скруглением, круглые
+   кнопки-пилюли, один акцентный цвет, только системные шрифты.
+   Дизайн сознательно однотемный (светлый) — см. color-scheme.
    ───────────────────────────────────────────────────────────── */
 
 :root {
-  /* Cool archival paper — a green-bias neutral, deliberately not cream. */
-  --paper:   #e7e8e4;
-  --surface: #f2f3f0;
-  --ink:     #191d26;
-  --muted:   #5a6270;
-  --rule:    #c6c9c3;
-  --strike:  #a8aca6;
-  /* The only accent: a correction-pencil red, spent on the verdict alone. */
-  --accent:  #b93a25;
-  --accent-wash: rgba(185, 58, 37, 0.08);
+  color-scheme: light;
 
-  --serif: Georgia, "Droid Serif", "Times New Roman", serif;
-  --sans: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-  --mono: ui-monospace, "SF Mono", SFMono-Regular, Consolas, "DejaVu Sans Mono", "Liberation Mono", monospace;
+  --bg:        #f6f7f8;
+  --card:      #ffffff;
+  --ink:       #14161a;
+  --muted:     #5d6470;
+  --faint:     #9aa1ac;
+  --hair:      #e8eaed;
+  --strike:    #b9bfc7;
 
-  --measure: 62ch;
-  --gutter: clamp(1.25rem, 5vw, 4rem);
-  --step-0: clamp(1rem, 0.97rem + 0.15vw, 1.075rem);
-  --step-1: clamp(1.2rem, 1.1rem + 0.5vw, 1.45rem);
-  --step-2: clamp(1.5rem, 1.3rem + 1vw, 2.1rem);
-  --step-3: clamp(2.1rem, 1.6rem + 2.6vw, 3.9rem);
-}
+  /* Единственный акцент: глубокий изумрудный. */
+  --accent:    #0f7a5f;
+  --accent-ink:#0a5c47;
+  --accent-10: #eaf4f1;
+  --accent-20: #d3e8e2;
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --paper:   #14171b;
-    --surface: #1b1f25;
-    --ink:     #dee0dc;
-    --muted:   #9aa1ac;
-    --rule:    #2c3239;
-    --strike:  #5e656e;
-    --accent:  #e86a52;
-    --accent-wash: rgba(232, 106, 82, 0.11);
-  }
-}
+  --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --mono: ui-monospace, SFMono-Regular, "SF Mono", Consolas, "DejaVu Sans Mono", monospace;
 
-/* The viewer's own toggle must win over the OS preference, both ways. */
-:root[data-theme="dark"] {
-  --paper: #14171b; --surface: #1b1f25; --ink: #dee0dc;
-  --muted: #9aa1ac; --rule: #2c3239; --strike: #5e656e;
-  --accent: #e86a52; --accent-wash: rgba(232, 106, 82, 0.11);
-}
-:root[data-theme="light"] {
-  --paper: #e7e8e4; --surface: #f2f3f0; --ink: #191d26;
-  --muted: #5a6270; --rule: #c6c9c3; --strike: #a8aca6;
-  --accent: #b93a25; --accent-wash: rgba(185, 58, 37, 0.08);
+  --r-card: 24px;
+  --r-inner: 16px;
+  --r-pill: 999px;
+
+  --shadow: 0 1px 2px rgba(20, 22, 26, 0.04), 0 10px 28px rgba(20, 22, 26, 0.05);
+  --shadow-lift: 0 2px 4px rgba(20, 22, 26, 0.06), 0 16px 40px rgba(20, 22, 26, 0.09);
+
+  --gutter: clamp(1.15rem, 4vw, 2.5rem);
+  --t-body: clamp(1rem, 0.96rem + 0.2vw, 1.09rem);
+  --t-lede: clamp(1.09rem, 1rem + 0.5vw, 1.3rem);
+  --t-h3:   clamp(1.12rem, 1.05rem + 0.3vw, 1.28rem);
+  --t-h2:   clamp(1.6rem, 1.3rem + 1.4vw, 2.5rem);
+  --t-h1:   clamp(2.15rem, 1.5rem + 3.4vw, 4.05rem);
 }
 
 *, *::before, *::after { box-sizing: border-box; }
-
-html { -webkit-text-size-adjust: 100%; }
+html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
 
 body {
   margin: 0;
-  background: var(--paper);
+  background: var(--bg);
   color: var(--ink);
   font-family: var(--sans);
-  font-size: var(--step-0);
-  line-height: 1.65;
+  font-size: var(--t-body);
+  line-height: 1.6;
   -webkit-font-smoothing: antialiased;
 }
 
-/* Language switching: both versions ship in the markup, one is hidden. */
-:root[data-lang="ru"] [lang="en"] { display: none; }
-:root[data-lang="en"] [lang="ru"] { display: none; }
-
-h1, h2, h3 { font-family: var(--serif); font-weight: 400; text-wrap: balance; margin: 0; }
+h1, h2, h3 { margin: 0; font-weight: 600; letter-spacing: -0.02em; text-wrap: balance; }
 p { margin: 0; }
 a { color: inherit; }
 
 :where(a, button):focus-visible {
   outline: 2px solid var(--accent);
   outline-offset: 3px;
-  border-radius: 1px;
+  border-radius: var(--r-pill);
 }
 
-.shell { max-width: 74rem; margin: 0 auto; padding-inline: var(--gutter); }
+.shell { width: 100%; max-width: 71rem; margin-inline: auto; padding-inline: var(--gutter); }
 
-/* ── Structural label: the form-field eyebrow ───────────────── */
-.label {
-  font-family: var(--mono);
-  font-size: 0.7rem;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--muted);
-  display: block;
-}
-
-/* ── Top bar ────────────────────────────────────────────────── */
-.bar {
-  border-bottom: 1px solid var(--rule);
-  padding-block: 1.1rem;
-}
-.bar > .shell {
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: 1rem;
-}
-.wordmark {
-  font-family: var(--serif);
-  font-size: 1.15rem;
-  letter-spacing: 0.01em;
-}
-.wordmark .dot { color: var(--accent); }
-.bar-tools { display: flex; gap: 0.4rem; align-items: center; }
-.chip {
-  font-family: var(--mono);
-  font-size: 0.7rem;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--muted);
-  background: none;
-  border: 1px solid var(--rule);
-  padding: 0.32rem 0.6rem;
-  cursor: pointer;
-  transition: color 120ms, border-color 120ms;
-}
-.chip:hover { color: var(--ink); border-color: var(--muted); }
-.chip[aria-pressed="true"] { color: var(--ink); border-color: var(--ink); }
-
-/* ── Sections share one rhythm so nothing fights over spacing ─ */
-.band { padding-block: clamp(3.5rem, 8vw, 6.5rem); }
-.band + .band { border-top: 1px solid var(--rule); }
-
-/* ── Hero ───────────────────────────────────────────────────── */
-.hero > .shell {
-  display: grid;
-  gap: clamp(2.5rem, 6vw, 4.5rem);
-  grid-template-columns: 1fr;
-}
-@media (min-width: 62rem) {
-  .hero > .shell { grid-template-columns: 1.05fr 0.95fr; align-items: start; }
-}
-
-h1 {
-  font-size: var(--step-3);
-  line-height: 1.02;
-  letter-spacing: -0.022em;
-  margin-block: 1.1rem 1.4rem;
-}
-h1 em { font-style: italic; color: var(--accent); }
-
-.lede {
-  font-size: var(--step-1);
-  line-height: 1.5;
-  max-width: var(--measure);
-  color: var(--ink);
-}
-
-.actions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.75rem 1.25rem;
-  align-items: center;
-  margin-top: 2rem;
-}
-.cta {
-  font-family: var(--sans);
-  font-size: 1rem;
+/* ── Метка-надзаголовок ─────────────────────────────────────── */
+.eyebrow {
+  display: inline-block;
+  font-size: 0.8rem;
   font-weight: 500;
-  text-decoration: none;
-  background: var(--ink);
-  color: var(--paper);
-  padding: 0.85rem 1.5rem;
+  letter-spacing: 0.01em;
+  color: var(--accent-ink);
+  background: var(--accent-10);
+  padding: 0.4rem 0.9rem;
+  border-radius: var(--r-pill);
+}
+
+/* ── Шапка ──────────────────────────────────────────────────── */
+.topbar { padding-block: 1.15rem; }
+.topbar > .shell { display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
+.brand { display: inline-flex; align-items: center; gap: 0.6rem; font-weight: 600; font-size: 1.06rem; text-decoration: none; }
+.brand-mark { width: 28px; height: 28px; border-radius: 8px; flex: none; }
+
+/* ── Кнопки ─────────────────────────────────────────────────── */
+.btn {
   display: inline-flex;
   align-items: center;
-  gap: 0.55rem;
-  transition: background 140ms, transform 140ms;
-}
-.cta:hover { background: var(--accent); transform: translateY(-1px); }
-.cta svg { width: 1.05em; height: 1.05em; flex: none; }
-.quiet-link {
-  font-family: var(--mono);
-  font-size: 0.78rem;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  color: var(--muted);
+  justify-content: center;
+  gap: 0.5rem;
+  font: inherit;
+  font-weight: 500;
   text-decoration: none;
-  border-bottom: 1px solid var(--rule);
-  padding-bottom: 2px;
+  border: 0;
+  border-radius: var(--r-pill);
+  padding: 0.95rem 1.75rem;
+  cursor: pointer;
+  transition: background-color 160ms ease, box-shadow 160ms ease, transform 160ms ease, color 160ms ease;
 }
-.quiet-link:hover { color: var(--ink); border-color: var(--accent); }
+.btn svg { width: 1.15em; height: 1.15em; flex: none; }
 
-.fineprint {
-  font-family: var(--mono);
-  font-size: 0.74rem;
-  line-height: 1.7;
-  color: var(--muted);
-  margin-top: 1.5rem;
+.btn-primary { background: var(--accent); color: #fff; box-shadow: var(--shadow); }
+.btn-primary:hover { background: var(--accent-ink); box-shadow: var(--shadow-lift); transform: translateY(-1px); }
+
+.btn-ghost { background: var(--card); color: var(--ink); box-shadow: var(--shadow); }
+.btn-ghost:hover { color: var(--accent-ink); box-shadow: var(--shadow-lift); transform: translateY(-1px); }
+
+.btn-sm { padding: 0.6rem 1.15rem; font-size: 0.92rem; }
+
+@media (prefers-reduced-motion: reduce) {
+  .btn:hover { transform: none; }
 }
 
-/* ── The verdict card: the product's thesis, drawn ──────────── */
+/* ── Ритм секций ────────────────────────────────────────────── */
+.section { padding-block: clamp(3rem, 7vw, 5.5rem); }
+.section-head { max-width: 44rem; display: grid; gap: 1rem; justify-items: start; }
+.section-head h2 { font-size: var(--t-h2); line-height: 1.14; }
+.section-head p { color: var(--muted); font-size: var(--t-lede); line-height: 1.5; }
+
+/* ── Первый экран ───────────────────────────────────────────── */
+.hero { padding-top: clamp(1.5rem, 4vw, 3rem); }
+.hero > .shell { display: grid; gap: clamp(2rem, 5vw, 3.5rem); align-items: center; }
+@media (min-width: 64rem) { .hero > .shell { grid-template-columns: 1.02fr 0.98fr; } }
+
+.hero-copy { display: grid; gap: 1.4rem; justify-items: start; }
+.hero h1 { font-size: var(--t-h1); line-height: 1.02; }
+.hero h1 span { color: var(--accent); }
+.hero-lede { font-size: var(--t-lede); line-height: 1.5; color: var(--muted); max-width: 34rem; }
+.hero-actions { display: flex; flex-wrap: wrap; gap: 0.75rem; }
+.hero-note { font-size: 0.88rem; color: var(--faint); line-height: 1.65; }
+
+/* ── Карточки ───────────────────────────────────────────────── */
 .card {
-  background: var(--surface);
-  border: 1px solid var(--rule);
-  padding: clamp(1.4rem, 3vw, 2rem);
-}
-.card-head {
-  display: flex;
-  justify-content: space-between;
-  gap: 1rem;
-  padding-bottom: 0.9rem;
-  border-bottom: 1px solid var(--rule);
-  margin-bottom: 0.4rem;
+  background: var(--card);
+  border-radius: var(--r-card);
+  box-shadow: var(--shadow);
+  padding: clamp(1.35rem, 3vw, 1.9rem);
 }
 
-.rows { list-style: none; margin: 0; padding: 0; }
-.row {
+/* ── Демонстрация вердикта ──────────────────────────────────── */
+.demo { display: grid; gap: 1.1rem; }
+.demo-head { display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
+.demo-head span { font-size: 0.8rem; color: var(--faint); }
+
+.pulse { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.4rem; }
+.pulse-row {
   display: grid;
   grid-template-columns: 1fr auto;
   align-items: center;
   gap: 1rem;
-  padding-block: 0.72rem;
-  border-bottom: 1px solid var(--rule);
+  padding: 0.7rem 0.95rem;
+  border-radius: var(--r-inner);
 }
-.row-name {
-  position: relative;
-  font-family: var(--serif);
-  font-size: var(--step-1);
-  width: fit-content;
-}
-.score {
-  font-family: var(--mono);
-  font-size: 0.8rem;
-  font-variant-numeric: tabular-nums;
+.pulse-name { position: relative; width: fit-content; font-weight: 500; }
+.pulse-score {
+  display: inline-grid;
+  place-items: center;
+  min-width: 2.3rem;
+  height: 1.9rem;
+  padding-inline: 0.55rem;
+  border-radius: var(--r-pill);
+  background: var(--bg);
   color: var(--muted);
-  letter-spacing: 0.04em;
+  font-size: 0.85rem;
+  font-variant-numeric: tabular-nums;
 }
 
-/* Struck-out domains: the four the bot refuses to give you. */
-.row.out .row-name, .row.out .score { color: var(--strike); }
-.row.out .row-name::after {
+/* Четыре, от которых бот отказывается. */
+.pulse-row.out .pulse-name { color: var(--strike); }
+.pulse-row.out .pulse-name::after {
   content: "";
   position: absolute;
-  inset-inline-start: -0.15em;
-  inset-block-start: 52%;
+  inset-inline-start: -2px;
+  inset-block-start: 53%;
+  width: calc(100% + 4px);
   height: 1.5px;
   background: var(--strike);
-  width: calc(100% + 0.3em);
+  border-radius: 2px;
   transform: scaleX(0);
   transform-origin: left;
-  animation: strike 380ms cubic-bezier(.4,0,.3,1) forwards;
-  animation-delay: var(--d, 0ms);
+  animation: strike 420ms cubic-bezier(0.4, 0, 0.3, 1) var(--d, 0ms) forwards;
 }
 @keyframes strike { to { transform: scaleX(1); } }
 
-/* The one that is circled. Keeps its rule — the circle is the emphasis, and
-   dropping the rule here just read as a missing line. */
-.row.keep .row-name { color: var(--accent); padding: 0.1em 0.55em 0.15em; margin-inline-start: -0.55em; }
-.circle {
-  position: absolute;
-  inset: -0.28em -0.5em;
-  width: calc(100% + 1em);
-  height: calc(100% + 0.56em);
-  overflow: visible;
-  pointer-events: none;
-}
-.circle ellipse {
-  fill: none;
-  stroke: var(--accent);
-  stroke-width: 1.9;
-  stroke-linecap: round;
-  stroke-dasharray: 300;
-  stroke-dashoffset: 300;
-  animation: draw 780ms cubic-bezier(.36,.1,.2,1) 1500ms forwards;
-}
-@keyframes draw { to { stroke-dashoffset: 0; } }
+/* Одна, которую он выбирает. */
+.pulse-row.keep { background: var(--accent-10); }
+.pulse-row.keep .pulse-name { color: var(--accent-ink); font-weight: 600; }
+.pulse-row.keep .pulse-score { background: var(--accent-20); color: var(--accent-ink); font-weight: 600; }
 
-.verdict {
-  margin-top: 1.4rem;
-  padding: 1.1rem 1.2rem;
-  background: var(--accent-wash);
-  border-inline-start: 2px solid var(--accent);
-}
-.verdict-line {
-  font-family: var(--serif);
-  font-size: var(--step-1);
-  line-height: 1.35;
-  margin-top: 0.45rem;
-}
-.action {
-  margin-top: 1rem;
-  font-family: var(--mono);
-  font-size: 0.82rem;
-  line-height: 1.75;
-  color: var(--muted);
-}
-.action b { color: var(--ink); font-weight: 400; }
+.verdict { background: var(--accent-10); border-radius: var(--r-inner); padding: 1.15rem 1.25rem; display: grid; gap: 0.55rem; }
+.verdict-label { font-size: 0.78rem; font-weight: 500; color: var(--accent-ink); }
+.verdict-text { font-size: var(--t-h3); font-weight: 600; line-height: 1.3; letter-spacing: -0.015em; }
+
+.plan { display: grid; gap: 0.55rem; padding-top: 0.35rem; }
+.plan-line { display: grid; grid-template-columns: 1.35rem 1fr; gap: 0.55rem; align-items: start; font-size: 0.93rem; color: var(--muted); }
+.plan-line b { color: var(--ink); font-weight: 500; }
+.plan-icon { color: var(--accent); font-weight: 600; text-align: center; }
 
 @media (prefers-reduced-motion: reduce) {
-  .row.out .row-name::after { animation: none; transform: scaleX(1); }
-  .circle ellipse { animation: none; stroke-dashoffset: 0; }
-  .cta { transition: none; }
+  .pulse-row.out .pulse-name::after { animation: none; transform: scaleX(1); }
 }
 
-/* ── Section headings ───────────────────────────────────────── */
-.band h2 {
-  font-size: var(--step-2);
-  line-height: 1.15;
-  letter-spacing: -0.015em;
-  margin-block: 0.8rem 1.3rem;
-  max-width: 34ch;
-}
-.band-intro { max-width: var(--measure); color: var(--muted); }
+/* ── Шаги: сетка круглящихся карточек ───────────────────────── */
+.grid { display: grid; gap: 1rem; margin-top: 2.5rem; }
+.grid-4 { grid-template-columns: 1fr; }
+@media (min-width: 42rem) { .grid-4 { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 68rem) { .grid-4 { grid-template-columns: repeat(4, 1fr); } }
 
-/* ── The interview sequence. Numbered because it IS a sequence. ─ */
-.steps {
-  list-style: none;
-  margin: 2.75rem 0 0;
-  padding: 0;
+.step { display: grid; gap: 0.6rem; align-content: start; }
+.step-badge {
   display: grid;
-  gap: 1px;
-  background: var(--rule);
-  grid-template-columns: 1fr;
-}
-@media (min-width: 46rem) { .steps { grid-template-columns: repeat(2, 1fr); } }
-@media (min-width: 68rem) { .steps { grid-template-columns: repeat(4, 1fr); } }
-.step { background: var(--paper); padding: 1.5rem 1.4rem 1.7rem; }
-.step-n {
-  font-family: var(--mono);
-  font-size: 0.72rem;
-  letter-spacing: 0.1em;
-  color: var(--accent);
+  place-items: center;
+  width: 2.35rem;
+  height: 2.35rem;
+  border-radius: var(--r-pill);
+  background: var(--accent-10);
+  color: var(--accent-ink);
+  font-size: 0.92rem;
+  font-weight: 600;
   font-variant-numeric: tabular-nums;
+  margin-bottom: 0.3rem;
 }
-.step h3 { font-size: var(--step-1); line-height: 1.2; margin-block: 0.55rem 0.5rem; }
-.step p { color: var(--muted); font-size: 0.94rem; }
+.step h3 { font-size: var(--t-h3); line-height: 1.25; }
+.step p { color: var(--muted); font-size: 0.96rem; }
 
-/* ── Evidence: rendered as an actual reference list ─────────── */
-.evidence-grid {
-  display: grid;
-  gap: clamp(2rem, 5vw, 3.5rem);
-  grid-template-columns: 1fr;
-  margin-top: 2.5rem;
-}
-@media (min-width: 62rem) { .evidence-grid { grid-template-columns: 0.9fr 1.1fr; } }
+/* ── Доказательность ───────────────────────────────────────── */
+.split { display: grid; gap: 1rem; margin-top: 2.5rem; }
+@media (min-width: 64rem) { .split { grid-template-columns: 0.92fr 1.08fr; align-items: start; } }
 
 .flow {
+  margin-top: 1.25rem;
+  background: var(--bg);
+  border-radius: var(--r-inner);
+  padding: 1.1rem 1.2rem;
   font-family: var(--mono);
   font-size: 0.78rem;
-  line-height: 1.9;
+  line-height: 1.95;
   color: var(--muted);
-  background: var(--surface);
-  border: 1px solid var(--rule);
-  padding: 1.2rem 1.3rem;
-  margin-top: 1.75rem;
   overflow-x: auto;
 }
-.flow .hit { color: var(--ink); }
-.flow .miss { color: var(--accent); }
+.flow .ok { color: var(--accent-ink); }
+.flow .no { color: #b4472f; }
 
-.refs { list-style: none; margin: 0; padding: 0; }
-.refs li {
-  padding-block: 1.05rem;
-  border-top: 1px solid var(--rule);
-}
-.refs li:last-child { border-bottom: 1px solid var(--rule); }
-.ref-finding { font-size: 0.97rem; }
-.ref-cite {
-  font-family: var(--mono);
-  font-size: 0.72rem;
-  line-height: 1.7;
-  color: var(--muted);
-  margin-top: 0.5rem;
-  word-break: break-word;
-}
-.refs-note {
-  font-family: var(--mono);
-  font-size: 0.72rem;
-  color: var(--muted);
-  margin-top: 1.1rem;
-  line-height: 1.7;
-}
+.card-copy { color: var(--muted); }
+.card-copy + .card-copy { margin-top: 0.85rem; }
 
-/* ── Limits: two columns of plain honesty ──────────────────────
-   The rule belongs to the dt/dd *pair*, not to either element. Bordering
-   them individually put a hairline across half the row on desktop, and
-   bordering both would insert one between label and text when stacked. */
-.limits {
+.refs { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.75rem; }
+.ref { background: var(--bg); border-radius: var(--r-inner); padding: 1.05rem 1.15rem; }
+.ref-claim { font-size: 0.98rem; }
+.ref-src { margin-top: 0.5rem; font-family: var(--mono); font-size: 0.72rem; line-height: 1.65; color: var(--faint); word-break: break-word; }
+
+.card-title { font-size: 0.8rem; font-weight: 500; color: var(--faint); margin-bottom: 1rem; }
+
+/* ── Границы ────────────────────────────────────────────────── */
+.grid-2 { grid-template-columns: 1fr; }
+@media (min-width: 52rem) { .grid-2 { grid-template-columns: repeat(2, 1fr); } }
+.limit { display: grid; gap: 0.6rem; align-content: start; }
+.limit h3 { font-size: var(--t-h3); line-height: 1.3; }
+.limit p { color: var(--muted); font-size: 0.96rem; }
+
+/* ── Финальный призыв ───────────────────────────────────────── */
+.final { padding-bottom: clamp(3rem, 7vw, 5rem); }
+.final .card {
+  padding: clamp(2rem, 5vw, 3.5rem);
   display: grid;
-  grid-template-columns: 1fr;
-  column-gap: clamp(2rem, 5vw, 4rem);
-  margin-top: 2.25rem;
+  gap: 1.5rem;
+  justify-items: center;
+  text-align: center;
 }
-@media (min-width: 52rem) { .limits { grid-template-columns: 1fr 1fr; } }
-.limits > div {
-  border-top: 1px solid var(--rule);
-  padding-block: 1.4rem 1.6rem;
-}
-.limits dt {
-  font-family: var(--mono);
-  font-size: 0.72rem;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--accent);
-}
-.limits dd { margin: 0.6rem 0 0; color: var(--muted); font-size: 0.95rem; }
+.final h2 { font-size: var(--t-h2); line-height: 1.1; max-width: 26ch; }
+.final p { color: var(--muted); }
 
-/* ── Closing call ──────────────────────────────────────────── */
-.close { text-align: left; }
-.close h2 { font-size: var(--step-3); line-height: 1.05; max-width: 26ch; }
-
-/* ── Footer ────────────────────────────────────────────────── */
-footer {
-  border-top: 1px solid var(--rule);
-  padding-block: 2.25rem 3rem;
-  font-family: var(--mono);
-  font-size: 0.72rem;
-  color: var(--muted);
-  line-height: 1.9;
-}
-footer > .shell { display: flex; flex-wrap: wrap; gap: 0.6rem 2rem; justify-content: space-between; }
-footer a { color: var(--muted); text-decoration: none; border-bottom: 1px solid var(--rule); }
-footer a:hover { color: var(--ink); }
+/* ── Подвал ─────────────────────────────────────────────────── */
+footer { padding-block: 2rem 3rem; font-size: 0.84rem; color: var(--faint); }
+footer > .shell { display: flex; flex-wrap: wrap; gap: 0.5rem 2rem; justify-content: space-between; }
 </style>
 </head>
 
 <body>
 
-<div class="bar">
+<header class="topbar">
   <div class="shell">
-    <span class="wordmark">Мой Путь<span class="dot">.</span></span>
-    <div class="bar-tools">
-      <button class="chip" id="lang-ru" aria-pressed="true">RU</button>
-      <button class="chip" id="lang-en" aria-pressed="false">EN</button>
-    </div>
+    <a class="brand" href="#top">
+      <svg class="brand-mark" viewBox="0 0 32 32" aria-hidden="true">
+        <rect width="32" height="32" rx="9" fill="#0f7a5f"></rect>
+        <path d="M9 21c3.6 0 5.4-10 7-10s3.4 10 7 10" stroke="#fff" stroke-width="2.4" fill="none" stroke-linecap="round"></path>
+      </svg>
+      Мой Путь
+    </a>
+    <!-- Замените moyput_bot на настоящее имя бота из BotFather. -->
+    <a class="btn btn-ghost btn-sm" href="https://t.me/moyput_bot">Открыть бота</a>
   </div>
-</div>
+</header>
 
-<main>
+<main id="top">
 
-  <!-- ── Hero ─────────────────────────────────────────────── -->
-  <section class="band hero">
+  <!-- ── Первый экран ──────────────────────────────────────── -->
+  <section class="section hero">
     <div class="shell">
-      <div>
-        <span class="label">
-          <span lang="ru">Телеграм-бот · пять видов богатства</span>
-          <span lang="en">Telegram bot · five types of wealth</span>
-        </span>
+      <div class="hero-copy">
+        <span class="eyebrow">Телеграм-бот · пять видов богатства</span>
 
-        <h1>
-          <span lang="ru">Одна вещь.<br><em>Не пять.</em></span>
-          <span lang="en">One thing.<br><em>Not five.</em></span>
-        </h1>
+        <h1>Одна вещь.<br><span>Не пять.</span></h1>
 
-        <p class="lede">
-          <span lang="ru">Бот расспрашивает вас о времени, отношениях, психике, теле и деньгах — а потом называет одну вещь, которую нужно исправить. Остальные четыре он честно откладывает. Каждое утверждение о том, что обычно работает, снабжено ссылкой на исследование, которую вы можете проверить.</span>
-          <span lang="en">It interviews you about time, relationships, mind, body, and money — then names one thing to fix. The other four it openly defers. Every claim about what tends to work carries a reference you can check yourself.</span>
+        <p class="hero-lede">
+          Бот расспрашивает вас о времени, отношениях, психике, теле и деньгах —
+          а потом называет одну вещь, которую нужно исправить. Остальные четыре
+          честно откладывает. За каждым советом стоит исследование, которое вы
+          можете проверить сами.
         </p>
 
-        <div class="actions">
-          <!-- Replace moyput_bot with the real BotFather handle before launch. -->
-          <a class="cta" href="https://t.me/moyput_bot">
-            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M21.8 4.2 18.9 19c-.2 1-.8 1.2-1.6.8l-4.4-3.3-2.1 2c-.2.3-.4.4-.9.4l.3-4.5 8.2-7.4c.4-.3-.1-.5-.6-.2L7.7 13.2 3.3 11.8c-1-.3-1-1 .2-1.4l17-6.6c.8-.3 1.5.2 1.3 1.4z"/></svg>
-            <span lang="ru">Открыть в Telegram</span>
-            <span lang="en">Open in Telegram</span>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="https://t.me/moyput_bot">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M21.8 4.2 18.9 19c-.2 1-.8 1.2-1.6.8l-4.4-3.3-2.1 2c-.2.3-.4.4-.9.4l.3-4.5 8.2-7.4c.4-.3-.1-.5-.6-.2L7.7 13.2 3.3 11.8c-1-.3-1-1 .2-1.4l17-6.6c.8-.3 1.5.2 1.3 1.4z"></path></svg>
+            Начать интервью
           </a>
-          <a class="quiet-link" href="#how">
-            <span lang="ru">Как это работает</span>
-            <span lang="en">How it works</span>
-          </a>
+          <a class="btn btn-ghost" href="#how">Как это работает</a>
         </div>
 
-        <p class="fineprint">
-          <span lang="ru">Бесплатно. Работает на русском и английском. Отвечать можно голосом.<br>Это не терапия и не подбадривание.</span>
-          <span lang="en">Free. Works in Russian and English. You can answer by voice.<br>This is not therapy, and it is not encouragement.</span>
+        <p class="hero-note">
+          Бесплатно · 10–15 минут · отвечать можно голосом<br>
+          Это не терапия и не подбадривание.
         </p>
       </div>
 
-      <!-- The thesis, drawn: four struck out, one circled. -->
-      <figure class="card" style="margin:0">
-        <div class="card-head">
-          <span class="label">
-            <span lang="ru">Пример вердикта</span>
-            <span lang="en">Sample verdict</span>
-          </span>
-          <span class="label">
-            <span lang="ru">Самооценка 1–5</span>
-            <span lang="en">Self-rating 1–5</span>
-          </span>
+      <!-- Суть продукта, показанная буквально: четыре зачёркнуты, одна выбрана. -->
+      <figure class="card demo" style="margin:0">
+        <div class="demo-head">
+          <span>Пример вердикта</span>
+          <span>Самооценка 1–5</span>
         </div>
 
-        <ul class="rows">
-          <li class="row out" style="--d:260ms">
-            <span class="row-name"><span lang="ru">Время</span><span lang="en">Time</span></span>
-            <span class="score">2 / 5</span>
+        <ul class="pulse">
+          <li class="pulse-row out" style="--d:300ms">
+            <span class="pulse-name">Время</span>
+            <span class="pulse-score">2</span>
           </li>
-          <li class="row out" style="--d:420ms">
-            <span class="row-name"><span lang="ru">Отношения</span><span lang="en">Social</span></span>
-            <span class="score">4 / 5</span>
+          <li class="pulse-row out" style="--d:460ms">
+            <span class="pulse-name">Отношения</span>
+            <span class="pulse-score">4</span>
           </li>
-          <li class="row keep">
-            <span class="row-name">
-              <svg class="circle" viewBox="0 0 200 60" preserveAspectRatio="none" aria-hidden="true">
-                <ellipse cx="100" cy="30" rx="96" ry="26"></ellipse>
-              </svg>
-              <span lang="ru">Психика</span><span lang="en">Mental</span>
-            </span>
-            <span class="score">1 / 5</span>
+          <li class="pulse-row keep">
+            <span class="pulse-name">Психика</span>
+            <span class="pulse-score">1</span>
           </li>
-          <li class="row out" style="--d:580ms">
-            <span class="row-name"><span lang="ru">Тело</span><span lang="en">Physical</span></span>
-            <span class="score">3 / 5</span>
+          <li class="pulse-row out" style="--d:620ms">
+            <span class="pulse-name">Тело</span>
+            <span class="pulse-score">3</span>
           </li>
-          <li class="row out" style="--d:740ms">
-            <span class="row-name"><span lang="ru">Деньги</span><span lang="en">Financial</span></span>
-            <span class="score">4 / 5</span>
+          <li class="pulse-row out" style="--d:780ms">
+            <span class="pulse-name">Деньги</span>
+            <span class="pulse-score">4</span>
           </li>
         </ul>
 
         <figcaption class="verdict">
-          <span class="label">
-            <span lang="ru">Одна вещь</span>
-            <span lang="en">The one thing</span>
-          </span>
-          <p class="verdict-line">
-            <span lang="ru">Ваш недосып — то, что тянет за собой всё остальное.</span>
-            <span lang="en">Your sleep debt is the thing dragging everything else down.</span>
-          </p>
-          <p class="action">
-            <span lang="ru">→ <b>Если 23:30 — телефон уходит на кухонную столешницу.</b><br>Сегодня, 23:30 · каждый будний вечер<br>✓ Считаем в воскресенье, сколько ночей телефон был вне спальни</span>
-            <span lang="en">→ <b>If it is 23:30, my phone goes on the kitchen counter.</b><br>Tonight, 23:30 · every weeknight<br>✓ Count on Sunday: nights the phone left the bedroom</span>
-          </p>
+          <span class="verdict-label">Одна вещь</span>
+          <p class="verdict-text">Ваш недосып — то, что тянет за собой всё остальное.</p>
         </figcaption>
+
+        <div class="plan">
+          <p class="plan-line"><span class="plan-icon">→</span><span><b>Если 23:30 — телефон уходит на кухонную столешницу.</b></span></p>
+          <p class="plan-line"><span class="plan-icon">◷</span><span>Сегодня, 23:30 · каждый будний вечер</span></p>
+          <p class="plan-line"><span class="plan-icon">✓</span><span>В воскресенье считаем, сколько ночей телефон был вне спальни</span></p>
+          <p class="plan-line"><span class="plan-icon">!</span><span>Помеха: захочется досмотреть ещё одну серию</span></p>
+        </div>
       </figure>
     </div>
   </section>
 
-  <!-- ── How it works ─────────────────────────────────────── -->
-  <section class="band" id="how">
+  <!-- ── Как это работает ──────────────────────────────────── -->
+  <section class="section" id="how">
     <div class="shell">
-      <span class="label">
-        <span lang="ru">Разговор</span>
-        <span lang="en">The conversation</span>
-      </span>
-      <h2>
-        <span lang="ru">Интервью, а не анкета</span>
-        <span lang="en">An interview, not a questionnaire</span>
-      </h2>
-      <p class="band-intro">
-        <span lang="ru">Порядок здесь имеет значение: вердикт опирается на то, что вы рассказали, а не на то, что вы выбрали из списка. Занимает 10–15 минут.</span>
-        <span lang="en">The order matters: the verdict rests on what you said, not on what you picked from a list. Takes 10–15 minutes.</span>
-      </p>
+      <div class="section-head">
+        <span class="eyebrow">Разговор</span>
+        <h2>Интервью, а не анкета</h2>
+        <p>
+          Вердикт опирается на то, что вы рассказали, а не на то, что выбрали из
+          списка. Поэтому порядок здесь важен.
+        </p>
+      </div>
 
-      <ol class="steps">
-        <li class="step">
-          <span class="step-n">01</span>
-          <h3><span lang="ru">Один вопрос</span><span lang="en">One question</span></h3>
-          <p>
-            <span lang="ru">Что вы всё собираетесь решить и всё никак не решаете? Не причёсанную версию.</span>
-            <span lang="en">What do you keep meaning to deal with and keep not dealing with? Not the tidy version.</span>
-          </p>
-        </li>
-        <li class="step">
-          <span class="step-n">02</span>
-          <h3><span lang="ru">Пульс по пяти сферам</span><span lang="en">A five-domain pulse</span></h3>
-          <p>
-            <span lang="ru">Пять оценок от 1 до 5. Быстро — первая реакция точнее продуманной.</span>
-            <span lang="en">Five ratings, 1 to 5. Fast — first instinct beats a considered answer.</span>
-          </p>
-        </li>
-        <li class="step">
-          <span class="step-n">03</span>
-          <h3><span lang="ru">3–6 уточнений</span><span lang="en">3–6 follow-ups</span></h3>
-          <p>
-            <span lang="ru">Вопросы строятся на ваших ответах и идут за конкретным случаем, а не за общими словами.</span>
-            <span lang="en">Built from your answers, going after a specific instance rather than a generalisation.</span>
-          </p>
-        </li>
-        <li class="step">
-          <span class="step-n">04</span>
-          <h3><span lang="ru">Вердикт и одно действие</span><span lang="en">Verdict and one action</span></h3>
-          <p>
-            <span lang="ru">Одна сфера, честная оценка, остальные четыре отложены — и план вида «если…, то…» с названной помехой.</span>
-            <span lang="en">One domain, an honest read, the other four deferred — and an if-then plan with the obstacle named.</span>
-          </p>
-        </li>
-      </ol>
+      <div class="grid grid-4">
+        <article class="card step">
+          <span class="step-badge">1</span>
+          <h3>Один вопрос</h3>
+          <p>Что вы всё собираетесь решить и всё никак не решаете? Не причёсанную версию.</p>
+        </article>
+        <article class="card step">
+          <span class="step-badge">2</span>
+          <h3>Пульс по пяти сферам</h3>
+          <p>Пять оценок от 1 до 5. Быстро: первая реакция точнее продуманной.</p>
+        </article>
+        <article class="card step">
+          <span class="step-badge">3</span>
+          <h3>3–6 уточнений</h3>
+          <p>Вопросы строятся на ваших ответах и идут за конкретным случаем, а не за общими словами.</p>
+        </article>
+        <article class="card step">
+          <span class="step-badge">4</span>
+          <h3>Вердикт и одно действие</h3>
+          <p>Одна сфера, честная оценка, остальные отложены — и план «если…, то…» с названной помехой.</p>
+        </article>
+      </div>
     </div>
   </section>
 
-  <!-- ── The citation guarantee ───────────────────────────── -->
-  <section class="band" id="evidence">
+  <!-- ── Доказательность ──────────────────────────────────── -->
+  <section class="section" id="evidence">
     <div class="shell">
-      <span class="label">
-        <span lang="ru">Проверяемость</span>
-        <span lang="en">Verifiability</span>
-      </span>
-      <h2>
-        <span lang="ru">Бот не может выдумать ссылку</span>
-        <span lang="en">The bot cannot invent a citation</span>
-      </h2>
+      <div class="section-head">
+        <span class="eyebrow">Проверяемость</span>
+        <h2>Бот не может выдумать ссылку</h2>
+        <p>
+          Языковые модели убедительно придумывают источники. Поэтому здесь модель
+          вообще не пишет ссылки.
+        </p>
+      </div>
 
-      <div class="evidence-grid">
-        <div>
-          <p class="band-intro">
-            <span lang="ru">Языковые модели убедительно придумывают источники. Поэтому здесь модель вообще не пишет ссылки. Она получает список исследований с короткими выводами и возвращает только их идентификаторы — авторов, журнал и DOI подставляет само приложение из закреплённой библиотеки.</span>
-            <span lang="en">Language models invent sources convincingly. So here the model never writes a reference at all. It receives a list of studies with short findings and returns only their ids — the application fills in authors, journal, and DOI from a fixed library of its own.</span>
+      <div class="split">
+        <article class="card">
+          <p class="card-copy">
+            Модель получает список исследований с короткими выводами и возвращает
+            только их идентификаторы. Авторов, журнал и DOI подставляет само
+            приложение — из закреплённой библиотеки, которая поставляется вместе
+            с ботом.
           </p>
           <p class="flow">
-            <span lang="ru">библиотека → id + выводы → модель выбирает id<br>&nbsp;&nbsp;├── <span class="hit">id найден → ссылка собрана нами</span><br>&nbsp;&nbsp;└── <span class="miss">id выдуман → в лог, не показан</span></span>
-            <span lang="en">library → ids + findings → model picks ids<br>&nbsp;&nbsp;├── <span class="hit">id found → we render the reference</span><br>&nbsp;&nbsp;└── <span class="miss">id invented → logged, never shown</span></span>
+            библиотека → id + выводы → модель выбирает id<br>
+            &nbsp;&nbsp;├─ <span class="ok">id найден → ссылку собираем мы</span><br>
+            &nbsp;&nbsp;└─ <span class="no">id выдуман → в лог, не показан</span>
           </p>
-          <p class="refs-note">
-            <span lang="ru">Значит, в худшем случае ссылки не будет. Выдуманной — не будет никогда. Команда /sources открывает всю библиотеку целиком.</span>
-            <span lang="en">So the worst case is a missing citation. A fabricated one is impossible. The /sources command opens the entire library.</span>
+          <p class="card-copy">
+            Значит, в худшем случае ссылки просто не будет. Выдуманной — не будет
+            никогда. Команда <b>/sources</b> открывает всю библиотеку целиком.
           </p>
-        </div>
+        </article>
 
-        <div>
-          <span class="label" style="margin-bottom:0.4rem">
-            <span lang="ru">Из библиотеки</span>
-            <span lang="en">From the library</span>
-          </span>
+        <article class="card">
+          <p class="card-title">Три записи из библиотеки</p>
           <ul class="refs">
-            <li>
-              <p class="ref-finding">
-                <span lang="ru">У людей с более крепкими социальными связями вероятность выживания за период наблюдения была примерно на 50% выше.</span>
-                <span lang="en">People with stronger social relationships had roughly a 50% greater likelihood of survival over the follow-up period.</span>
-              </p>
-              <p class="ref-cite">Holt-Lunstad, Smith &amp; Layton (2010). PLoS Medicine 7(7). doi:10.1371/journal.pmed.1000316<br>
-                <span lang="ru">Метаанализ 148 проспективных исследований</span>
-                <span lang="en">Meta-analysis of 148 prospective studies</span>
-              </p>
+            <li class="ref">
+              <p class="ref-claim">У людей с более крепкими социальными связями вероятность выживания за период наблюдения была примерно на 50% выше.</p>
+              <p class="ref-src">Holt-Lunstad, Smith &amp; Layton (2010). PLoS Medicine 7(7). doi:10.1371/journal.pmed.1000316 · метаанализ 148 проспективных исследований</p>
             </li>
-            <li>
-              <p class="ref-finding">
-                <span lang="ru">Конкретный план помогал, когда цель была одна, но преимущество исчезало, когда целей становилось шесть.</span>
-                <span lang="en">A concrete plan helped when there was one goal, but the benefit disappeared once there were six.</span>
-              </p>
-              <p class="ref-cite">Dalton &amp; Spiller (2012). Journal of Consumer Research 39(3). doi:10.1086/663212<br>
-                <span lang="ru">Серия экспериментов — почему мы даём только одну вещь</span>
-                <span lang="en">Experiments — why we give you only one thing</span>
-              </p>
+            <li class="ref">
+              <p class="ref-claim">Конкретный план помогал, когда цель была одна, но преимущество исчезало, когда целей становилось шесть.</p>
+              <p class="ref-src">Dalton &amp; Spiller (2012). Journal of Consumer Research 39(3). doi:10.1086/663212 · почему мы даём только одну вещь</p>
             </li>
-            <li>
-              <p class="ref-finding">
-                <span lang="ru">Пятнадцать минут умеренной нагрузки в день были связаны со снижением общей смертности на 14%.</span>
-                <span lang="en">Fifteen minutes a day of moderate exercise was associated with a 14% reduction in all-cause mortality.</span>
-              </p>
-              <p class="ref-cite">Wen, Wai, Tsai et al. (2011). The Lancet 378(9798). doi:10.1016/S0140-6736(11)60749-6<br>
-                <span lang="ru">Проспективная когорта, ≈416 000 человек</span>
-                <span lang="en">Prospective cohort, ≈416,000 people</span>
-              </p>
+            <li class="ref">
+              <p class="ref-claim">Пятнадцать минут умеренной нагрузки в день были связаны со снижением общей смертности на 14%.</p>
+              <p class="ref-src">Wen, Wai, Tsai et al. (2011). The Lancet 378(9798). doi:10.1016/S0140-6736(11)60749-6 · когорта ≈416 000 человек</p>
             </li>
           </ul>
-        </div>
+        </article>
       </div>
     </div>
   </section>
 
-  <!-- ── Limits. The product's brand is honesty; overselling would break it. ── -->
-  <section class="band" id="limits">
+  <!-- ── Границы. Честность — суть продукта, поэтому и здесь без обещаний. ── -->
+  <section class="section" id="limits">
     <div class="shell">
-      <span class="label">
-        <span lang="ru">Границы</span>
-        <span lang="en">Limits</span>
-      </span>
-      <h2>
-        <span lang="ru">Чего мы не обещаем</span>
-        <span lang="en">What we do not promise</span>
-      </h2>
+      <div class="section-head">
+        <span class="eyebrow">Границы</span>
+        <h2>Чего мы не обещаем</h2>
+      </div>
 
-      <dl class="limits">
-        <div>
-          <dt><span lang="ru">Исследования — не гарантия</span><span lang="en">Evidence is not a guarantee</span></dt>
-          <dd>
-          <span lang="ru">Эффекты в основном небольшие или умеренные и измерены на группах людей, а не на отдельном человеке. Они подтверждают направление совета — и ничего больше. Кто обещает вам результат, тот вам что-то продаёт.</span>
-          <span lang="en">Effects are mostly small to moderate and measured across populations, not individuals. They support the direction of the advice and nothing more. Anyone promising you an outcome is selling something.</span>
-        </dd>
-        </div>
-        <div>
-          <dt><span lang="ru">Это не врач</span><span lang="en">This is not a clinician</span></dt>
-          <dd>
-          <span lang="ru">Если картина похожа на клиническую, бот скажет это прямо и остановится, а не станет вести вас планом. При признаках угрозы жизни он прерывает разговор и даёт контакты экстренной помощи.</span>
-          <span lang="en">If the picture looks clinical, the bot says so plainly and stops rather than coaching you through it. On any signal of danger to life it ends the conversation and gives emergency contacts.</span>
-        </dd>
-        </div>
-        <div>
-          <dt><span lang="ru">Ваши записи остаются вашими</span><span lang="en">Your transcripts stay yours</span></dt>
-          <dd>
-          <span lang="ru">Голосовые сообщения расшифровываются на нашем сервере, а не у сторонних сервисов. Команда /forget удаляет все ваши сессии, расшифровки и настройки — сразу и полностью.</span>
-          <span lang="en">Voice notes are transcribed on our own server, not by a third-party service. The /forget command deletes every session, transcript, and setting you have — immediately and completely.</span>
-        </dd>
-        </div>
-        <div>
-          <dt><span lang="ru">Одна вещь — это ограничение, а не урезание</span><span lang="en">One thing is a constraint, not a trim</span></dt>
-          <dd>
-          <span lang="ru">Бот не даст вам план по всем пяти сферам, даже если попросить. Отложить остальные четыре — часть помощи: планирование многих целей сразу делает всё дело невыполнимым.</span>
-          <span lang="en">The bot will not give you a plan for all five, even if you ask. Deferring the other four is part of the help: planning many goals at once makes the whole effort feel infeasible.</span>
-        </dd>
-        </div>
-      </dl>
+      <div class="grid grid-2">
+        <article class="card limit">
+          <h3>Исследования — не гарантия</h3>
+          <p>
+            Эффекты в основном небольшие или умеренные и измерены на группах
+            людей, а не на отдельном человеке. Они подтверждают направление
+            совета — и ничего больше. Кто обещает вам результат, тот вам что-то
+            продаёт.
+          </p>
+        </article>
+        <article class="card limit">
+          <h3>Это не врач</h3>
+          <p>
+            Если картина похожа на клиническую, бот скажет это прямо и
+            остановится, а не станет вести вас планом. При признаках угрозы жизни
+            он прерывает разговор и даёт контакты экстренной помощи.
+          </p>
+        </article>
+        <article class="card limit">
+          <h3>Ваши записи остаются вашими</h3>
+          <p>
+            Голосовые сообщения расшифровываются на нашем сервере, а не у
+            сторонних сервисов. Команда <b>/forget</b> удаляет все ваши сессии,
+            расшифровки и настройки — сразу и полностью.
+          </p>
+        </article>
+        <article class="card limit">
+          <h3>Одна вещь — это ограничение</h3>
+          <p>
+            Бот не даст вам план по всем пяти сферам, даже если попросить.
+            Отложить остальные четыре — часть помощи: планирование многих целей
+            сразу делает всё дело невыполнимым.
+          </p>
+        </article>
+      </div>
     </div>
   </section>
 
-  <!-- ── Close ────────────────────────────────────────────── -->
-  <section class="band close">
+  <!-- ── Финал ────────────────────────────────────────────── -->
+  <section class="section final">
     <div class="shell">
-      <h2>
-        <span lang="ru">Узнать, какая из пяти — ваша.</span>
-        <span lang="en">Find out which of the five is yours.</span>
-      </h2>
-      <div class="actions">
-        <a class="cta" href="https://t.me/moyput_bot">
-          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M21.8 4.2 18.9 19c-.2 1-.8 1.2-1.6.8l-4.4-3.3-2.1 2c-.2.3-.4.4-.9.4l.3-4.5 8.2-7.4c.4-.3-.1-.5-.6-.2L7.7 13.2 3.3 11.8c-1-.3-1-1 .2-1.4l17-6.6c.8-.3 1.5.2 1.3 1.4z"/></svg>
-          <span lang="ru">Начать интервью</span>
-          <span lang="en">Start the interview</span>
+      <div class="card">
+        <h2>Узнать, какая из пяти — ваша</h2>
+        <p>10–15 минут. Голосом или текстом. Без регистрации.</p>
+        <a class="btn btn-primary" href="https://t.me/moyput_bot">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M21.8 4.2 18.9 19c-.2 1-.8 1.2-1.6.8l-4.4-3.3-2.1 2c-.2.3-.4.4-.9.4l.3-4.5 8.2-7.4c.4-.3-.1-.5-.6-.2L7.7 13.2 3.3 11.8c-1-.3-1-1 .2-1.4l17-6.6c.8-.3 1.5.2 1.3 1.4z"></path></svg>
+          Начать интервью
         </a>
       </div>
-      <p class="fineprint">
-        <span lang="ru">10–15 минут. Голосом или текстом.</span>
-        <span lang="en">10–15 minutes. By voice or by text.</span>
-      </p>
     </div>
   </section>
 
@@ -746,44 +542,10 @@ footer a:hover { color: var(--ink); }
 
 <footer>
   <div class="shell">
-    <span>
-      <span lang="ru">Мой Путь · moyput.com</span>
-      <span lang="en">Moy Put · moyput.com</span>
-    </span>
-    <span>
-      <span lang="ru">Рамка пяти видов богатства — по книге Сахила Блума «The 5 Types of Wealth» (2025)</span>
-      <span lang="en">Five-types-of-wealth framing after Sahil Bloom, “The 5 Types of Wealth” (2025)</span>
-    </span>
+    <span>Мой Путь · moyput.com</span>
+    <span>Рамка пяти видов богатства — по книге Сахила Блума «The 5 Types of Wealth» (2025)</span>
   </div>
 </footer>
-
-<script>
-(function () {
-  var root = document.documentElement;
-  var ru = document.getElementById('lang-ru');
-  var en = document.getElementById('lang-en');
-
-  function set(lang) {
-    root.setAttribute('data-lang', lang);
-    root.setAttribute('lang', lang);
-    ru.setAttribute('aria-pressed', String(lang === 'ru'));
-    en.setAttribute('aria-pressed', String(lang === 'en'));
-    try { localStorage.setItem('moyput-lang', lang); } catch (e) { /* private mode */ }
-  }
-
-  ru.addEventListener('click', function () { set('ru'); });
-  en.addEventListener('click', function () { set('en'); });
-
-  // Remembered choice wins; otherwise fall back to the browser's preference.
-  var saved = null;
-  try { saved = localStorage.getItem('moyput-lang'); } catch (e) { /* ignore */ }
-  if (saved === 'ru' || saved === 'en') {
-    set(saved);
-  } else if (!(navigator.language || '').toLowerCase().startsWith('ru')) {
-    set('en');
-  }
-})();
-</script>
 
 </body>
 </html>
