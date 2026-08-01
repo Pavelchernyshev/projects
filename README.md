@@ -118,6 +118,17 @@ Anthropic. Three options:
 | `/forget` | Delete every session, transcript, and preference for your account |
 | `/about` | What this is, and what the evidence does and does not show |
 
+## Landing page
+
+`web/` holds the moyput.com landing page — one self-contained `index.html`, no
+build step, Russian by default with an English toggle. Deploys to Cloudflare
+Pages with build output directory `web` and no build command.
+
+`web/README.md` covers the GoDaddy → Cloudflare nameserver move (including the
+two pre-checks that break email and DNS resolution if skipped) and the Pages
+setup. **The Telegram handle in the CTA links is a placeholder** — replace
+`t.me/moyput_bot` before deploying.
+
 ## Development
 
 ```bash
