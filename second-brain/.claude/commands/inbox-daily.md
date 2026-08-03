@@ -31,7 +31,22 @@ of unprocessed inbox.
 
 ### 2. Capture everything
 
-For each file in `inbox/` other than `README.md`:
+First, sort by what you can actually read. Never pipe a file into `capture.py`
+without knowing it is text — a PDF fed through `--stdin` lands in the vault as
+binary garbage under a heading that claims to be a source.
+
+| In `inbox/` | Do this |
+|---|---|
+| `.md`, `.txt`, no extension, anything text | Capture directly, as below |
+| `.pdf` | Read it with the Read tool, capture the extracted text, set `source_type: paper` or `book`. If extraction returns nothing (a scanned PDF), see below |
+| `.png`, `.jpg`, screenshots | Read it, and capture **what you can actually see in it** as the body, marked `<!-- transcribed from image, not verbatim -->`. Never claim it is verbatim source text |
+| Audio, video, `.epub`, `.docx`, anything else | **Do not fake it.** Leave the file in `inbox/`, and list it under Problems in the digest with what it is and why it was skipped |
+
+`file <name>` distinguishes text from binary when the extension is missing or
+lying. When in doubt, skip and report — a source that quietly contains the wrong
+text is worse than one that was not processed, because it will be cited later.
+
+For each **text** file in `inbox/` other than `README.md`:
 
 1. Work out `source_type`, `title`, `author`, `url` from the content. Many
    clipped files carry a header block with `Name:` / `Author:` / `Link:` — use

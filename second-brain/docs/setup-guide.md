@@ -153,6 +153,13 @@ frontmatter. The daily pass works it out.
 | A thought of your own | New file in `inbox/`, just write it. Or better, put it in today's daily note |
 | Something on your phone | Share sheet → Obsidian → append to a file in `inbox/` |
 
+**File types.** Text is what works: markdown, `.txt`, or a plain untitled note.
+PDFs get their text extracted. Screenshots get transcribed, and are marked as
+transcriptions rather than passed off as the original. Audio, video, `.epub` and
+`.docx` are **left alone** and flagged in the digest rather than half-processed
+into something that looks like a source but is not — for those, paste the
+transcript or the text yourself.
+
 The only thing worth including is **where it came from** — a URL, a book title,
 an episode name. That is what makes it citable later. Everything else the daily
 pass handles.
