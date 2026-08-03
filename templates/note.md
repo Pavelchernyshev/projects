@@ -31,4 +31,4 @@ Two or three paragraphs. Every claim carries [S-key], [mine], or [inferred].
 
 ## Sources
 
-- S-YYYYMMDD-slug
+- [[S-YYYYMMDD-slug]]

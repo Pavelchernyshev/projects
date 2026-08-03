@@ -56,8 +56,11 @@ Create stubs for any wikilink target that does not exist yet.
 1. **Topic.** Find the `topics/` MOC this belongs under. If none fits, create
    one with `/topic`. Add each new note to the topic's `## Notes` list with a
    one-line gloss.
-2. **Source file.** Set `processed: true` and fill `notes:` with wikilinks to
-   what you created. This is a frontmatter edit — do not touch the body.
+2. **Source file.** Set `processed: true`, fill `notes:` with wikilinks to what
+   you created, and mirror the same links into the `## Distilled into` section.
+   That section is the only body edit ever permitted on a source file — it sits
+   above `## Source text`, which stays untouched. The duplication is deliberate:
+   frontmatter serves scripts, body links draw the Obsidian graph.
 3. **`index.md`.** Add every new note and topic.
 4. **`log.md`.** One line: `<date>  process   <key> -> N notes, M topics`.
 

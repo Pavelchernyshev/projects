@@ -65,5 +65,5 @@ can be re-verified years later
 
 ## Sources
 
-- S-20260803-claude-obsidian-transactional-knowledge-system
-- S-20260803-obsidian-second-brain-automation-system
+- [[S-20260803-claude-obsidian-transactional-knowledge-system]]
+- [[S-20260803-obsidian-second-brain-automation-system]]

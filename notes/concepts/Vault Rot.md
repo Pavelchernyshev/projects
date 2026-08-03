@@ -70,5 +70,5 @@ truth actually lives.
 
 ## Sources
 
-- S-20260803-critiques-ai-maintained-knowledge-vaults
-- S-20260803-obsidian-second-brain-automation-system
+- [[S-20260803-critiques-ai-maintained-knowledge-vaults]]
+- [[S-20260803-obsidian-second-brain-automation-system]]

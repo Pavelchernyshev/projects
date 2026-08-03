@@ -17,6 +17,7 @@ from __future__ import annotations
 import argparse
 import datetime as dt
 import re
+import select
 import sys
 from pathlib import Path
 from urllib.parse import urlparse
@@ -63,6 +64,28 @@ def title_from_url(url: str) -> str:
     return tail.title() or urlparse(url).netloc or "Untitled capture"
 
 
+def read_piped_text(force: bool, wait: float = 0.25) -> str:
+    """Read stdin only when something is actually there.
+
+    A bare `sys.stdin.read()` guarded by `isatty()` hangs forever when stdin is
+    an inherited pipe that nobody writes to and nobody closes - which is what
+    happens under cron, CI, and most agent shells. Capture must never block:
+    a capture lane that can hang is a capture lane you stop trusting.
+
+    `--stdin` forces a full blocking read for a slow producer (curl, a long
+    pipeline). Otherwise we poll briefly and move on.
+    """
+    if force:
+        return sys.stdin.read()
+    if sys.stdin.isatty():
+        return ""
+    try:
+        ready, _, _ = select.select([sys.stdin], [], [], wait)
+    except (OSError, ValueError):  # not selectable on this platform/handle
+        return ""
+    return sys.stdin.read() if ready else ""
+
+
 def mint_key(vault: Path, title: str, today: dt.date) -> str:
     base = f"S-{today:%Y%m%d}-{slugify(title)}"
     existing = {p.stem for p in vault.glob("sources/**/*.md")}
@@ -88,16 +111,15 @@ def main() -> int:
     ap.add_argument("--tags", default="", help="comma-separated")
     ap.add_argument("--why", default="", help="one line on why this was captured")
     ap.add_argument("--text", default="", help="source text; otherwise read from stdin if piped")
+    ap.add_argument("--stdin", action="store_true",
+                    help="force a blocking read of stdin (use with a slow producer)")
     ap.add_argument("--vault", default=str(VAULT))
     args = ap.parse_args()
 
     vault = Path(args.vault).resolve()
     today = dt.date.today()
 
-    body = args.text
-    if not body and not sys.stdin.isatty():
-        body = sys.stdin.read()
-    body = body.strip()
+    body = (args.text or read_piped_text(args.stdin)).strip()
 
     title = args.title or (title_from_url(args.url) if args.url else "")
     if not title and body:

@@ -62,5 +62,5 @@ is cheap, rather than at read time, where it is expensive and usually skipped.
 
 ## Sources
 
-- S-20260803-built-second-brain-obsidian-claude
-- S-20260803-critiques-ai-maintained-knowledge-vaults
+- [[S-20260803-built-second-brain-obsidian-claude]]
+- [[S-20260803-critiques-ai-maintained-knowledge-vaults]]
