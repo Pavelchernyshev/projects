@@ -65,5 +65,5 @@ shameful.
 
 ## Sources
 
-- S-20260803-claude-obsidian-transactional-knowledge-system
-- S-20260803-critiques-ai-maintained-knowledge-vaults
+- [[S-20260803-claude-obsidian-transactional-knowledge-system]]
+- [[S-20260803-critiques-ai-maintained-knowledge-vaults]]

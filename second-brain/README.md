@@ -36,9 +36,14 @@ python3 scripts/lint.py        # verify the vault is intact
 claude                         # Claude Code reads CLAUDE.md automatically
 ```
 
-Then open this folder as an Obsidian vault (Open folder as vault). No plugins are
-required. Two are worth having: **Web Clipper** for one-click capture into
-`inbox/`, and **Copilot** if you want to query the vault from a phone or tablet.
+Then **Open folder as vault** in Obsidian and point it at `second-brain/` — not
+the repository root. It works with no conversion step; `.obsidian/` ships with
+graph colours and sane defaults already configured.
+
+[`docs/obsidian.md`](docs/obsidian.md) covers the rest: which core plugins to
+enable, how the graph is coloured and what a healthy one looks like, mobile
+capture, and the sync topology (Obsidian Sync ignores `.git`, which is what you
+want — mobile syncs to the laptop, the laptop commits).
 
 If you want the vault in its own private repo rather than inside `projects`,
 copy the `second-brain/` directory out and `git init` it. Nothing here depends on

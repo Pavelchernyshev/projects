@@ -18,6 +18,10 @@ notes: ["[[LLM Wiki Pattern]]"]
 
 The origin idea every one of these systems descends from.
 
+## Distilled into
+
+- [[LLM Wiki Pattern]]
+
 ## Source text
 
 Use an LLM to maintain a wiki. Feed it raw information, give it a schema to follow, and let it do the structuring. All three reference systems examined cite this as their origin.

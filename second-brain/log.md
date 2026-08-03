@@ -17,3 +17,4 @@ Operations: `capture`, `process`, `topic`, `connect`, `draft`, `lint`, `archive`
 2026-08-03  process   5 research sources -> 5 notes, 1 topic
 2026-08-03  topic     Personal Knowledge Management -> 5 notes
 2026-08-03  lint      clean; 0 errors, 0 warnings
+2026-08-03  lint      clean; 0 errors, 0 warnings (post-Obsidian wiring)

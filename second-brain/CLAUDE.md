@@ -148,9 +148,17 @@ Body layout is fixed:
 ## Why captured
 One line, or empty. Never invent a reason.
 
+## Distilled into
+- [[Note]] wikilinks for every note derived from this source.
+
 ## Source text
 <verbatim transcript / article text / clipped content — never edited>
 ```
+
+`## Distilled into` duplicates the `notes:` frontmatter deliberately. Obsidian's
+handling of wikilinks in YAML has varied across versions, and the graph is a
+primary interface here, so every edge that matters exists as a body-level link.
+Frontmatter is for scripts; body links draw the graph.
 
 ### Note (`notes/**`)
 
@@ -186,7 +194,9 @@ Owner's own thinking. YOU DO NOT WRITE HERE. See the Origin rule.
 2-3 links maximum. Each one states why the connection matters.
 
 ## Sources
-Rendered from the `sources:` frontmatter list.
+One `[[S-key]]` wikilink per source. Source filenames are their keys, so these
+resolve — which makes citations clickable in Obsidian and puts the note-to-source
+edge in the graph.
 ```
 
 ### Topic (`topics/**`)

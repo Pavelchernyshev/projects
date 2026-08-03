@@ -64,5 +64,5 @@ output, which is the failure most people attribute to the model.
 
 ## Sources
 
-- S-20260803-llm-wiki-pattern
-- S-20260803-built-second-brain-obsidian-claude
+- [[S-20260803-llm-wiki-pattern]]
+- [[S-20260803-built-second-brain-obsidian-claude]]
