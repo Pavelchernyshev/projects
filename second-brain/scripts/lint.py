@@ -48,7 +48,7 @@ VOLATILE_RE = re.compile(
 )
 
 REQUIRED = {
-    "source": ("key", "type", "source_type", "title", "accessed"),
+    "source": ("key", "type", "source_type", "title", "accessed", "lang"),
     "note": ("type", "category", "tags", "origin", "created"),
     "topic": ("type", "created"),
     "draft": ("type", "format", "status", "created"),

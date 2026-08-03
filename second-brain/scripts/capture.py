@@ -19,6 +19,7 @@ import datetime as dt
 import re
 import select
 import sys
+import unicodedata
 from pathlib import Path
 from urllib.parse import urlparse
 
@@ -37,13 +38,63 @@ HOST_TYPES = {
     "open.spotify.com": "podcast",
 }
 
-STOPWORDS = {"a", "an", "the", "and", "or", "of", "to", "in", "for", "on", "with", "my", "how", "i"}
+STOPWORDS = {
+    "a", "an", "the", "and", "or", "of", "to", "in", "for", "on", "with", "my", "how", "i",
+    # Russian - this vault captures in both languages
+    "и", "в", "во", "на", "с", "со", "по", "для", "о", "об", "к", "из", "от", "как", "что",
+}
+
+# Cyrillic to Latin, so a Russian title produces a meaningful key instead of
+# "untitled". Keys are permanent and get cited, so they have to be readable.
+CYRILLIC = {
+    "а": "a", "б": "b", "в": "v", "г": "g", "д": "d", "е": "e", "ё": "e", "ж": "zh",
+    "з": "z", "и": "i", "й": "y", "к": "k", "л": "l", "м": "m", "н": "n", "о": "o",
+    "п": "p", "р": "r", "с": "s", "т": "t", "у": "u", "ф": "f", "х": "kh", "ц": "ts",
+    "ч": "ch", "ш": "sh", "щ": "shch", "ъ": "", "ы": "y", "ь": "", "э": "e",
+    "ю": "yu", "я": "ya",
+    # Ukrainian / Belarusian extras
+    "і": "i", "ї": "yi", "є": "ye", "ґ": "g", "ў": "u",
+}
+
+
+def detect_lang(*parts: str) -> str:
+    """Cheap script check: Cyrillic-heavy means Russian, else English.
+
+    Deliberately a heuristic and deliberately overridable with --lang. Getting
+    this wrong costs one frontmatter field; blocking a capture to ask would cost
+    the capture.
+    """
+    text = " ".join(parts)
+    letters = [c for c in text if c.isalpha()]
+    if not letters:
+        return "en"
+    cyrillic = sum(1 for c in letters if "\u0400" <= c <= "\u04ff")
+    return "ru" if cyrillic / len(letters) > 0.2 else "en"
+
+
+def translit(text: str) -> str:
+    """Fold any script down to ASCII: accents stripped, Cyrillic transliterated."""
+    out = []
+    for ch in text.lower():
+        if ch in CYRILLIC:
+            out.append(CYRILLIC[ch])
+        else:
+            # NFKD splits an accented letter into base + combining mark; drop the mark.
+            decomposed = unicodedata.normalize("NFKD", ch)
+            out.append("".join(c for c in decomposed if not unicodedata.combining(c)))
+    return "".join(out)
 
 
 def slugify(text: str, max_words: int = 5) -> str:
-    words = re.sub(r"[^a-z0-9\s-]", " ", text.lower()).split()
-    kept = [w for w in words if w not in STOPWORDS] or words
-    return "-".join(kept[:max_words]) or "untitled"
+    lowered = text.lower()
+    words = re.sub(r"[^a-z0-9\s-]", " ", translit(lowered)).split()
+    # Filter stopwords in the original script too, since translit turns "и" into "i".
+    original = re.sub(r"[^\w\s-]", " ", lowered, flags=re.U).split()
+    if len(original) == len(words):
+        words = [w for w, o in zip(words, original) if o not in STOPWORDS] or words
+    else:
+        words = [w for w in words if w not in STOPWORDS] or words
+    return "-".join(words[:max_words]) or "untitled"
 
 
 def infer_type(url: str) -> str:
@@ -109,6 +160,7 @@ def main() -> int:
     ap.add_argument("--type", dest="source_type", choices=TYPES, help="inferred from the URL if omitted")
     ap.add_argument("--published", default="", help="YYYY-MM-DD, if known")
     ap.add_argument("--tags", default="", help="comma-separated")
+    ap.add_argument("--lang", choices=("en", "ru"), help="source language; detected if omitted")
     ap.add_argument("--why", default="", help="one line on why this was captured")
     ap.add_argument("--text", default="", help="source text; otherwise read from stdin if piped")
     ap.add_argument("--stdin", action="store_true",
@@ -128,6 +180,7 @@ def main() -> int:
         ap.error("give a --title, a URL, or piped text to derive one from")
 
     source_type = args.source_type or infer_type(args.url)
+    lang = args.lang or detect_lang(title, body[:4000])
     key = mint_key(vault, title, today)
 
     out_dir = vault / "sources" / f"{source_type}s"
@@ -146,6 +199,7 @@ def main() -> int:
         f"url: {yaml_str(args.url)}",
         f"published: {yaml_str(args.published)}",
         f"accessed: {today:%Y-%m-%d}",
+        f"lang: {lang}",
         f"tags: [{', '.join(tags)}]",
         "processed: false",
         "notes: []",

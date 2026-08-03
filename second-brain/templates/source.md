@@ -7,6 +7,7 @@ author: ""
 url: ""
 published: ""
 accessed: YYYY-MM-DD
+lang: en                # en | ru - the source's own language, never translated
 tags: []
 processed: false
 notes: []

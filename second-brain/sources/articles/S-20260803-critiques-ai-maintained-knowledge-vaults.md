@@ -7,6 +7,7 @@ author: "Simon Spati, Sebastien Dubois, Tejaaswini Narendra"
 url: "https://www.ssp.sh/brain/using-obsidian-with-ai/"
 published: ""
 accessed: 2026-08-03
+lang: en
 tags: [knowledge-management, critique]
 processed: true
 notes: ["[[Vault Rot]]", "[[Selective Linking]]", "[[Capture Without Obligation]]"]

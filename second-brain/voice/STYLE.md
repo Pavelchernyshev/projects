@@ -48,8 +48,10 @@ research memo with citations, and the owner still has to write the piece.
 - **Articles**: TBD — target length, whether subheads are used, how they open.
 - **Book chapters**: TBD — chapter length, whether they end on a summary.
 - **Social**: TBD — platform, whether threads or single posts, hook style.
-- **Language**: TBD — English, Russian, or both. Some of the owner's work ships
-  in Russian; ask before assuming.
+- **Language**: both. Notes and tags are always English (CLAUDE.md § Languages);
+  drafts follow the audience. Keep samples for each language in separate files
+  and tag them `lang:` in frontmatter — voice does not transfer across
+  languages, and drafting Russian from English samples reads translated.
 
 ## Samples
 

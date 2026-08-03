@@ -7,6 +7,7 @@ author: "Eugeniu Ghelbur"
 url: "https://github.com/eugeniughelbur/obsidian-second-brain"
 published: ""
 accessed: 2026-08-03
+lang: en
 tags: [knowledge-management, obsidian, automation]
 processed: true
 notes: ["[[Vault Rot]]", "[[Citation Integrity]]"]

@@ -319,9 +319,44 @@ of last resort, not the first.
 a note that already exists, on the strength of an external source, is a proposal:
 say what you would change and why, then wait.
 
+## Languages
+
+This vault captures in English and Russian. The rule that keeps it one vault
+rather than two:
+
+**Sources keep their original language. The knowledge layer is English.**
+
+- `sources/` — verbatim, always, in whatever language it arrived in. Never
+  translate a source body. `lang:` in the frontmatter records which it is.
+- `notes/`, `topics/`, `index.md`, filenames, and tags — **English, always**,
+  regardless of what language the source was in. A Russian podcast and an
+  English book about the same idea must land on the same note, under the same
+  tag, or the graph splits into two halves that never connect. This is the whole
+  reason for the rule.
+- `drafts/` — either language. This is output, so it follows the audience.
+- `daily/` — whatever you think in. It is your input, not the machine's.
+
+**Quotes are the exception, and they matter.** When a note quotes a Russian
+source, keep the quote verbatim in Russian and put the English gloss beneath it:
+
+```markdown
+> Травма — это не то, что с вами случилось, а то, что произошло внутри вас.
+> — [[S-20260803-example]] ("Trauma is not what happened to you, it is what
+> happened inside you as a result.")
+```
+
+Otherwise a Russian draft cannot quote its own sources without a round trip
+through translation, and back-translated quotes are wrong quotes. The source
+file always holds the original anyway, so when drafting in Russian, pull the
+exact wording from `sources/`, never from an English paraphrase in a note.
+
+When drafting, ask for the target language if it is not obvious from the
+request. A Russian draft may cite English sources and vice versa — references
+render in the source's own language, which is correct.
+
 ## Tags
 
-Lowercase kebab-case. Two kinds, both in the same `tags:` list.
+Lowercase kebab-case, **English**. Two kinds, both in the same `tags:` list.
 
 - **Form**: `concept`, `framework`, `method`, `person`, `org`, `case-study`,
   `reference`.

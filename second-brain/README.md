@@ -89,6 +89,17 @@ docs/              research.md (why this is built this way), citations.md (the c
 scripts/           lint.py, capture.py. Python 3.9+, stdlib only.
 ```
 
+## Two languages, one graph
+
+Sources keep their original language, verbatim, always. **The knowledge layer —
+notes, topics, tags, filenames — is English regardless of what the source was.**
+That is what keeps a Russian podcast and an English book about the same idea
+landing on the same note instead of splitting the graph in half.
+
+Quotes are the exception: they stay verbatim in the original with an English
+gloss beneath, so a Russian draft can quote its own sources without a round trip
+through translation. Drafts go in whichever language the audience speaks.
+
 ## The three rules worth knowing
 
 **Sources are immutable.** You can edit a source file's frontmatter; never its
