@@ -7,6 +7,7 @@ author: "Daniel Agrici"
 url: "https://github.com/AgriciDaniel/claude-obsidian"
 published: ""
 accessed: 2026-08-03
+lang: en
 tags: [knowledge-management, obsidian, provenance]
 processed: true
 notes: ["[[Capture Without Obligation]]", "[[Citation Integrity]]"]

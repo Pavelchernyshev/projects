@@ -1,3 +1,25 @@
+---
+key: S-20260803-therapy-session-dr-gabor-mate
+type: source
+source_type: video
+title: "My Therapy Session with Dr. Gabor Maté"
+author: "Hasan Minhaj (host), Dr. Gabor Maté (guest)"
+url: "https://www.youtube.com/watch?v=cW3Md09-jfc"
+published: ""
+accessed: 2026-08-03
+lang: en
+tags: []
+processed: false
+notes: []
+---
+
+# My Therapy Session with Dr. Gabor Maté
+
+## Why captured
+
+Added to inbox 2026-08-03. Not yet reviewed for what matters in it.
+
+## Source text
 
 Name: My Therapy Session with Dr. Gabor Maté
 Author: Hasan Minhaj

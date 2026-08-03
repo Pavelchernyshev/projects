@@ -18,3 +18,5 @@ Operations: `capture`, `process`, `topic`, `connect`, `draft`, `lint`, `archive`
 2026-08-03  topic     Personal Knowledge Management -> 5 notes
 2026-08-03  lint      clean; 0 errors, 0 warnings
 2026-08-03  lint      clean; 0 errors, 0 warnings (post-Obsidian wiring)
+2026-08-03  capture   S-20260803-therapy-session-dr-gabor-mate
+2026-08-03  capture   S-20260803-therapy-session-dr-gabor-mate (from inbox)

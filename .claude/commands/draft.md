@@ -28,6 +28,21 @@ Then say, before writing:
   *this will be a research memo with citations, not a piece in your voice* — and
   ask whether to proceed or whether they want to add a take first.
 
+## Step 1b — Language
+
+Ask for the target language if the request does not make it obvious. Notes are
+always English (see CLAUDE.md § Languages), so a Russian draft is a translation
+step, not a retrieval step, and that changes what you need:
+
+- Pull every quote **verbatim from the source file**, never from an English
+  paraphrase in a note. A quote back-translated out of an English summary is not
+  a quote.
+- Read `voice/samples/` filtered to the target language. Register does not
+  transfer between languages; a Russian piece written from English samples reads
+  translated.
+- References render in each source's own language. A Russian article citing an
+  English book keeps the English title.
+
 ## Step 2 — Outline
 
 Produce the outline before the prose, and get agreement on it. For each section:

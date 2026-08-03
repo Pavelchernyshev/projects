@@ -7,6 +7,7 @@ author: "Evgeni Rusev"
 url: "https://github.com/evgenirusev/obsidian-second-brain"
 published: ""
 accessed: 2026-08-03
+lang: en
 tags: [knowledge-management, llm-wiki, obsidian]
 processed: true
 notes: ["[[LLM Wiki Pattern]]", "[[Selective Linking]]"]

@@ -7,6 +7,7 @@ author: "Andrej Karpathy"
 url: "https://x.com/karpathy/status/1882197497975992766"
 published: ""
 accessed: 2026-08-03
+lang: en
 tags: [llm-wiki, knowledge-management]
 processed: true
 notes: ["[[LLM Wiki Pattern]]"]
