@@ -39,7 +39,16 @@ processed. `/lint` reports the backlog size as information, not as a finding.
 
 On explicit request, a source is distilled into `notes/` — atomic pages, one
 idea each — and wired into `topics/`. This lane only ever runs when asked. Never
-process a source because it is sitting there unprocessed.
+process a source *on your own initiative* because it is sitting there
+unprocessed.
+
+**A standing instruction counts as being asked.** If the owner has set up a
+scheduled daily pass (`/inbox-daily`), that is them asking, every day, in
+advance. The ban is on the agent deciding unilaterally, not on automation the
+owner configured. But the scheduled pass runs under tighter limits than an
+interactive `/process`, because nobody is watching it: it may write new files
+freely, and it may never rewrite an existing note without confirmation. See
+`.claude/commands/inbox-daily.md`.
 
 ### Lane 3 — Produce (output, cited)
 
@@ -148,12 +157,23 @@ Body layout is fixed:
 ## Why captured
 One line, or empty. Never invent a reason.
 
+## Summary
+Added by the daily pass, not at capture time. 3-5 bullets: what this source
+says. Not what you think about it.
+
+## Key insights
+Added by the daily pass. The two or three things worth remembering, each with a
+timestamp or locator so you can find it in the source text again.
+
 ## Distilled into
 - [[Note]] wikilinks for every note derived from this source.
 
 ## Source text
 <verbatim transcript / article text / clipped content — never edited>
 ```
+
+Everything above `## Source text` may be added to or revised. `## Source text`
+itself is immutable, forever. That is the line the whole vault rests on.
 
 `## Distilled into` duplicates the `notes:` frontmatter deliberately. Obsidian's
 handling of wikilinks in YAML has varied across versions, and the graph is a
