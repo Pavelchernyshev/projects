@@ -198,3 +198,10 @@ your jurisdiction requires of a mental-health-adjacent service.
 - **Interview quality is unevaluated.** There is no eval set scoring whether the
   verdicts are actually good. That is the highest-value next piece of work, and
   it needs real transcripts.
+
+## Also in this repository
+
+`acuyete/` — a separate product with no shared code or dependencies: the ACUYETE
+concept store, a static installable page where the physical objects cannot be
+bought and only the digital state can. Its own docs (in Russian) are in
+[`acuyete/README.md`](acuyete/README.md).
