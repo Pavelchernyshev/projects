@@ -1,18 +1,19 @@
 // Everything OHUET says, and the few numbers it has. Kept in one place so the
 // product can be tuned without reading the rest of the code.
 
-// The state. Three lights on a warm, near-dark field: stone, a memory of moss,
-// and something mineral underneath. Nothing pure, nothing bright.
+// The state. Three soft tints on a pale, warm ground — paper, stone, a memory
+// of moss, something mineral underneath. Nothing pure, nothing bright, and
+// the ground is light: the glass over it is milk, not smoke.
 //
 // `base` is given twice — night and day — and the field crosses between them
-// with the hour. The same object is near-black at three in the morning and a
-// warm dark stone at three in the afternoon.
+// with the hour. The same object is pale stone at three in the afternoon and a
+// dimmer, warmer paper at three in the morning.
 export const STATE = {
-  base: { night: [7, 7, 8], day: [28, 26, 24] },
+  base: { night: [206, 198, 186], day: [237, 232, 223] },
   blobs: [
-    { rgb: [224, 212, 192], peak: 1.0 }, // stone / paper
-    { rgb: [150, 168, 142], peak: 0.55 }, // the moss, almost gone
-    { rgb: [104, 90, 84], peak: 0.75 }, // mineral
+    { rgb: [255, 248, 234], peak: 0.9 }, // light on paper
+    { rgb: [170, 186, 158], peak: 0.7 }, // the moss, almost gone
+    { rgb: [178, 160, 148], peak: 0.6 }, // mineral, underneath
   ],
 };
 

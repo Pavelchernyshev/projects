@@ -10,8 +10,8 @@
 //
 // Wabi is in the imperfections: edges wobble by a few pixels of noise, the
 // glass is not evenly thick so the picture through it is not evenly bent, the
-// slab holds three small bubbles, the tint is that of old bottle glass — a
-// little smoke, a little amber — and grain sits over everything. Nothing is
+// slab holds three small bubbles, the glass is milk rather than clear — a
+// little white, a little warm — and grain sits over everything. Nothing is
 // straight, nothing is perfectly clear, nothing hurries.
 //
 // Falls back to the canvas renderer in object.js when WebGL is not there.
@@ -51,17 +51,17 @@ void main() {
     float d = length(p - c) / u_light[i].z;
     float a = u_colour[i].w * u_gain * pow(max(0.0, 1.0 - d), 1.7);
     vec3 rgb = mix(u_colour[i].rgb, u_tint, 0.18);
-    col += rgb * a;
+    col = mix(col, rgb, clamp(a, 0.0, 1.0));
   }
   // The unexplained thing, when it is there: a thin soft ring.
   if (u_ring.w > 0.0) {
     vec2 c = vec2((u_ring.x - 0.5) * aspect, u_ring.y - 0.5);
     float d = abs(length(p - c) - u_ring.z);
-    col += vec3(0.9, 0.87, 0.81) * u_ring.w * smoothstep(0.03, 0.0, d);
+    col = mix(col, vec3(1.0, 0.99, 0.97), u_ring.w * 2.0 * smoothstep(0.03, 0.0, d));
   }
-  // Vignette: the edge darker than the middle, always.
+  // Vignette: the edge a little darker than the middle, always.
   float e = length(p) / (0.72 * max(aspect, 1.0));
-  col *= 1.0 - 0.72 * smoothstep(0.25, 1.0, e);
+  col *= 1.0 - 0.2 * smoothstep(0.25, 1.0, e);
   gl_FragColor = vec4(col, 1.0);
 }
 `;
@@ -142,9 +142,8 @@ void main() {
   vec2 off = vec2(0.0);
   float frost = 0.0;
   float spec = 0.0;
-  float tintA = 0.0;
-  float smoke = 0.0;
-  float lift = 0.0;
+  float milk = 0.0;   // how much the glass whitens what is behind it
+  float shade = 0.0;  // the dark side of an edge, so the form reads
 
   // The wordmark: thick glass letters, bevelled where the height map falls
   // off. Chrome at the bevel, clear in the middle, and while liquid the whole
@@ -163,10 +162,10 @@ void main() {
       float bend = 34.0 + 60.0 * u_wordLiquid;
       off += (-n * bevel * bend + vec2(thick, -thick) * 10.0 * body) * u_wordA;
       float sh = pow(max(0.0, dot(n, normalize(LIGHT))), 5.0);
-      float back = pow(max(0.0, dot(-n, normalize(LIGHT))), 9.0) * 0.35;
-      spec += (sh * 0.95 + back + 0.10) * bevel * u_wordA;
-      lift = max(lift, body * u_wordA);
-      tintA = max(tintA, body * u_wordA);
+      float back = pow(max(0.0, dot(-n, normalize(LIGHT))), 3.0);
+      spec += (sh * 0.9 + 0.06) * bevel * u_wordA;
+      shade += back * bevel * 0.55 * u_wordA;
+      milk = max(milk, body * 0.3 * u_wordA);
     }
   }
 
@@ -192,10 +191,10 @@ void main() {
         off += bn * brim * 10.0 * bm * m;
         spec += brim * bm * 0.35 * m;
       }
-      spec += (pow(max(0.0, dot(n, normalize(LIGHT))), 6.0) * 0.42 + 0.06) * rim * m;
-      smoke = max(smoke, m);
+      spec += (pow(max(0.0, dot(n, normalize(LIGHT))), 6.0) * 0.5 + 0.05) * rim * m;
+      shade += pow(max(0.0, dot(-n, normalize(LIGHT))), 3.0) * rim * 0.16 * m;
       frost = max(frost, m);
-      tintA = max(tintA, m);
+      milk = max(milk, 0.5 * m);
     }
   }
 
@@ -209,9 +208,9 @@ void main() {
       float rim = 1.0 - smoothstep(0.0, 34.0, -d);
       float thick = noise(p * 0.006 + u_seed) - 0.5;
       off += n * rim * rim * 26.0 * m + vec2(thick, -thick) * 6.0 * m;
-      spec += (pow(max(0.0, dot(n, normalize(LIGHT))), 4.0) * 0.5 + 0.08) * rim * m;
-      smoke = max(smoke, m * 0.6);
-      tintA = max(tintA, m);
+      spec += (pow(max(0.0, dot(n, normalize(LIGHT))), 4.0) * 0.55 + 0.06) * rim * m;
+      shade += pow(max(0.0, dot(-n, normalize(LIGHT))), 3.0) * rim * 0.14 * m;
+      milk = max(milk, 0.6 * m);
     }
   }
 
@@ -224,8 +223,9 @@ void main() {
       float rim = 1.0 - smoothstep(0.0, u_lens.z * 0.3, -d);
       float ripple = u_still > 0.5 ? 0.0 : sin(-d * 0.22 - u_time * 3.2) * 1.6;
       off += (-(p - u_lens.xy) * 0.24 * (1.0 - rim) + n * (rim * rim * 26.0 + ripple)) * m;
-      spec += (pow(max(0.0, dot(n, normalize(LIGHT))), 8.0) * 0.5 + 0.07) * rim * m;
-      tintA = max(tintA, m * 0.2);
+      spec += (pow(max(0.0, dot(n, normalize(LIGHT))), 8.0) * 0.55 + 0.05) * rim * m;
+      shade += pow(max(0.0, dot(-n, normalize(LIGHT))), 3.0) * rim * 0.12 * m;
+      milk = max(milk, m * 0.14);
     }
   }
 
@@ -241,16 +241,16 @@ void main() {
     acc += texture2D(u_field, uv - vec2(0.0, r) * px).rgb;
     col = mix(col, acc / 5.0, frost);
   }
-  // Old glass: a little smoke, a little amber, a faint lift.
-  col = mix(col, col * vec3(1.03, 0.985, 0.93) + vec3(0.045, 0.04, 0.032), tintA);
-  col *= 1.0 - 0.28 * smoke;
-  // Inside the letters the glass is thick and holds light.
-  col += vec3(0.88, 0.83, 0.75) * 0.11 * lift;
-  col += vec3(0.93, 0.89, 0.82) * spec;
+  // Old glass, in a light room: milk rather than smoke, a warm cast, the far
+  // side of every edge a little darker so the form reads, the near side lit.
+  col = mix(col, vec3(0.985, 0.978, 0.965), milk);
+  col = mix(col, col * vec3(1.0, 0.985, 0.955), milk * 0.6);
+  col -= vec3(0.16, 0.15, 0.14) * shade;
+  col += vec3(1.0, 0.995, 0.98) * spec;
 
   // Grain over everything: one value per device pixel, changing 24 times a second.
   float g = fract(sin(dot(floor(p) + (u_still > 0.5 ? 0.0 : floor(u_time * 24.0)) * 0.37, vec2(12.9898, 78.233))) * 43758.5453);
-  col += (g - 0.5) * 0.045;
+  col += (g - 0.5) * 0.03;
 
   gl_FragColor = vec4(col, 1.0);
 }

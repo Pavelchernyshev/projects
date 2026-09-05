@@ -16,12 +16,13 @@ from pathlib import Path
 
 OUT = Path(__file__).resolve().parent.parent / "icons"
 
-BASE = (7, 7, 8)
-# The three lights from STATE in data.js — stone, the moss, mineral — at rest.
+BASE = (237, 232, 223)
+# The three tints from STATE in data.js — light on paper, the moss, mineral —
+# at rest. They mix into the ground rather than add to it.
 BLOBS = (
-    ((0.50, 0.46), 0.52, (224, 212, 192), 1.00),
-    ((0.38, 0.60), 0.42, (150, 168, 142), 0.42),
-    ((0.63, 0.61), 0.38, (104, 90, 84), 0.60),
+    ((0.50, 0.46), 0.52, (255, 248, 234), 0.90),
+    ((0.38, 0.60), 0.42, (170, 186, 158), 0.70),
+    ((0.63, 0.61), 0.38, (178, 160, 148), 0.60),
 )
 
 
@@ -60,13 +61,23 @@ def render(size: int, spread: float = 1.0) -> bytes:
                 if d >= 1:
                     continue
                 # soft falloff: without it the spot reads as a disc, not light
-                a = peak * (1 - d) ** 1.9
-                r += colour[0] * a
-                g += colour[1] * a
-                b += colour[2] * a
+                a = min(1.0, peak * (1 - d) ** 1.9)
+                r += (colour[0] - r) * a
+                g += (colour[1] - g) * a
+                b += (colour[2] - b) * a
+            # the horizon: the top of a milky glass stone, as in the app
+            hx, hy, hr = 0.42, 0.72 + 1.0, 1.0
+            hd = math.hypot(u - hx, v - hy) - hr
+            if hd < 0:
+                t = 0.72 * min(1.0, -hd / 0.03 + 0.35)
+                r += (250 - r) * t
+                g += (247 - g) * t
+                b += (242 - b) * t
+            elif hd < 0.012:
+                r, g, b = r * 0.93, g * 0.93, b * 0.93
             # vignette, centre to edge
             edge = math.hypot(u - 0.5, v - 0.5) / 0.72
-            k = max(0.0, 1 - 0.55 * min(1.0, edge) ** 2)
+            k = max(0.0, 1 - 0.18 * min(1.0, edge) ** 2)
             row += bytes(
                 (min(255, int(c * k)) for c in (r, g, b))
             )
@@ -75,15 +86,15 @@ def render(size: int, spread: float = 1.0) -> bytes:
 
 
 MARK_SVG = """<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-  <rect width="512" height="512" fill="#070708"/>
+  <rect width="512" height="512" fill="#ece7de"/>
   <defs>
     <radialGradient id="a" cx="50%" cy="44%" r="46%">
-      <stop offset="0" stop-color="#e0d4c0" stop-opacity=".72"/>
-      <stop offset="1" stop-color="#e0d4c0" stop-opacity="0"/>
+      <stop offset="0" stop-color="#fff8ea" stop-opacity=".9"/>
+      <stop offset="1" stop-color="#fff8ea" stop-opacity="0"/>
     </radialGradient>
     <radialGradient id="b" cx="36%" cy="60%" r="38%">
-      <stop offset="0" stop-color="#96a88e" stop-opacity=".3"/>
-      <stop offset="1" stop-color="#96a88e" stop-opacity="0"/>
+      <stop offset="0" stop-color="#aaba9e" stop-opacity=".5"/>
+      <stop offset="1" stop-color="#aaba9e" stop-opacity="0"/>
     </radialGradient>
   </defs>
   <rect width="512" height="512" fill="url(#a)"/>

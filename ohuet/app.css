@@ -1,22 +1,22 @@
 /* OHUET
  *
- * Almost nothing. A field, a mark, and text that arrives late and small. No
- * shadows, no rounded corners beyond the one dot, no icons. Everything that
+ * Almost nothing. A pale field, a mark, and text that arrives late and small.
+ * No shadows, no rounded corners beyond the one dot, no icons. Everything that
  * moves does so slowly — three seconds to arrive, two to fade — and nothing
  * ever snaps.
  */
 
 :root {
-  --bg: #070708;
-  --ink: #ece6dc;
-  --ink-dim: rgba(236, 230, 220, 0.5);
-  --ink-faint: rgba(236, 230, 220, 0.28);
-  --rule: rgba(236, 230, 220, 0.1);
+  --bg: #ece7de;
+  --ink: #2a2622;
+  --ink-dim: rgba(42, 38, 34, 0.56);
+  --ink-faint: rgba(42, 38, 34, 0.36);
+  --rule: rgba(42, 38, 34, 0.14);
   --sans: ui-sans-serif, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   --serif: ui-serif, Georgia, "Times New Roman", serif;
   --ease: cubic-bezier(0.16, 1, 0.3, 1);
   --edge: clamp(20px, 5vw, 44px);
-  color-scheme: dark;
+  color-scheme: light;
 }
 
 * { box-sizing: border-box; }

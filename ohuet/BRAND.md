@@ -5,9 +5,10 @@ and never noticed.
 
 ## The idea in one line
 
-Old glass over a slow light. The glass is the organism's skin: it bends what
-is behind it, it is not evenly thick, its edges are not straight, and it holds
-a few bubbles it was born with. Liquid glass, made wabi.
+Milky glass over a pale, slow light. The glass is the organism's skin: it
+bends what is behind it, it is not evenly thick, its edges are not straight,
+and it holds a few bubbles it was born with. Liquid glass, made wabi, in a
+light room.
 
 ## Where the two words meet
 
@@ -21,10 +22,10 @@ edge, and the good sense to stop.
 
 Together: every glass shape here is a signed-distance field with noise on its
 boundary (±3 px), a thickness map that is not flat (so the refraction is not
-flat), three small bubbles in the slab, a smoky amber tint like a bottle that
-has been in the sun for years, and grain over the whole picture. The
-highlight comes from the upper left, always, and is never white — it is the
-colour of the stone light.
+flat), three small bubbles in the slab, a milky semi-transparent body with a
+warm cast like sea-glass, the far side of every edge a little darker so the
+form reads, and grain over the whole picture. The highlight comes from the
+upper left, always, and is the only white in the product.
 
 ## The four glass shapes
 
@@ -49,23 +50,26 @@ is the one joke the brand tells and it is true.
 
 ## Colour
 
-One grey family, warm. One accent — and the accent is *light*, not a hue:
-the stone-coloured highlight. There is no blue, no purple, no gradient CTA.
+One grey family, warm, and light. One accent — and the accent is *light*, not
+a hue: the white highlight on glass. There is no blue, no purple, no gradient
+CTA, and no black.
 
 | Token | Value | Use |
 |---|---|---|
-| `--bg` | `#070708` | the ground, night |
-| base, day | `rgb(28 26 24)` | the ground drifts here by early afternoon |
-| stone | `rgb(224 212 192)` | the main light; the highlight colour |
-| moss | `rgb(150 168 142)` | a memory of moss, peak 0.55 — almost gone |
-| mineral | `rgb(104 90 84)` | the third light, underneath |
-| `--ink` | `#ece6dc` | words |
-| `--ink-dim` | 50 % ink | the mark, the second line |
-| `--ink-faint` | 28 % ink | the smallest text |
-| glass tint | `× (1.03, 0.985, 0.93) + (0.045, 0.04, 0.032)` | smoke and amber inside any glass |
+| `--bg`, base day | `#ece7de` / `rgb(237 232 223)` | the ground: paper, stone |
+| base, night | `rgb(206 198 186)` | the ground dims to this after dark |
+| light on paper | `rgb(255 248 234)` | the main tint, peak 0.9 |
+| moss | `rgb(170 186 158)` | a memory of moss, peak 0.7 — almost gone |
+| mineral | `rgb(178 160 148)` | the third tint, underneath |
+| `--ink` | `#2a2622` | words |
+| `--ink-dim` | 56 % ink | the mark, the second line |
+| `--ink-faint` | 36 % ink | the smallest text |
+| milk | `mix(col, rgb(0.985 0.978 0.965), m)` | the glass body: 0.5 in the slab, 0.6 in the horizon, 0.22 in the letters, 0.14 in the lens |
+| shade | `− 0.16 × (far side of the edge)` | what makes an edge read on a light ground |
 
-The hour is a colour: `daylight()` crosses the ground between night and day
-and cools the lights toward blue after dark.
+The tints mix into the ground rather than add to it, so nothing ever blows
+out to white except the highlight. The hour is a colour: `daylight()` crosses
+the ground between day and night and cools the tints toward blue after dark.
 
 ## Shape lock
 

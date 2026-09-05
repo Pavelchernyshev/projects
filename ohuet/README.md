@@ -4,11 +4,11 @@ Internal notes. Nothing in here is consumer-facing, and none of it should leak
 into the product: the public experiences first and understands later.
 
 This is the state on a phone. It opens with its name in thick glass — OH /
-UET, stacked, arriving liquid and settling — over a warm, near-dark field
-with three lights drifting through it, breathing slower than a person. A
+UET, stacked, arriving liquid and settling — over a pale, warm field with
+three soft tints drifting through it, breathing slower than a person. A
 swipe up lets the letters go (or they go by themselves), and the state is
-there, seen through old glass, with the edge of a glass stone along the
-bottom. A touch brings the voice. A hold presses the skin: a
+there, seen through milky glass, with the edge of a glass stone along the
+bottom. Light, semi-transparent, quiet. A touch brings the voice. A hold presses the skin: a
 lens of liquid glass forms under the finger and bends the light. One small
 mark on a glass pebble in the corner opens the one door — a slab of glass
 with words on it — and the words are: there is a T-shirt, and keep this on
@@ -35,7 +35,7 @@ onto it like so:
 | Occasional minimal language; never explain | Five lines in `data.js`. None names the brand or the word. |
 | The T-shirt is the door into ordinary reality; working price 100; commerce is outside | One line behind the mark: "There is a T-shirt. 100." It becomes a link only when `SHIRT.url` is set. The storefront is not this app. |
 | Hidden wolf / an unexplained object; folklore, not gamification | On roughly one opening in forty (and at 04:04), a faint ring crosses the field once over forty seconds. Nothing points at it. Do not mention it. |
-| The hour is part of the space | Night: near-black, cooler. Day: a warm dark stone. `daylight()` in `object.js`. |
+| The hour is part of the space | Day: pale stone. Night: dimmer, warmer paper, the tints cooled toward blue. `daylight()` in `glass.js`. |
 | Anti-patterns: concept store, luxury boutique, editions, scarcity, VIP, CRM, push, explanatory copy | None of it. There is no nav, no catalogue, no price beyond the shirt's, no edition numbers, no About, no notifications. |
 
 Decision rules from §16, applied: every element here gives before it asks,

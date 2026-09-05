@@ -1,6 +1,6 @@
 // The state itself.
 //
-// Three lights drift through each other on a warm, near-dark field. The whole
+// Three soft tints drift through each other on a pale, warm field. The whole
 // thing breathes on a six-second cycle — slower than a person, so a person
 // slows down next to it. Grain on top, or the gradient reads as a screensaver
 // instead of a surface.
@@ -127,7 +127,6 @@ export function mountObject(canvas, state, opts = {}) {
     bctx.globalCompositeOperation = "source-over";
     bctx.fillStyle = rgba(mix(state.base.night, state.base.day, light.day), 1);
     bctx.fillRect(0, 0, LOW, LOW);
-    bctx.globalCompositeOperation = "lighter";
 
     state.blobs.forEach((blob, i) => {
       const s = i + 1;
@@ -183,14 +182,14 @@ export function mountObject(canvas, state, opts = {}) {
       w / 2, h / 2, Math.max(w, h) * 0.72,
     );
     v.addColorStop(0, "rgba(0,0,0,0)");
-    v.addColorStop(1, "rgba(0,0,0,0.72)");
+    v.addColorStop(1, "rgba(0,0,0,0.2)");
     ctx.fillStyle = v;
     ctx.fillRect(0, 0, w, h);
 
     // Grain
     if (grain) {
       ctx.save();
-      ctx.globalAlpha = 0.055;
+      ctx.globalAlpha = 0.035;
       ctx.globalCompositeOperation = "overlay";
       ctx.translate(
         still ? 0 : -((t * 60) % GRAIN),
