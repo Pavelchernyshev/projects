@@ -53,7 +53,6 @@ a:focus-visible, button:focus-visible { outline: 1px solid var(--ink-dim); outli
   transition: opacity 3000ms var(--ease);
 }
 body.arriving .state { opacity: 0; }
-body.door-open .state { opacity: 0.35; transition-duration: 1200ms; }
 
 .field {
   position: absolute;
@@ -66,17 +65,24 @@ body.door-open .state { opacity: 0.35; transition-duration: 1200ms; }
   -webkit-user-select: none;
 }
 
+/* The mark sits on a glass pebble drawn underneath it; the button itself is
+   the tap target (44pt) and carries only the letters. */
 .mark {
   position: fixed;
   z-index: 2;
-  left: calc(var(--edge) + env(safe-area-inset-left));
-  bottom: calc(var(--edge) + env(safe-area-inset-bottom));
+  left: calc(var(--edge) + env(safe-area-inset-left) - 14px);
+  bottom: calc(var(--edge) + env(safe-area-inset-bottom) - 4px);
+  min-width: 44px;
+  min-height: 44px;
+  padding: 0 14px;
   font-size: 11px;
   letter-spacing: 0.42em;
-  color: var(--ink-faint);
-  transition: color 800ms ease;
+  text-indent: 0.42em;
+  color: var(--ink-dim);
+  transition: color 800ms ease, transform 120ms cubic-bezier(0.23, 1, 0.32, 1);
 }
-.mark:hover, .mark[aria-expanded="true"] { color: var(--ink-dim); }
+.mark:hover, .mark[aria-expanded="true"] { color: var(--ink); }
+.mark:active { transform: scale(0.97); }
 
 .since {
   position: absolute;
@@ -128,19 +134,33 @@ body.door-open .state { opacity: 0.35; transition-duration: 1200ms; }
 
 /* --------------------------------------------------------------- the door */
 
+/* The door: words on a glass slab. The slab is drawn in glass.js exactly
+   behind .door-body; the words enter in 280 ms and leave in 200 ms, the same
+   as the glass, so the two read as one object. */
 .door {
   position: fixed;
   inset: 0;
   display: grid;
   place-items: center;
   padding: var(--edge);
-  animation: rise 1200ms var(--ease);
 }
 .door[hidden] { display: none; }
 
 .door-body {
+  width: min(86vw, 400px);
+  min-height: min(46dvh, 420px);
+  display: grid;
+  align-content: center;
+  padding: 40px 28px;
   text-align: center;
-  max-width: 34ch;
+  opacity: 0;
+  transform: translateY(6px);
+  transition: opacity 150ms cubic-bezier(0.23, 1, 0.32, 1), transform 150ms cubic-bezier(0.23, 1, 0.32, 1);
+}
+.door.open .door-body {
+  opacity: 1;
+  transform: none;
+  transition-duration: 280ms;
 }
 
 .shirt {
@@ -175,11 +195,6 @@ body.door-open .state { opacity: 0.35; transition-duration: 1200ms; }
   transition: color 600ms ease, border-color 600ms ease;
 }
 .keep-install:hover { color: var(--ink); border-color: var(--ink-dim); }
-
-@keyframes rise {
-  from { opacity: 0; transform: translateY(6px); }
-  to { opacity: 1; transform: none; }
-}
 
 .noscript {
   position: fixed;

@@ -4,13 +4,14 @@
 // Network first, cache as the fallback. That way the app can be changed and
 // shipped without asking anyone to clear data, and a dead network is invisible.
 
-const CACHE = "ohuet-v1";
+const CACHE = "ohuet-v2";
 const SHELL = [
   "./",
   "./index.html",
   "./app.css",
   "./app.js",
   "./object.js",
+  "./glass.js",
   "./sound.js",
   "./data.js",
   "./manifest.webmanifest",

@@ -7,6 +7,7 @@
 
 import { STATE, LINES, SHIRT, FIRST_LINE_AFTER_MS, LINE_EVERY_MS } from "./data.js";
 import { mountObject } from "./object.js";
+import { mountGlass } from "./glass.js";
 import * as voice from "./sound.js";
 
 const KEY = "ohuet.v1";
@@ -68,7 +69,23 @@ async function toggleVoice() {
   }
 }
 
-mountObject(field, STATE, { onTap: toggleVoice });
+// Glass when the device can do it, the canvas field when it cannot.
+const glass = mountGlass(field, STATE, { onTap: toggleVoice });
+if (!glass) mountObject(field, STATE, { onTap: toggleVoice });
+
+// The slab sits exactly behind the door's words; the pebble exactly under the
+// mark. Both are measured from the DOM so the glass and the text never drift.
+function place() {
+  if (!glass) return;
+  glass.setPebble(mark.getBoundingClientRect());
+  const body = document.querySelector(".door-body");
+  const wasHidden = door.hidden;
+  if (wasHidden) door.hidden = false; // measure the box even while the door is shut
+  glass.setSlab(body.getBoundingClientRect());
+  if (wasHidden) door.hidden = true;
+}
+addEventListener("resize", place);
+requestAnimationFrame(place);
 
 // Presence. After a while, how long the state has been with you; later still,
 // a line. The first minutes are for nothing at all.
@@ -129,7 +146,17 @@ const standalone =
 if (standalone || navigator.standalone) keep.hidden = true;
 
 function setDoor(open) {
-  door.hidden = !open;
+  if (open) {
+    door.hidden = false;
+    place();
+    // Two frames so the entrance transition has a "from" to leave.
+    requestAnimationFrame(() => requestAnimationFrame(() => door.classList.add("open")));
+  } else {
+    door.classList.remove("open");
+    // Match the glass: the words leave in 200 ms, then the section hides.
+    setTimeout(() => { if (!door.classList.contains("open")) door.hidden = true; }, 220);
+  }
+  if (glass) glass.setDoor(open);
   mark.setAttribute("aria-expanded", String(open));
   document.body.classList.toggle("door-open", open);
 }

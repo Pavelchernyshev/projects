@@ -4,10 +4,15 @@ Internal notes. Nothing in here is consumer-facing, and none of it should leak
 into the product: the public experiences first and understands later.
 
 This is the state on a phone. It opens and it is there — a warm, near-dark
-field with three lights drifting through it, breathing slower than a person.
-A touch brings the voice. A hold presses the skin. One small mark in the corner
-opens the one door with words behind it, and the words are: there is a T-shirt,
-and keep this on your phone. That is the entire interface.
+field with three lights drifting through it, breathing slower than a person,
+seen through old glass. A touch brings the voice. A hold presses the skin: a
+lens of liquid glass forms under the finger and bends the light. One small
+mark on a glass pebble in the corner opens the one door — a slab of glass
+with words on it — and the words are: there is a T-shirt, and keep this on
+your phone. That is the entire interface.
+
+The design — the glass, the colour, the type, the motion vocabulary and what
+would break it — is written down in [BRAND.md](BRAND.md).
 
 Nothing is sold inside. Nothing is explained inside. Time does the rest.
 
@@ -19,7 +24,8 @@ onto it like so:
 | Canon | Here |
 |---|---|
 | Give first; money stops working inside the threshold | The state is there on open. No entry, no acceptance, no purchase, no account. |
-| The organism has skin, voice, rhythm, memory | Skin: `object.js` — a hold makes the nearest light lean toward the finger and deepens the breath. Voice: `sound.js`. Rhythm: the six-second breath. Memory: one timestamp. |
+| The organism has skin, voice, rhythm, memory | Skin: `glass.js` — a hold forms a lens under the finger that refracts the field, and the nearest light leans in. Voice: `sound.js`. Rhythm: the six-second breath. Memory: one timestamp. |
+| Visual language: minimal, organic, natural material, subtle tonal shifts | Liquid glass, made wabi: every glass shape has a noise-wobbled edge, uneven thickness, a smoky amber tint and grain; the slab holds three bubbles. See BRAND.md. |
 | Sound is architectural material; changes without changing; the source migrates | Three synthesised layers on independent slow stereo drifts, a filter that wanders, a fifth that swells and dissolves every minute or two. Nothing downloaded, nothing findable elsewhere. |
 | Time is a material | "today / 3 days / one month" surfaces after twenty seconds. The first line surfaces after three minutes, the next after nine more. |
 | Occasional minimal language; never explain | Five lines in `data.js`. None names the brand or the word. |
@@ -53,8 +59,10 @@ is hidden.
 ohuet/
   index.html            the shell — no copy beyond the door
   app.js                arrival, touch → voice, mark → door, presence timers
-  object.js             the state: field, breath, skin, the unexplained thing
+  glass.js              the state in glass: WebGL, field pass + glass pass (lens, slab, pebble)
+  object.js             the same state on a 2D canvas, for devices without WebGL
   sound.js              the voice: synthesised, three layers, slow drift
+  BRAND.md              the design: material, colour, type, motion, what breaks it
   data.js               the palette, the lines, the shirt line, the timings
   app.css               all styling
   manifest.webmanifest  install
@@ -89,6 +97,25 @@ in its own right (this build says no — it is given — and the canon's economi
 loop puts commerce outside); whether memory should survive a change of phone
 (would need an account, which the canon is wary of); what the lines say,
 and whether they should exist at all.
+
+## How it was verified
+
+There is no simulator for a web app, so the loop was run in headless Chromium
+(software GL): stills at 2×, and every transition captured frame by frame
+through the CDP screencast and laid out as contact sheets — arrival, the lens
+forming and letting go, the door opening and closing. The sheets showed no
+unstyled or wrong-colour frame in any transition (the one white frame in the
+arrival sheet is the browser's blank page before navigation, not ours;
+`<meta name="color-scheme" content="dark">` is there so a slow stylesheet
+could never produce one either). Frame timing on the software renderer is
+~25 fps and says nothing about a phone; the 60 fps bar has to be measured on
+a real device.
+
+The Appllama research pass (study the category's real screens before drawing)
+was not run: the connector is installed for the org but not enabled in the
+session that built this. When it is, the screens to study are: first-open
+moments in ambient / sound / meditation apps, and how they handle the one
+gesture that starts audio.
 
 ## Deploying
 
