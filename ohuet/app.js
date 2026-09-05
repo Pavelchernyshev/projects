@@ -5,7 +5,9 @@
 // the corner opens the one door with words behind it. That is the whole
 // interface, and everything else is discovered.
 
-import { STATE, LINES, SHIRT, FIRST_LINE_AFTER_MS, LINE_EVERY_MS } from "./data.js";
+import {
+  STATE, LINES, SHIRT, WORD, WORD_SETTLE_MS, WORD_STAY_MS, FIRST_LINE_AFTER_MS, LINE_EVERY_MS,
+} from "./data.js";
 import { mountObject } from "./object.js";
 import { mountGlass } from "./glass.js";
 import * as voice from "./sound.js";
@@ -51,11 +53,12 @@ const mark = document.querySelector(".mark");
 const door = document.querySelector(".door");
 
 let busy = false;
+let wordStage = true; // the wordmark is up; taps and lines wait
 
 // A touch on the field brings the voice, or lets it go. A hold is the skin and
 // is handled inside the field itself.
 async function toggleVoice() {
-  if (busy) return;
+  if (busy || wordStage) return;
   busy = true;
   try {
     if (voice.isOn()) {
@@ -73,11 +76,15 @@ async function toggleVoice() {
 const glass = mountGlass(field, STATE, { onTap: toggleVoice });
 if (!glass) mountObject(field, STATE, { onTap: toggleVoice });
 
-// The slab sits exactly behind the door's words; the pebble exactly under the
-// mark. Both are measured from the DOM so the glass and the text never drift.
+// The slab sits exactly behind the door's words; the wordmark exactly in its
+// stage; the horizon's edge crosses at 82% of the height, so the mark sits on
+// the stone. All measured from the DOM so glass and text never drift.
+const stage = document.querySelector(".word-stage");
+const hint = document.querySelector(".hint");
 function place() {
   if (!glass) return;
-  glass.setPebble(mark.getBoundingClientRect());
+  glass.setHorizon(innerHeight * 0.82, innerWidth);
+  glass.setWord(stage.getBoundingClientRect(), WORD);
   const body = document.querySelector(".door-body");
   const wasHidden = door.hidden;
   if (wasHidden) door.hidden = false; // measure the box even while the door is shut
@@ -85,7 +92,66 @@ function place() {
   if (wasHidden) door.hidden = true;
 }
 addEventListener("resize", place);
-requestAnimationFrame(place);
+
+/* ------------------------------------------------------------- arrival */
+
+// The wordmark arrives liquid, settles into glass, and then is let go — by a
+// swipe up, or by itself after a while. Nothing is asked; the state is
+// already there behind the letters.
+let wordTimer = 0;
+function letGo(speed = 0.08) {
+  if (!wordStage) return;
+  wordStage = false;
+  clearTimeout(wordTimer);
+  hint.classList.remove("shown");
+  if (glass) glass.setWordState({ a: 0, liquid: 1, dy: -140, speed });
+}
+
+function arrive() {
+  place();
+  if (!glass) {
+    wordStage = false;
+    return;
+  }
+  glass.setWordState({ a: 1, liquid: 1, dy: 0 });
+  setTimeout(() => glass.setWordState({ liquid: 0 }), WORD_SETTLE_MS);
+  setTimeout(() => { if (wordStage) hint.classList.add("shown"); }, WORD_SETTLE_MS + 900);
+  wordTimer = setTimeout(() => letGo(0.05), WORD_STAY_MS);
+}
+
+// The swipe: the letters ride the finger 1:1 and grow liquid as they go; on
+// release a flick or enough distance lets them go with the finger's speed,
+// anything less springs them back.
+const swipe = { on: false, y0: 0, dy: 0, vy: 0, t: 0 };
+field.addEventListener("pointerdown", (e) => {
+  if (!wordStage || !glass) return;
+  swipe.on = true;
+  swipe.y0 = e.clientY;
+  swipe.dy = 0;
+  swipe.vy = 0;
+  swipe.t = performance.now();
+});
+field.addEventListener("pointermove", (e) => {
+  if (!swipe.on) return;
+  const now = performance.now();
+  const dy = Math.min(0, e.clientY - swipe.y0);
+  swipe.vy = ((dy - swipe.dy) / Math.max(1, now - swipe.t)) * 1000;
+  swipe.dy = dy;
+  swipe.t = now;
+  glass.carryWord(dy * 0.9);
+  glass.setWordState({ liquid: Math.min(1, -dy / 160) });
+}, { passive: true });
+const endSwipe = () => {
+  if (!swipe.on) return;
+  swipe.on = false;
+  if (swipe.dy < -80 || swipe.vy < -700) {
+    letGo(Math.min(0.3, 0.1 + Math.abs(swipe.vy) / 6000));
+  } else if (wordStage) {
+    glass.setWordState({ dy: 0, liquid: 0, speed: 0.1 });
+  }
+};
+field.addEventListener("pointerup", endSwipe);
+field.addEventListener("pointercancel", endSwipe);
 
 // Presence. After a while, how long the state has been with you; later still,
 // a line. The first minutes are for nothing at all.
@@ -103,22 +169,24 @@ function speak() {
   setTimeout(() => line.classList.remove("shown"), 9000);
 }
 setTimeout(() => {
-  speak();
-  setInterval(speak, LINE_EVERY_MS);
+  if (!wordStage) speak();
+  setInterval(() => { if (!wordStage) speak(); }, LINE_EVERY_MS);
 }, FIRST_LINE_AFTER_MS);
 
 /* ----------------------------------------------------------------- door */
 
 const shirt = document.querySelector(".shirt");
-if (SHIRT.url) {
-  const a = document.createElement("a");
-  a.href = SHIRT.url;
-  a.rel = "noopener";
-  a.target = "_blank";
-  a.textContent = `${SHIRT.line} ${SHIRT.price}.`;
-  shirt.appendChild(a);
-} else {
-  shirt.textContent = `${SHIRT.line} ${SHIRT.price}.`;
+{
+  const s = document.createElement("s");
+  s.textContent = SHIRT.struck;
+  const host = document.createElement(SHIRT.url ? "a" : "span");
+  if (SHIRT.url) {
+    host.href = SHIRT.url;
+    host.rel = "noopener";
+    host.target = "_blank";
+  }
+  host.append(`${SHIRT.before} `, s, ` ${SHIRT.after} ${SHIRT.price}.`);
+  shirt.appendChild(host);
 }
 
 const keep = document.querySelector(".keep");
@@ -146,6 +214,7 @@ const standalone =
 if (standalone || navigator.standalone) keep.hidden = true;
 
 function setDoor(open) {
+  if (open && wordStage) letGo(0.12);
   if (open) {
     door.hidden = false;
     place();
@@ -172,10 +241,13 @@ addEventListener("keydown", (e) => {
 
 /* -------------------------------------------------------------- arrival */
 
-// The state arrives from black over three seconds. It is given before anything
-// is asked.
+// The state arrives from black over three seconds, the letters with it. It is
+// given before anything is asked.
 requestAnimationFrame(() => {
-  requestAnimationFrame(() => document.body.classList.remove("arriving"));
+  requestAnimationFrame(() => {
+    document.body.classList.remove("arriving");
+    arrive();
+  });
 });
 
 if ("serviceWorker" in navigator) {

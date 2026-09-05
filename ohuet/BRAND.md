@@ -26,15 +26,26 @@ has been in the sun for years, and grain over the whole picture. The
 highlight comes from the upper left, always, and is never white — it is the
 colour of the stone light.
 
-## The three glass shapes
+## The four glass shapes
 
 | Shape | Where | What it does |
 |---|---|---|
+| **Wordmark** | on arrival | OH / UET, stacked, in thick glass: a height map with a wide bevel, chrome at the bevel, clear and light-holding in the middle. Arrives liquid (bending far more than glass should), settles into glass over 1.6 s, and is let go — by a swipe up that it rides 1:1 and leaves with the finger's speed, or by itself after 5.6 s. The one time the brand says its name. |
 | **Lens** | under a finger | Forms as the finger lands (72 pt at full press), magnifies the field inside, bends it hard at the rim, ripples very slightly, follows the finger 1:1, and lets go over ~400 ms. The skin. |
 | **Slab** | behind the door | A rounded rectangle (28 pt, wobbled) the size of the words. Frosted a little, smoked a little (−28 % inside, so words sit), lifts 24 pt as it appears. Three bubbles. |
-| **Pebble** | under the mark | A stone: a circle whose radius varies with the angle (±14 %). Sits in the lower-left corner, off-centre, cut by nothing. The one fixed object. |
+| **Horizon** | along the bottom | The top edge of a large stone, its centre far below the screen, crossing at 82 % of the height; one long highlight along the edge, the field thick and smoky beneath it. The mark sits on it. The one fixed object. |
 
-Nothing else is glass. A fourth glass surface would be decoration.
+Nothing else is glass. A fifth glass surface would be decoration.
+
+## The reference, and where OHUET departs from it
+
+The reference is a welcome screen whose wordmark is liquid glass over a
+scene with a glass planet's edge along the bottom and "swipe up to enter",
+followed by an onboarding carousel with a struck-through word in each
+caption. OHUET keeps the glass wordmark, the horizon and the swipe, and
+drops the carousel: there is nothing to onboard. The struck-through word
+survives once, in the door — *There is a ~~store~~ T-shirt.* — because it
+is the one joke the brand tells and it is true.
 
 ## Colour
 
@@ -76,7 +87,8 @@ affordance. No borders anywhere except a 1 px rule under a link.
 
 | Moment | Rule | Value |
 |---|---|---|
-| Arrival | narrative, once | 3000 ms, ease-out, from black |
+| Arrival | narrative, once | 3000 ms from black; the wordmark liquid → glass in 1600 ms; the hint at 2500 ms; let go by itself at 5600 ms |
+| Swipe up | finger involved → rides 1:1, leaves with velocity | dismiss at 80 pt or a flick past 700 pt/s; otherwise springs back, no bounce |
 | Breath | continuous | 6 s cycle, ±3.5 % (deeper under a finger) |
 | Lens forms / lets go | finger involved → settles like a spring, no bounce | ~150 ms in, ~400 ms out (exponential, critically damped) |
 | Door opens / closes | occasional → standard motion | 280 ms / 200 ms, `cubic-bezier(.23, 1, .32, 1)`; glass and words share the curve |
@@ -91,7 +103,8 @@ or the door is moving it runs at 60.
 ## Voice
 
 Five lines, none longer than four words, none naming the brand or the word.
-The shirt line is a sentence and a number. That is the entire copy deck.
+The shirt line is a sentence, one struck word, and a number. "swipe up",
+once, faint. That is the entire copy deck.
 
 ## What would break it
 

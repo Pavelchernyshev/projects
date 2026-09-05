@@ -3,9 +3,12 @@
 Internal notes. Nothing in here is consumer-facing, and none of it should leak
 into the product: the public experiences first and understands later.
 
-This is the state on a phone. It opens and it is there — a warm, near-dark
-field with three lights drifting through it, breathing slower than a person,
-seen through old glass. A touch brings the voice. A hold presses the skin: a
+This is the state on a phone. It opens with its name in thick glass — OH /
+UET, stacked, arriving liquid and settling — over a warm, near-dark field
+with three lights drifting through it, breathing slower than a person. A
+swipe up lets the letters go (or they go by themselves), and the state is
+there, seen through old glass, with the edge of a glass stone along the
+bottom. A touch brings the voice. A hold presses the skin: a
 lens of liquid glass forms under the finger and bends the light. One small
 mark on a glass pebble in the corner opens the one door — a slab of glass
 with words on it — and the words are: there is a T-shirt, and keep this on
@@ -26,6 +29,7 @@ onto it like so:
 | Give first; money stops working inside the threshold | The state is there on open. No entry, no acceptance, no purchase, no account. |
 | The organism has skin, voice, rhythm, memory | Skin: `glass.js` — a hold forms a lens under the finger that refracts the field, and the nearest light leans in. Voice: `sound.js`. Rhythm: the six-second breath. Memory: one timestamp. |
 | Visual language: minimal, organic, natural material, subtle tonal shifts | Liquid glass, made wabi: every glass shape has a noise-wobbled edge, uneven thickness, a smoky amber tint and grain; the slab holds three bubbles. See BRAND.md. |
+| The word is not a slogan | The wordmark appears once, on arrival, and is let go. After that the name is a small mark on the horizon. |
 | Sound is architectural material; changes without changing; the source migrates | Three synthesised layers on independent slow stereo drifts, a filter that wanders, a fifth that swells and dissolves every minute or two. Nothing downloaded, nothing findable elsewhere. |
 | Time is a material | "today / 3 days / one month" surfaces after twenty seconds. The first line surfaces after three minutes, the next after nine more. |
 | Occasional minimal language; never explain | Five lines in `data.js`. None names the brand or the word. |
@@ -59,7 +63,7 @@ is hidden.
 ohuet/
   index.html            the shell — no copy beyond the door
   app.js                arrival, touch → voice, mark → door, presence timers
-  glass.js              the state in glass: WebGL, field pass + glass pass (lens, slab, pebble)
+  glass.js              the state in glass: WebGL, field pass + glass pass (wordmark, lens, slab, horizon)
   object.js             the same state on a 2D canvas, for devices without WebGL
   sound.js              the voice: synthesised, three layers, slow drift
   BRAND.md              the design: material, colour, type, motion, what breaks it

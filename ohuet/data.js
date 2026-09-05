@@ -32,10 +32,17 @@ export const LINES = [
 // (100) and is not validated; leave `url` empty until the storefront exists,
 // and the line stays a line rather than a link.
 export const SHIRT = {
-  line: "There is a T-shirt.",
+  before: "There is a",
+  struck: "store", // crossed out: the one joke OHUET tells, and it is true
+  after: "T-shirt.",
   price: "100",
   url: "",
 };
+
+// The wordmark, as it arrives: stacked, in thick glass, then let go.
+export const WORD = ["OH", "UET"];
+export const WORD_SETTLE_MS = 1600; // liquid → glass
+export const WORD_STAY_MS = 5600; // then it dissolves on its own
 
 // Presence is the material. How long the state must be open before the first
 // line surfaces, and how long between lines after that.
