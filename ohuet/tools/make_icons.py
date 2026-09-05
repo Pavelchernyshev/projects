@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
-"""Иконка приложения: то же поле света на чёрном, что и внутри магазина.
+"""The app icon: the same field of light as the state itself.
 
-PNG пишется руками через zlib — Pillow ради трёх кругов ставить не нужно, а
-иконки должны пересобираться на любой машине без установки зависимостей.
+The PNG is written by hand through zlib — Pillow is not worth installing for
+three circles, and the icons must rebuild on any machine with nothing added.
 
-    python3 acuyete/tools/make_icons.py
+    python3 ohuet/tools/make_icons.py
 """
 
 from __future__ import annotations
@@ -16,12 +16,12 @@ from pathlib import Path
 
 OUT = Path(__file__).resolve().parent.parent / "icons"
 
-BASE = (8, 8, 9)
-# Те же три пятна, что у ОБЪЕКТА 01 «ТИХОЕ» в data.js: иконка — его портрет.
+BASE = (7, 7, 8)
+# The three lights from STATE in data.js — stone, the moss, mineral — at rest.
 BLOBS = (
-    ((0.50, 0.46), 0.52, (236, 226, 208), 1.00),
-    ((0.38, 0.60), 0.42, (176, 168, 178), 0.55),
-    ((0.63, 0.61), 0.38, (120, 112, 124), 0.50),
+    ((0.50, 0.46), 0.52, (224, 212, 192), 1.00),
+    ((0.38, 0.60), 0.42, (150, 168, 142), 0.42),
+    ((0.63, 0.61), 0.38, (104, 90, 84), 0.60),
 )
 
 
@@ -45,8 +45,8 @@ def _png(width: int, height: int, rows: list[bytearray]) -> bytes:
 
 
 def render(size: int, spread: float = 1.0) -> bytes:
-    """spread < 1 сжимает рисунок к центру — это нужно маскируемой иконке,
-    у которой Android срезает края под форму лаунчера."""
+    """spread < 1 pulls the drawing toward the centre — the maskable icon needs
+    it, since Android crops the edges to the launcher shape."""
     rows = []
     for y in range(size):
         row = bytearray()
@@ -59,12 +59,12 @@ def render(size: int, spread: float = 1.0) -> bytes:
                 d = math.hypot(u - cx, v - cy) / (radius * spread)
                 if d >= 1:
                     continue
-                # мягкий спад: без него пятно читается как диск, а не как свет
+                # soft falloff: without it the spot reads as a disc, not light
                 a = peak * (1 - d) ** 1.9
                 r += colour[0] * a
                 g += colour[1] * a
                 b += colour[2] * a
-            # виньетка от центра к краю
+            # vignette, centre to edge
             edge = math.hypot(u - 0.5, v - 0.5) / 0.72
             k = max(0.0, 1 - 0.55 * min(1.0, edge) ** 2)
             row += bytes(
@@ -75,15 +75,15 @@ def render(size: int, spread: float = 1.0) -> bytes:
 
 
 MARK_SVG = """<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-  <rect width="512" height="512" fill="#08080a"/>
+  <rect width="512" height="512" fill="#070708"/>
   <defs>
     <radialGradient id="a" cx="50%" cy="44%" r="46%">
-      <stop offset="0" stop-color="#ece2d0" stop-opacity=".72"/>
-      <stop offset="1" stop-color="#ece2d0" stop-opacity="0"/>
+      <stop offset="0" stop-color="#e0d4c0" stop-opacity=".72"/>
+      <stop offset="1" stop-color="#e0d4c0" stop-opacity="0"/>
     </radialGradient>
     <radialGradient id="b" cx="36%" cy="60%" r="38%">
-      <stop offset="0" stop-color="#b0a8b2" stop-opacity=".45"/>
-      <stop offset="1" stop-color="#b0a8b2" stop-opacity="0"/>
+      <stop offset="0" stop-color="#96a88e" stop-opacity=".3"/>
+      <stop offset="1" stop-color="#96a88e" stop-opacity="0"/>
     </radialGradient>
   </defs>
   <rect width="512" height="512" fill="url(#a)"/>

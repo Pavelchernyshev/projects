@@ -1,8 +1,8 @@
-# Cloudflare Pages читает этот файл и ставит заголовки при выкатке.
+# Cloudflare Pages reads this file and applies the headers on deploy.
 #
-# Весь код свой и лежит отдельными файлами — ни одного inline-скрипта и ни
-# одного inline-стиля, поэтому CSP обходится без 'unsafe-inline'. Наружу магазин
-# не ходит вообще: connect-src 'self' нужен только service worker'у.
+# All code is first-party and lives in its own files — no inline scripts, no
+# inline styles — so the CSP needs no 'unsafe-inline'. The app never talks to
+# anything: connect-src 'self' exists only for the service worker.
 
 /*
   X-Frame-Options: DENY

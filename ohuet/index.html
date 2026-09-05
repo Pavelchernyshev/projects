@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>OHUET</title>
+<meta name="description" content="OHUET">
+<meta name="theme-color" content="#070708">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="OHUET">
+<meta property="og:title" content="OHUET">
+<meta property="og:type" content="website">
+<link rel="manifest" href="./manifest.webmanifest">
+<link rel="icon" href="./icons/mark.svg" type="image/svg+xml">
+<link rel="icon" href="./icons/icon-192.png" sizes="192x192" type="image/png">
+<link rel="apple-touch-icon" href="./icons/apple-touch-icon.png">
+<link rel="stylesheet" href="./app.css">
+</head>
+<body class="arriving">
+
+<main class="state">
+  <canvas class="field" aria-label="OHUET"></canvas>
+  <p class="line" aria-live="polite"></p>
+  <p class="since"></p>
+  <i class="voice" hidden></i>
+</main>
+
+<button class="mark" type="button" aria-label="OHUET" aria-expanded="false">OHUET</button>
+
+<section class="door" hidden>
+  <div class="door-body">
+    <p class="shirt"></p>
+    <div class="keep">
+      <p class="keep-line">Keep this on your phone.</p>
+      <p class="keep-how">iPhone: Share, then Add to Home Screen.<br>Android: menu, then Install app.</p>
+    </div>
+  </div>
+</section>
+
+<noscript><p class="noscript">OHUET needs JavaScript to be here.</p></noscript>
+<script type="module" src="./app.js"></script>
+</body>
+</html>

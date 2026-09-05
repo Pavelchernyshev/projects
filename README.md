@@ -201,7 +201,7 @@ your jurisdiction requires of a mental-health-adjacent service.
 
 ## Also in this repository
 
-`acuyete/` — a separate product with no shared code or dependencies: the ACUYETE
-concept store, a static installable page where the physical objects cannot be
-bought and only the digital state can. Its own docs (in Russian) are in
-[`acuyete/README.md`](acuyete/README.md).
+`ohuet/` — a separate product with no shared code or dependencies: OHUET, the
+state carried on a phone. A calm field of light that breathes, a synthesised
+voice, a skin that yields to a finger; nothing sold, nothing explained. Internal
+notes are in [`ohuet/README.md`](ohuet/README.md).

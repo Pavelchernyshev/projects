@@ -1,17 +1,17 @@
-// Состояние, которое пропадает без сети, — не предмет, а страница. Поэтому весь
-// магазин целиком лежит в кэше: после первого захода он открывается в самолёте.
+// A state that disappears without a network is a web page, not a state. So the
+// whole thing lives in the cache: after the first open it comes up on a plane.
 //
-// Стратегия: сеть первой, кэш как страховка. Так витрину можно править и
-// выкатывать, не заставляя людей вычищать данные приложения; при этом любой
-// сбой сети незаметен.
+// Network first, cache as the fallback. That way the app can be changed and
+// shipped without asking anyone to clear data, and a dead network is invisible.
 
-const CACHE = "acuyete-v1";
+const CACHE = "ohuet-v1";
 const SHELL = [
   "./",
   "./index.html",
   "./app.css",
   "./app.js",
   "./object.js",
+  "./sound.js",
   "./data.js",
   "./manifest.webmanifest",
   "./icons/mark.svg",

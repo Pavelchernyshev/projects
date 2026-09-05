@@ -1,0 +1,199 @@
+/* OHUET
+ *
+ * Almost nothing. A field, a mark, and text that arrives late and small. No
+ * shadows, no rounded corners beyond the one dot, no icons. Everything that
+ * moves does so slowly — three seconds to arrive, two to fade — and nothing
+ * ever snaps.
+ */
+
+:root {
+  --bg: #070708;
+  --ink: #ece6dc;
+  --ink-dim: rgba(236, 230, 220, 0.5);
+  --ink-faint: rgba(236, 230, 220, 0.28);
+  --rule: rgba(236, 230, 220, 0.1);
+  --sans: ui-sans-serif, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --serif: ui-serif, Georgia, "Times New Roman", serif;
+  --ease: cubic-bezier(0.16, 1, 0.3, 1);
+  --edge: clamp(20px, 5vw, 44px);
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  height: 100%;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--sans);
+  -webkit-font-smoothing: antialiased;
+  overflow: hidden;
+  overscroll-behavior: none;
+}
+
+button {
+  font: inherit;
+  color: inherit;
+  background: none;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+a { color: inherit; text-decoration: none; border-bottom: 1px solid var(--rule); padding-bottom: 2px; }
+a:focus-visible, button:focus-visible { outline: 1px solid var(--ink-dim); outline-offset: 8px; }
+
+/* ------------------------------------------------------------- the state */
+
+.state {
+  position: fixed;
+  inset: 0;
+  transition: opacity 3000ms var(--ease);
+}
+body.arriving .state { opacity: 0; }
+body.door-open .state { opacity: 0.35; transition-duration: 1200ms; }
+
+.field {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  touch-action: none;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.mark {
+  position: fixed;
+  z-index: 2;
+  left: calc(var(--edge) + env(safe-area-inset-left));
+  bottom: calc(var(--edge) + env(safe-area-inset-bottom));
+  font-size: 11px;
+  letter-spacing: 0.42em;
+  color: var(--ink-faint);
+  transition: color 800ms ease;
+}
+.mark:hover, .mark[aria-expanded="true"] { color: var(--ink-dim); }
+
+.since {
+  position: absolute;
+  right: calc(var(--edge) + env(safe-area-inset-right));
+  bottom: calc(var(--edge) + env(safe-area-inset-bottom) + 1px);
+  margin: 0;
+  font-size: 10px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  opacity: 0;
+  transition: opacity 2400ms ease;
+  pointer-events: none;
+}
+.since.shown { opacity: 1; }
+
+.line {
+  position: absolute;
+  left: var(--edge);
+  right: var(--edge);
+  top: 62%;
+  margin: 0;
+  text-align: center;
+  font-family: var(--serif);
+  font-size: clamp(18px, 3vw, 24px);
+  color: var(--ink-dim);
+  opacity: 0;
+  transition: opacity 2000ms ease;
+  pointer-events: none;
+}
+.line.shown { opacity: 1; }
+
+/* The voice, when it is on: one dot, breathing. */
+.voice {
+  position: absolute;
+  left: calc(var(--edge) + env(safe-area-inset-left) + 92px);
+  bottom: calc(var(--edge) + env(safe-area-inset-bottom) + 4px);
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--ink-dim);
+  animation: breathe 6s ease-in-out infinite;
+  pointer-events: none;
+}
+@keyframes breathe {
+  0%, 100% { opacity: 0.35; transform: scale(1); }
+  50% { opacity: 0.9; transform: scale(1.25); }
+}
+
+/* --------------------------------------------------------------- the door */
+
+.door {
+  position: fixed;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding: var(--edge);
+  animation: rise 1200ms var(--ease);
+}
+.door[hidden] { display: none; }
+
+.door-body {
+  text-align: center;
+  max-width: 34ch;
+}
+
+.shirt {
+  margin: 0;
+  font-family: var(--serif);
+  font-size: clamp(20px, 3.4vw, 26px);
+  line-height: 1.5;
+}
+
+.keep { margin-top: clamp(40px, 9vh, 80px); }
+.keep-line {
+  margin: 0;
+  font-family: var(--serif);
+  font-size: clamp(16px, 2.6vw, 19px);
+  color: var(--ink-dim);
+}
+.keep-how {
+  margin: 1.2em 0 0;
+  font-size: 11px;
+  line-height: 1.8;
+  letter-spacing: 0.06em;
+  color: var(--ink-faint);
+}
+.keep-install {
+  margin-top: 1.4em;
+  padding: 12px 28px;
+  border: 1px solid var(--rule);
+  font-size: 11px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--ink-dim);
+  transition: color 600ms ease, border-color 600ms ease;
+}
+.keep-install:hover { color: var(--ink); border-color: var(--ink-dim); }
+
+@keyframes rise {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: none; }
+}
+
+.noscript {
+  position: fixed;
+  inset: auto var(--edge) var(--edge);
+  margin: 0;
+  font-family: var(--serif);
+  color: var(--ink-dim);
+}
+
+/* -------------------------------------------------------------------- still */
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 1ms !important;
+    transition-duration: 1ms !important;
+  }
+}
