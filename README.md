@@ -198,3 +198,10 @@ your jurisdiction requires of a mental-health-adjacent service.
 - **Interview quality is unevaluated.** There is no eval set scoring whether the
   verdicts are actually good. That is the highest-value next piece of work, and
   it needs real transcripts.
+
+## Also in this repository
+
+`ohuet/` — a separate product with no shared code or dependencies: OHUET, the
+state carried on a phone. A calm field of light that breathes, a synthesised
+voice, a skin that yields to a finger; nothing sold, nothing explained. Internal
+notes are in [`ohuet/README.md`](ohuet/README.md).
