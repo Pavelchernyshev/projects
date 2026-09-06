@@ -1,9 +1,10 @@
 /* OHUET
  *
- * Almost nothing. A pale field, a mark, and text that arrives late and small.
- * No shadows, no rounded corners beyond the one dot, no icons. Everything that
- * moves does so slowly — three seconds to arrive, two to fade — and nothing
- * ever snaps.
+ * Almost nothing. A pale field, a mark, and words that come in soft and go
+ * soft. No shadows, no rounded corners beyond the one dot, no icons. The copy
+ * sits where the reference measured it — the headline at 61.6 % of the
+ * height, the third line at 70.3 %, the one action at 88.5 % — and nothing
+ * travels: it blurs where it stands.
  */
 
 :root {
@@ -65,8 +66,8 @@ body.arriving .state { opacity: 0; }
   -webkit-user-select: none;
 }
 
-/* The mark sits on a glass pebble drawn underneath it; the button itself is
-   the tap target (44pt) and carries only the letters. */
+/* The mark sits on the stone; the button is the tap target (44pt) and
+   carries only the letters. */
 .mark {
   position: fixed;
   z-index: 2;
@@ -115,23 +116,25 @@ body.arriving .state { opacity: 0; }
 }
 .line.shown { opacity: 1; }
 
-/* The wordmark is drawn in glass.js; this box only says where. */
+/* The wordmark is drawn in glass.js; this box only says where — the
+   reference's wordmark block, centred at 43.7 % of the height. */
 .word-stage {
   position: absolute;
   left: 50%;
-  top: 42%;
-  width: min(78vw, 360px);
-  height: min(44dvh, 380px);
+  top: 43.7%;
+  width: min(72vw, 330px);
+  height: min(40dvh, 340px);
   transform: translate(-50%, -50%);
   pointer-events: none;
   visibility: hidden;
 }
 
+/* The hint, at 88.5 %: the stone carries it a little while it is pushed. */
 .hint {
   position: absolute;
   left: 0;
   right: 0;
-  top: 76%;
+  top: 88.5%;
   margin: 0;
   text-align: center;
   font-size: 10px;
@@ -141,8 +144,8 @@ body.arriving .state { opacity: 0; }
   opacity: 0;
   transition: opacity 1200ms ease;
   pointer-events: none;
+  will-change: opacity, filter, transform;
 }
-.hint.shown { opacity: 1; }
 
 /* The voice, when it is on: one dot, breathing. */
 .voice {
@@ -161,74 +164,89 @@ body.arriving .state { opacity: 0; }
   50% { opacity: 0.9; transform: scale(1.25); }
 }
 
-/* --------------------------------------------------------------- the door */
+/* --------------------------------------------------------------- the open */
 
-/* The door: words on a glass slab. The slab is drawn in glass.js exactly
-   behind .door-body; the words enter in 280 ms and leave in 200 ms, the same
-   as the glass, so the two read as one object. */
-.door {
+/* The one place with words. It comes in when the pebble has landed —
+   520 ms, blur 14 → 0, no travel — and leaves in 240 ms. app.js drives the
+   opacity and blur; the layout lives here. */
+.open {
   position: fixed;
   inset: 0;
-  display: grid;
-  place-items: center;
-  padding: var(--edge);
+  pointer-events: none;
 }
-.door[hidden] { display: none; }
+.open[hidden] { display: none; }
 
-.door-body {
-  width: min(86vw, 400px);
-  min-height: min(46dvh, 420px);
-  display: grid;
-  align-content: center;
-  padding: 40px 28px;
-  text-align: center;
-  opacity: 0;
-  transform: translateY(6px);
-  transition: opacity 150ms cubic-bezier(0.23, 1, 0.32, 1), transform 150ms cubic-bezier(0.23, 1, 0.32, 1);
-}
-.door.open .door-body {
-  opacity: 1;
-  transform: none;
-  transition-duration: 280ms;
-}
-
-.shirt {
+.headline {
+  position: absolute;
+  left: var(--edge);
+  right: var(--edge);
+  top: 61.63%;
   margin: 0;
+  text-align: center;
   font-family: var(--serif);
-  font-size: clamp(20px, 3.4vw, 26px);
-  line-height: 1.5;
+  font-size: clamp(22px, 5.6vw, 30px);
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  opacity: 0;
+  will-change: opacity, filter;
 }
-.shirt s {
+.headline a { pointer-events: auto; }
+.headline s {
   text-decoration: line-through;
   text-decoration-thickness: 1px;
   color: var(--ink-dim);
 }
 
-.keep { margin-top: clamp(40px, 9vh, 80px); }
+/* The third line: rotating, each word coming into focus as the front passes. */
+.third {
+  position: absolute;
+  left: var(--edge);
+  right: var(--edge);
+  top: 70.32%;
+  margin: 0;
+  text-align: center;
+  font-family: var(--serif);
+  font-size: clamp(22px, 5.6vw, 30px);
+  line-height: 1.2;
+  color: var(--ink-dim);
+  opacity: 0;
+  min-height: 1.2em;
+}
+.third span { display: inline-block; will-change: opacity, filter; }
+
+/* The one action, at 88.5 %, where the reference keeps its pill. Not a pill:
+   a line, and a tap target when the phone can keep the app. */
+.keep {
+  position: absolute;
+  left: 72px;    /* clear of the mark on the left and the since-line on the right */
+  right: 72px;
+  top: 88.48%;
+  transform: translateY(-50%);
+  text-align: center;
+  opacity: 0;
+  pointer-events: none;
+}
 .keep-line {
   margin: 0;
   font-family: var(--serif);
   font-size: clamp(16px, 2.6vw, 19px);
-  color: var(--ink-dim);
+  color: var(--ink);
 }
+.keep-action {
+  display: inline-block;
+  min-height: 44px;
+  padding: 0 16px;
+  border-bottom: 1px solid var(--rule);
+  transition: color 600ms ease, border-color 600ms ease;
+}
+.keep-action:hover { border-color: var(--ink-dim); }
 .keep-how {
-  margin: 1.2em 0 0;
+  margin: 0.8em 0 0;
   font-size: 11px;
-  line-height: 1.8;
+  line-height: 1.7;
   letter-spacing: 0.06em;
   color: var(--ink-faint);
 }
-.keep-install {
-  margin-top: 1.4em;
-  padding: 12px 28px;
-  border: 1px solid var(--rule);
-  font-size: 11px;
-  letter-spacing: 0.3em;
-  text-transform: uppercase;
-  color: var(--ink-dim);
-  transition: color 600ms ease, border-color 600ms ease;
-}
-.keep-install:hover { color: var(--ink); border-color: var(--ink-dim); }
 
 .noscript {
   position: fixed;

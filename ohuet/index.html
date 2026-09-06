@@ -21,7 +21,7 @@
 </head>
 <body class="arriving">
 
-<main class="state">
+<main class="state" aria-label="Swipe up to open, swipe down to close">
   <canvas class="field" aria-label="OHUET"></canvas>
   <div class="word-stage" aria-hidden="true"></div>
   <p class="hint" aria-hidden="true">swipe up</p>
@@ -30,17 +30,16 @@
   <i class="voice" hidden></i>
 </main>
 
-<button class="mark" type="button" aria-label="OHUET" aria-expanded="false">OHUET</button>
-
-<section class="door" hidden>
-  <div class="door-body">
-    <p class="shirt"></p>
-    <div class="keep">
-      <p class="keep-line">Keep this on your phone.</p>
-      <p class="keep-how">iPhone: Share, then Add to Home Screen.<br>Android: menu, then Install app.</p>
-    </div>
+<section class="open" hidden>
+  <p class="headline"></p>
+  <p class="third" aria-live="polite"></p>
+  <div class="keep">
+    <p class="keep-line">Keep this on your phone.</p>
+    <p class="keep-how">iPhone: Share, then Add to Home Screen.<br>Android: menu, then Install app.</p>
   </div>
 </section>
+
+<button class="mark" type="button" aria-label="OHUET" aria-expanded="false">OHUET</button>
 
 <noscript><p class="noscript">OHUET needs JavaScript to be here.</p></noscript>
 <script type="module" src="./app.js"></script>

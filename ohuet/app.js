@@ -1,8 +1,10 @@
 // OHUET, carried.
 //
-// One screen. The state is there when the app opens — nothing to enter, accept
-// or buy. A touch brings the voice; a hold presses the skin; the small mark in
-// the corner opens the one door with words behind it. That is the whole
+// One screen, one gesture. The state is there when the app opens — nothing to
+// enter, accept or buy. A stone of glass sits on the bottom edge; a swipe up
+// carries it to the middle of the screen, where it lands as a pebble and the
+// one place with words comes in. Drag it back down and the words go. A touch
+// brings the voice; a still finger presses the skin. That is the whole
 // interface, and everything else is discovered.
 
 import {
@@ -13,11 +15,11 @@ import { mountGlass } from "./glass.js";
 import * as voice from "./sound.js";
 
 const KEY = "ohuet.v1";
+const reduceMotion =
+  typeof matchMedia === "function" && matchMedia("(prefers-reduced-motion: reduce)").matches;
 
 /* ---------------------------------------------------------------- memory */
 
-// The only thing remembered: when the state first arrived on this device.
-// Private mode in Safari can throw on write; the state must not care.
 function firstOpened() {
   try {
     const raw = localStorage.getItem(KEY);
@@ -50,15 +52,19 @@ const line = document.querySelector(".line");
 const sinceEl = document.querySelector(".since");
 const dot = document.querySelector(".voice");
 const mark = document.querySelector(".mark");
-const door = document.querySelector(".door");
+const stage = document.querySelector(".word-stage");
+const hint = document.querySelector(".hint");
+const open = document.querySelector(".open");
+const headline = document.querySelector(".headline");
+const third = document.querySelector(".third");
+const keep = document.querySelector(".keep");
 
 let busy = false;
-let wordStage = true; // the wordmark is up; taps and lines wait
+let wordStage = true;
+let isOpen = false;
 
-// A touch on the field brings the voice, or lets it go. A hold is the skin and
-// is handled inside the field itself.
 async function toggleVoice() {
-  if (busy || wordStage) return;
+  if (busy) return;
   busy = true;
   try {
     if (voice.isOn()) {
@@ -72,38 +78,189 @@ async function toggleVoice() {
   }
 }
 
-// Glass when the device can do it, the canvas field when it cannot.
-const glass = mountGlass(field, STATE, { onTap: toggleVoice });
+/* ------------------------------------------------- the copy, with the stone */
+
+// Blur is the reference's language for copy coming and going: nothing
+// travels, it goes soft where it stands. The study's intensities map to
+// pixels here at roughly a quarter.
+const BLUR_PX = 0.25;
+
+let hintReady = false;
+function onTravel(p, slosh, R) {
+  // the gate: the hint goes soft and out within the first push, carried a
+  // little with the liquid; the wordmark fades and goes liquid as the stone
+  // rises
+  if (hintReady) {
+    const hintA = 1 - clamp01((p - 0.06) / 0.24);
+    const hintB = 12 * clamp01((p - 0.04) / 0.24) * BLUR_PX;
+    hint.style.transition = "none";
+    hint.style.opacity = String(hintA);
+    hint.style.filter = hintB > 0.05 ? `blur(${hintB.toFixed(2)}px)` : "";
+    hint.style.transform = `translate(${(slosh.x * R * 0.04).toFixed(1)}px, ${(slosh.y * R * 0.04).toFixed(1)}px)`;
+  }
+  if (glass) {
+    glass.setWordFade(1 - clamp01((p - 0.08) / 0.54));
+    if (wordStage) glass.setWordState({ liquid: clamp01((p - 0.05) / 0.55) });
+  }
+}
+
+let shown = 0;
+let shownFrom = 0;
+let shownTo = 0;
+let shownStart = 0;
+let shownDur = 0;
+let shownRaf = 0;
+const bezierIn = (x) => 1 - Math.pow(1 - x, 3.2);            // cubic-bezier(.23,1,.32,1), close
+const easeOutQuad = (x) => 1 - (1 - x) * (1 - x);
+const easeInQuad = (x) => x * x;
+
+function paintShown() {
+  headline.style.opacity = String(shown);
+  headline.style.filter = shown < 0.995 ? `blur(${((1 - shown) * 14 * BLUR_PX).toFixed(2)}px)` : "";
+  keep.style.opacity = String(shown);
+  keep.style.transform = `translateY(${((1 - shown) * 10).toFixed(1)}px)`;
+  keep.style.pointerEvents = shown > 0.9 ? "auto" : "none";
+}
+
+function animateShown(now) {
+  const k = shownDur ? Math.min(1, (now - shownStart) / shownDur) : 1;
+  const e = shownTo > shownFrom ? bezierIn(k) : easeOutQuad(k);
+  shown = shownFrom + (shownTo - shownFrom) * e;
+  paintShown();
+  if (k < 1) shownRaf = requestAnimationFrame(animateShown);
+  else if (shownTo === 0) open.hidden = true;
+}
+
+function setShown(to) {
+  cancelAnimationFrame(shownRaf);
+  shownFrom = shown;
+  shownTo = to;
+  shownStart = performance.now();
+  shownDur = reduceMotion ? 0 : to ? 520 : 240;
+  if (to) open.hidden = false;
+  shownRaf = requestAnimationFrame(animateShown);
+}
+
+// ── the third line: a positional blur wipe, left to right ────────────────────
+const IN_MS = 560;
+const HOLD_MS = 1950;
+const OUT_MS = 400;
+const GAP_MS = 460;
+const RAMP = 0.34;
+const SOFT = 26;
+let thirdIndex = 0;
+let thirdTimer = 0;
+let thirdRaf = 0;
+let thirdLive = false;
+
+function layThird(text) {
+  third.textContent = "";
+  const words = text.split(" ");
+  const total = text.length;
+  let start = 0;
+  words.forEach((wd, i) => {
+    if (i) third.appendChild(document.createTextNode(" "));
+    const span = document.createElement("span");
+    span.textContent = wd;
+    span.dataset.at = String((start + wd.length * 0.5) / total);
+    third.appendChild(span);
+    start += wd.length + 1;
+  });
+}
+
+function paintWipe(wipe, soften) {
+  for (const span of third.children) {
+    const at = Number(span.dataset.at);
+    const front = -RAMP + wipe * (1 + RAMP * 2);
+    const t = clamp01((front - at) / RAMP + 0.5);
+    const blur = ((1 - t) * SOFT + soften) * BLUR_PX;
+    span.style.opacity = String(t);
+    span.style.filter = blur > 0.05 ? `blur(${blur.toFixed(2)}px)` : "";
+  }
+}
+
+const wipeEase = (x) => {
+  // cubic-bezier(0.16, 0.42, 0.40, 1): near-linear, so the front travels at a
+  // steady rate instead of dumping the sweep into a couple of frames
+  const t = x;
+  return 3 * (1 - t) * (1 - t) * t * 0.42 + 3 * (1 - t) * t * t * 1.0 + t * t * t;
+};
+
+function revealThird() {
+  if (!thirdLive) return;
+  layThird(LINES[thirdIndex % LINES.length]);
+  third.style.opacity = "1";
+  if (reduceMotion) {
+    paintWipe(1, 0);
+  } else {
+    const t0 = performance.now();
+    const step = (now) => {
+      const k = Math.min(1, (now - t0) / IN_MS);
+      paintWipe(wipeEase(k), 0);
+      if (k < 1 && thirdLive) thirdRaf = requestAnimationFrame(step);
+    };
+    thirdRaf = requestAnimationFrame(step);
+  }
+  thirdTimer = setTimeout(cycleThird, HOLD_MS + IN_MS);
+}
+
+function cycleThird() {
+  if (!thirdLive) return;
+  // out: it goes soft where it stands — the blur leads, the opacity follows
+  const t0 = performance.now();
+  const step = (now) => {
+    const k = Math.min(1, (now - t0) / (reduceMotion ? 1 : OUT_MS));
+    paintWipe(1, 19 * easeOutQuad(k));
+    third.style.opacity = String(1 - easeInQuad(k));
+    if (k < 1 && thirdLive) thirdRaf = requestAnimationFrame(step);
+  };
+  thirdRaf = requestAnimationFrame(step);
+  thirdTimer = setTimeout(() => {
+    if (!thirdLive) return;
+    thirdIndex += 1;
+    thirdTimer = setTimeout(revealThird, GAP_MS);
+  }, OUT_MS);
+}
+
+function setThirdLive(live) {
+  if (live === thirdLive) return;
+  thirdLive = live;
+  clearTimeout(thirdTimer);
+  cancelAnimationFrame(thirdRaf);
+  if (live) revealThird();
+  else third.style.opacity = "0";
+}
+
+function onLand(landed) {
+  isOpen = landed;
+  if (landed && wordStage) letGo(0.12);
+  setShown(landed ? 1 : 0);
+  setThirdLive(landed);
+  mark.setAttribute("aria-expanded", String(landed));
+  document.body.classList.toggle("door-open", landed);
+}
+
+/* --------------------------------------------------------- the renderer */
+
+const glass = mountGlass(field, STATE, { onTap: toggleVoice, onTravel, onLand });
 if (!glass) mountObject(field, STATE, { onTap: toggleVoice });
 
-// The slab sits exactly behind the door's words; the wordmark exactly in its
-// stage; the horizon's edge crosses at 82% of the height, so the mark sits on
-// the stone. All measured from the DOM so glass and text never drift.
-const stage = document.querySelector(".word-stage");
-const hint = document.querySelector(".hint");
 function place() {
   if (!glass) return;
-  glass.setHorizon(innerHeight * 0.82, innerWidth);
   glass.setWord(stage.getBoundingClientRect(), WORD);
-  const body = document.querySelector(".door-body");
-  const wasHidden = door.hidden;
-  if (wasHidden) door.hidden = false; // measure the box even while the door is shut
-  glass.setSlab(body.getBoundingClientRect());
-  if (wasHidden) door.hidden = true;
 }
 addEventListener("resize", place);
 
 /* ------------------------------------------------------------- arrival */
 
-// The wordmark arrives liquid, settles into glass, and then is let go — by a
-// swipe up, or by itself after a while. Nothing is asked; the state is
-// already there behind the letters.
+// The wordmark arrives liquid, settles into glass, and is let go — by the
+// stone rising under it, or by itself after a while. Nothing is asked; the
+// state is already there behind the letters.
 let wordTimer = 0;
 function letGo(speed = 0.08) {
   if (!wordStage) return;
   wordStage = false;
   clearTimeout(wordTimer);
-  hint.classList.remove("shown");
   if (glass) glass.setWordState({ a: 0, liquid: 1, dy: -140, speed });
 }
 
@@ -111,47 +268,17 @@ function arrive() {
   place();
   if (!glass) {
     wordStage = false;
+    hint.style.opacity = "1";
     return;
   }
   glass.setWordState({ a: 1, liquid: 1, dy: 0 });
   setTimeout(() => glass.setWordState({ liquid: 0 }), WORD_SETTLE_MS);
-  setTimeout(() => { if (wordStage) hint.classList.add("shown"); }, WORD_SETTLE_MS + 900);
+  setTimeout(() => {
+    hintReady = true;
+    if (glass.travel() < 0.06) hint.style.opacity = "1";
+  }, WORD_SETTLE_MS + 900);
   wordTimer = setTimeout(() => letGo(0.05), WORD_STAY_MS);
 }
-
-// The swipe: the letters ride the finger 1:1 and grow liquid as they go; on
-// release a flick or enough distance lets them go with the finger's speed,
-// anything less springs them back.
-const swipe = { on: false, y0: 0, dy: 0, vy: 0, t: 0 };
-field.addEventListener("pointerdown", (e) => {
-  if (!wordStage || !glass) return;
-  swipe.on = true;
-  swipe.y0 = e.clientY;
-  swipe.dy = 0;
-  swipe.vy = 0;
-  swipe.t = performance.now();
-});
-field.addEventListener("pointermove", (e) => {
-  if (!swipe.on) return;
-  const now = performance.now();
-  const dy = Math.min(0, e.clientY - swipe.y0);
-  swipe.vy = ((dy - swipe.dy) / Math.max(1, now - swipe.t)) * 1000;
-  swipe.dy = dy;
-  swipe.t = now;
-  glass.carryWord(dy * 0.9);
-  glass.setWordState({ liquid: Math.min(1, -dy / 160) });
-}, { passive: true });
-const endSwipe = () => {
-  if (!swipe.on) return;
-  swipe.on = false;
-  if (swipe.dy < -80 || swipe.vy < -700) {
-    letGo(Math.min(0.3, 0.1 + Math.abs(swipe.vy) / 6000));
-  } else if (wordStage) {
-    glass.setWordState({ dy: 0, liquid: 0, speed: 0.1 });
-  }
-};
-field.addEventListener("pointerup", endSwipe);
-field.addEventListener("pointercancel", endSwipe);
 
 // Presence. After a while, how long the state has been with you; later still,
 // a line. The first minutes are for nothing at all.
@@ -162,6 +289,7 @@ setTimeout(() => {
 
 let lineAt = 0;
 function speak() {
+  if (isOpen) return;
   const text = LINES[lineAt % LINES.length];
   lineAt += 1 + Math.floor(Math.random() * (LINES.length - 1));
   line.textContent = text;
@@ -169,13 +297,12 @@ function speak() {
   setTimeout(() => line.classList.remove("shown"), 9000);
 }
 setTimeout(() => {
-  if (!wordStage) speak();
-  setInterval(() => { if (!wordStage) speak(); }, LINE_EVERY_MS);
+  speak();
+  setInterval(speak, LINE_EVERY_MS);
 }, FIRST_LINE_AFTER_MS);
 
-/* ----------------------------------------------------------------- door */
+/* ------------------------------------------------------------ the words */
 
-const shirt = document.querySelector(".shirt");
 {
   const s = document.createElement("s");
   s.textContent = SHIRT.struck;
@@ -186,63 +313,49 @@ const shirt = document.querySelector(".shirt");
     host.target = "_blank";
   }
   host.append(`${SHIRT.before} `, s, ` ${SHIRT.after} ${SHIRT.price}.`);
-  shirt.appendChild(host);
+  headline.appendChild(host);
 }
 
-const keep = document.querySelector(".keep");
+const keepLine = document.querySelector(".keep-line");
 const keepHow = document.querySelector(".keep-how");
 let installPrompt = null;
 
 addEventListener("beforeinstallprompt", (e) => {
   e.preventDefault();
   installPrompt = e;
+  // the line itself becomes the one action
   const btn = document.createElement("button");
   btn.type = "button";
-  btn.className = "keep-install";
-  btn.textContent = "Keep";
+  btn.className = "keep-line keep-action";
+  btn.textContent = keepLine.textContent;
   btn.addEventListener("click", async () => {
     const p = installPrompt;
     installPrompt = null;
-    btn.remove();
     if (p) await p.prompt();
   });
-  keepHow.replaceWith(btn);
+  keepLine.replaceWith(btn);
+  keepHow.hidden = true;
 });
 
 const standalone =
   typeof matchMedia === "function" && matchMedia("(display-mode: standalone)").matches;
 if (standalone || navigator.standalone) keep.hidden = true;
 
-function setDoor(open) {
-  if (open && wordStage) letGo(0.12);
-  if (open) {
-    door.hidden = false;
-    place();
-    // Two frames so the entrance transition has a "from" to leave.
-    requestAnimationFrame(() => requestAnimationFrame(() => door.classList.add("open")));
-  } else {
-    door.classList.remove("open");
-    // Match the glass: the words leave in 200 ms, then the section hides.
-    setTimeout(() => { if (!door.classList.contains("open")) door.hidden = true; }, 220);
+// The mark sends the stone up or home — the same door, for a hand that
+// would rather tap, and for a keyboard.
+mark.addEventListener("click", () => {
+  if (!glass) {
+    onLand(!isOpen);   // without glass there is no stone; the words still come
+    return;
   }
-  if (glass) glass.setDoor(open);
-  mark.setAttribute("aria-expanded", String(open));
-  document.body.classList.toggle("door-open", open);
-}
-
-mark.addEventListener("click", () => setDoor(door.hidden));
-// A touch anywhere that isn't a link or a button closes the door again.
-door.addEventListener("click", (e) => {
-  if (!e.target.closest("a, button")) setDoor(false);
+  glass.setOpen(!(isOpen || glass.travel() > 0.5));
 });
 addEventListener("keydown", (e) => {
-  if (e.key === "Escape" && !door.hidden) setDoor(false);
+  if (e.key === "Escape" && glass && (isOpen || glass.travel() > 0.5)) glass.setOpen(false);
 });
 
 /* -------------------------------------------------------------- arrival */
 
-// The state arrives from black over three seconds, the letters with it. It is
-// given before anything is asked.
 requestAnimationFrame(() => {
   requestAnimationFrame(() => {
     document.body.classList.remove("arriving");
@@ -256,4 +369,8 @@ if ("serviceWorker" in navigator) {
       /* offline or not — the state is already here */
     });
   });
+}
+
+function clamp01(x) {
+  return Math.max(0, Math.min(1, x));
 }

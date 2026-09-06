@@ -27,8 +27,9 @@ onto it like so:
 | Canon | Here |
 |---|---|
 | Give first; money stops working inside the threshold | The state is there on open. No entry, no acceptance, no purchase, no account. |
-| The organism has skin, voice, rhythm, memory | Skin: `glass.js` — a hold forms a lens under the finger that refracts the field, and the nearest light leans in. Voice: `sound.js`. Rhythm: the six-second breath. Memory: one timestamp. |
-| Visual language: minimal, organic, natural material, subtle tonal shifts | Liquid glass, made wabi: every glass shape has a noise-wobbled edge, uneven thickness, a smoky amber tint and grain; the slab holds three bubbles. See BRAND.md. |
+| The organism has skin, voice, rhythm, memory | Skin: `glass.js` — a still finger forms a lens that refracts the field, and the nearest light leans in; a moving one carries the stone, whose light answers the force of the hand. Voice: `sound.js`. Rhythm: the six-second breath. Memory: one timestamp. |
+| Visual language: minimal, organic, natural material, subtle tonal shifts | Liquid glass, made wabi, in a light room: every glass shape has a noise-wobbled edge and uneven thickness, the glass is milk with a warm cast, grain over everything; bubbles instead of stickers. See BRAND.md. |
+| Never explain what can be discovered | The stone is the only control and nothing says so beyond "swipe up", once, faint. The bubbles, the hour, the rare ring, the lines: all found, none announced. |
 | The word is not a slogan | The wordmark appears once, on arrival, and is let go. After that the name is a small mark on the horizon. |
 | Sound is architectural material; changes without changing; the source migrates | Three synthesised layers on independent slow stereo drifts, a filter that wanders, a fifth that swells and dissolves every minute or two. Nothing downloaded, nothing findable elsewhere. |
 | Time is a material | "today / 3 days / one month" surfaces after twenty seconds. The first line surfaces after three minutes, the next after nine more. |
@@ -102,12 +103,28 @@ loop puts commerce outside); whether memory should survive a change of phone
 (would need an account, which the canon is wary of); what the lines say,
 and whether they should exist at all.
 
+## The reference
+
+The gesture is a study of a publicly visible welcome screen, through
+Appllama's open-source measurement of it
+([liquid-glass-screens](https://github.com/Appllama/liquid-glass-screens):
+geometry authored at 402 × 874, the sphere's travel and radius, the lens's
+thickness and bevel, the force-driven caustic, the spring, the copy timings
+and the plume). `research/README.md` says what was taken, what was changed
+and why. No code from that repository is used here — it is GPL-3.0 and
+Skia/React Native; this is an independent WebGL implementation — and none of
+its artwork, copy or identity: OHUET's wordmark, material, colour, copy and
+motion vocabulary are its own, per that project's notice.
+
 ## How it was verified
 
 There is no simulator for a web app, so the loop was run in headless Chromium
 (software GL): stills at 2×, and every transition captured frame by frame
-through the CDP screencast and laid out as contact sheets — arrival, the lens
-forming and letting go, the door opening and closing. The sheets showed no
+through the CDP screencast and laid out as contact sheets — arrival, a swipe
+that lands, a short drag that springs back, the pebble dragged home, the lens
+forming and letting go. The gesture was also driven through a probe: a drag
+to 45 % released still springs back; a flick lands; the mark opens; Escape
+closes; a tap toggles the voice. The sheets showed no
 unstyled or wrong-colour frame in any transition (the one white frame in the
 arrival sheet is the browser's blank page before navigation, not ours;
 `<meta name="color-scheme" content="dark">` is there so a slow stylesheet
